@@ -228,7 +228,7 @@ describe('LayoutPersonalizationUtils', () => {
       const personalizableComponents = layoutPersonalizationUtils.getPersonalizableComponents(
         mockPlaceholdersData
       );
-      expect(personalizableComponents.length).to.equal(1);
+      expect(personalizableComponents).to.have.lengthOf(1);
       expect(personalizableComponents[0].componentName).to.equal(personalizationComponentName);
     });
 
@@ -269,7 +269,7 @@ describe('LayoutPersonalizationUtils', () => {
       const personalizableComponents = layoutPersonalizationUtils.getPersonalizableComponents(
         mockPlaceholdersData
       );
-      expect(personalizableComponents.length).to.equal(2);
+      expect(personalizableComponents).to.have.lengthOf(2);
       expect(personalizableComponents[0].componentName).to.equal(personalizationComponentName);
       expect(personalizableComponents[1].componentName).to.equal(
         personalizationComponentName.concat('2')
@@ -291,7 +291,7 @@ describe('LayoutPersonalizationUtils', () => {
         mockPlaceholdersData
       );
 
-      expect(personalizedComponents.length).to.equal(0);
+      expect(personalizedComponents).to.be.empty;
     });
   });
 
