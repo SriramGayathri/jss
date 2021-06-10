@@ -99,11 +99,9 @@ describe('LayoutPersonalizationService', () => {
       layoutPersonalizationUtils.getPersonalizableComponents
         .withArgs(routeData.placeholders)
         .returns(personalizedRendering);
-      const personalizeStub = stub();
-      personalizeStub
+      layoutPersonalizationService.personalizeComponents = stub()
         .withArgs(context, personalizedRendering)
         .returns(Promise.reject('test error'));
-      layoutPersonalizationService.personalizeComponents = personalizeStub;
 
       expect(
         layoutPersonalizationService.fetchPersonalization(context, routeData)
@@ -122,11 +120,11 @@ describe('LayoutPersonalizationService', () => {
       layoutPersonalizationUtils.getPersonalizableComponents
         .withArgs(routeData.placeholders)
         .returns(personalizedRendering);
-      const personalizeStub = stub();
       const personalizeComponents = { uid1: { componentName: 'cm1' } };
       const personalizeResult = Promise.resolve(personalizeComponents);
-      personalizeStub.withArgs(context, personalizedRendering).returns(personalizeResult);
-      layoutPersonalizationService.personalizeComponents = personalizeStub;
+      layoutPersonalizationService.personalizeComponents = stub()
+        .withArgs(context, personalizedRendering)
+        .returns(personalizeResult);
 
       const result = await layoutPersonalizationService.fetchPersonalization(context, routeData);
 
@@ -193,11 +191,9 @@ describe('LayoutPersonalizationService', () => {
       layoutPersonalizationUtils.getPersonalizableComponents
         .withArgs(routeData.placeholders)
         .returns(personalizedRendering);
-      const personalizeStub = stub();
-      personalizeStub
+      layoutPersonalizationService.personalizeComponents = stub()
         .withArgs(context, personalizedRendering)
         .returns(new Promise((resolve) => setTimeout(() => resolve({}), 1)));
-      layoutPersonalizationService.personalizeComponents = personalizeStub;
 
       layoutPersonalizationService.fetchPersonalization(context, routeData);
 
@@ -218,9 +214,9 @@ describe('LayoutPersonalizationService', () => {
       layoutPersonalizationUtils.getPersonalizableComponents
         .withArgs(routeData.placeholders)
         .returns(personalizedRendering);
-      const personalizeStub = stub();
-      personalizeStub.withArgs(context, personalizedRendering).returns(Promise.resolve({}));
-      layoutPersonalizationService.personalizeComponents = personalizeStub;
+      layoutPersonalizationService.personalizeComponents = stub()
+        .withArgs(context, personalizedRendering)
+        .returns(Promise.resolve({}));
 
       await layoutPersonalizationService.fetchPersonalization(context, routeData);
 
