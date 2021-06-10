@@ -7,6 +7,13 @@ import {
 } from '../layout/models';
 
 export class LayoutPersonalizationUtils {
+  /**
+   * Builds the personalized fragment.
+   * @param {string} uid The unique identifier of a component.
+   * @param {{ [key: string]: ComponentRendering | null | undefined }} personalizedFragments The personalized fragments.
+   * @param {ComponentRendering} defaultComponent The default component.
+   * @returns {ComponentRendering} The personalized component.
+   */
   buildPersonalizedFragment(
     uid: string,
     personalizedFragments: { [key: string]: ComponentRendering | null | undefined },
@@ -31,6 +38,11 @@ export class LayoutPersonalizationUtils {
     }
   }
 
+  /**
+   * Gets personalizable components.
+   * @param {PlaceholdersData} placeholders The placeholders.
+   * @returns {PersonalizableComponentRendering} The personalizable component rendering.
+   */
   getPersonalizableComponents(placeholders: PlaceholdersData): PersonalizableComponentRendering[] {
     const result: PersonalizableComponentRendering[] = [];
 
@@ -48,6 +60,11 @@ export class LayoutPersonalizationUtils {
     return result;
   }
 
+  /**
+   * Replaces personalizable components with loader components.
+   * @param {PlaceholdersData} placeholders The placeholders.
+   * @param {string} loaderComponentName The loader component name.
+   */
   replacePersonalizableComponentsWithLoaderComponents(
     placeholders: PlaceholdersData,
     loaderComponentName: string
@@ -79,8 +96,9 @@ export class LayoutPersonalizationUtils {
   }
 
   /**
-   * @param {ComponentRendering} context
-   * @param {object} personalizedFragments
+   * Replaces nested personalized renderings.
+   * @param {ComponentRendering} context The component rendering.
+   * @param {object} personalizedFragments The personalized fragments.
    */
   private replaceNestedPersonalizedRenderings(
     context: ComponentRendering,
