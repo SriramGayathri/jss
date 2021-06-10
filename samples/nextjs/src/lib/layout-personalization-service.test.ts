@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { expect, use } from 'chai';
 import sinonChai from 'sinon-chai';
 import sinon from 'sinon';
@@ -6,7 +7,7 @@ import {
   loadPersonalization,
 } from 'lib/layout-personalization-service';
 import { NextRouter } from 'next/router';
-import { LayoutServiceData } from '../../../../packages/sitecore-jss/types';
+import { LayoutServiceData, PersonalizationResult } from '../../../../packages/sitecore-jss/types';
 import { trackingService } from './tracking-service';
 
 use(sinonChai);
@@ -19,9 +20,15 @@ describe('LayoutPersonalizationService', () => {
     beforeEach(function () {
       sinon.spy(layoutPersonalizationService, 'fetchPersonalization');
       sinon.spy(trackingService, 'trackCurrentPage');
+      global.window = {
+        document: {},
+      } as Window;
       layoutServiceData = {
         sitecore: {
-          context: {},
+          context: {
+            itemPath: '/localPath',
+            language: 'en',
+          },
           route: {
             name: 'name',
             placeholders: { 'jss-main': [] },
@@ -36,9 +43,6 @@ describe('LayoutPersonalizationService', () => {
 
     afterEach(function () {
       sinon.restore();
-      global.window = {
-        document: {},
-      } as Window;
     });
 
     it('should not call fetchPersonalization if application is running in disconnected mode', async () => {
@@ -79,10 +83,33 @@ describe('LayoutPersonalizationService', () => {
       expect(trackingService.trackCurrentPage).not.have.been.called;
     });
 
+    it('should not call trackCurrentPage if personalizationResult is personalizable', async () => {
+      layoutPersonalizationService.fetchPersonalization = async () => {
+        return {
+          isPersonalizable: true,
+        } as PersonalizationResult;
+      };
+      await loadPersonalization({ layoutData: layoutServiceData, isPreview: false }, router);
+      expect(trackingService.trackCurrentPage).not.have.been.called;
+    });
+
     it('should call fetchPersonalization and trackCurrentPage if query params are valid', async () => {
       await loadPersonalization({ layoutData: layoutServiceData, isPreview: false }, router);
-      expect(layoutPersonalizationService.fetchPersonalization).have.callCount(1);
-      expect(trackingService.trackCurrentPage).have.callCount(1);
+      setImmediate(() => {
+        expect(layoutPersonalizationService.fetchPersonalization).have.callCount(1);
+        expect(layoutPersonalizationService.fetchPersonalization).have.been.calledWith(
+          {
+            routePath: layoutServiceData.sitecore.context.itemPath as string,
+            language: layoutServiceData.sitecore.context.language as string,
+          },
+          layoutServiceData.sitecore.route!
+        );
+        expect(trackingService.trackCurrentPage).have.callCount(1);
+        expect(trackingService.trackCurrentPage).have.been.calledWith(
+          layoutServiceData.sitecore.context,
+          layoutServiceData.sitecore.route
+        );
+      });
     });
   });
 });
