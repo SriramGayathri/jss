@@ -40,7 +40,6 @@ export {
   isServer,
   LayoutPersonalizationService,
   PersonalizationResult,
-  PersonalizationLoadResult,
   LayoutFragmentData,
   LayoutFragmentService,
   GraphQLLayoutFragmentService,

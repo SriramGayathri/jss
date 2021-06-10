@@ -1,9 +1,4 @@
-import {
-  ComponentRendering,
-  LayoutServiceContext,
-  PersonalizedComponentRendering,
-  RouteData,
-} from '../layout/models';
+import { ComponentRendering, PersonalizableComponentRendering, RouteData } from '../layout/models';
 import {
   PersonalizationDecisionData,
   PersonalizationDecisionsService,
@@ -13,24 +8,20 @@ import { LayoutPersonalizationUtils } from './layout-personalization-utils';
 
 export interface PersonalizationResult {
   /**
-   * The route
+   * A value that indicates whether a route is personalizable
    */
-  route?: RouteData;
-  /**
-   * A value that indicates whether the route is personalized
-   */
-  isRoutePersonalized: boolean;
+  isPersonalizable: boolean;
 }
 
-export interface PersonalizationLoadResult {
+export interface PersonalizationContext {
   /**
-   * A value that indicates whether the are personalized components
+   * The route path
    */
-  hasPersonalizationComponents: boolean;
+  routePath: string;
   /**
-   * The personalized fragments
+   * The language
    */
-  personalizedFragments?: { [key: string]: ComponentRendering | null };
+  language: string;
 }
 
 /**
@@ -52,33 +43,39 @@ export class LayoutPersonalizationService {
   ) {}
 
   /**
-   * Loads the personalized data.
-   * @param {LayoutServiceContext} context The layout service context.
+   * Fetches the personalized data.
+   * @param {PersonalizationContext} context The context.
    * @param {RouteData} route The route.
-   * @returns {PersonalizationLoadResult} The personalization load result.
+   * @returns {PersonalizationResult} The personalization result.
    */
-  async loadPersonalization(
-    context: LayoutServiceContext,
+  async fetchPersonalization(
+    context: PersonalizationContext,
     route: RouteData
-  ): Promise<PersonalizationLoadResult> {
+  ): Promise<PersonalizationResult> {
     // clear personalization before getting new one
     this.personalizationResult = {};
 
-    const personalizedRenderings = this.layoutPersonalizationUtils.getPersonalizedComponents(
+    const personalizedRenderings = this.layoutPersonalizationUtils.getPersonalizableComponents(
       route.placeholders
     );
 
     if (!personalizedRenderings.length) {
-      return Promise.resolve({ hasPersonalizationComponents: false });
+      return { isPersonalizable: false };
     }
 
     const currentResult = this.personalizationResult;
-    currentResult.personalizationOperation = this.personalize(context, personalizedRenderings);
+    currentResult.personalizationOperation = this.personalizeComponents(
+      {
+        routePath: context.routePath,
+        language: context.language,
+      },
+      personalizedRenderings
+    );
 
     try {
       const components = await currentResult.personalizationOperation;
       currentResult.components = components;
-      return { personalizedFragments: components, hasPersonalizationComponents: true };
+      return { isPersonalizable: true };
     } catch (error) {
       currentResult.personalizationOperation = undefined;
       throw error;
@@ -110,13 +107,17 @@ export class LayoutPersonalizationService {
   }
 
   /**
-   * Loads the personalized component.
+   * Ensures the personalized component is loaded.
    * @param {string} componentUid The unique identifier of a component.
    * @returns {ComponentRendering} The personalized component.
    */
-  async loadPersonalizedComponent(componentUid: string): Promise<ComponentRendering | null> {
+  async ensurePersonalizedComponentLoaded(
+    componentUid: string
+  ): Promise<ComponentRendering | null> {
     if (!this.personalizationResult.personalizationOperation) {
-      throw new Error('loadPersonalization should be called before getting personalized component');
+      throw new Error(
+        `${this.fetchPersonalization.name} should be called before getting personalized component`
+      );
     }
 
     const personalizedComponents = await this.personalizationResult.personalizationOperation;
@@ -128,27 +129,27 @@ export class LayoutPersonalizationService {
   }
 
   /**
-   * Loads the personalized components.
-   * @param {LayoutServiceContext} context The layout service context.
-   * @param {PersonalizedComponentRendering[]} personalizedRenderings The personalized renderings.
+   * Personalizes components.
+   * @param {PersonalizationContext} context The context.
+   * @param {PersonalizableComponentRendering[]} personalizableRenderings The personalizable components.
    * @returns {{ [key: string]: ComponentRendering | null }} The personalized components.
    */
-  async personalize(
-    context: LayoutServiceContext,
-    personalizedRenderings: PersonalizedComponentRendering[]
+  async personalizeComponents(
+    context: PersonalizationContext,
+    personalizableRenderings: PersonalizableComponentRendering[]
   ): Promise<{ [key: string]: ComponentRendering | null }> {
-    if (personalizedRenderings.length === 0) {
+    if (personalizableRenderings.length === 0) {
       return {};
     }
 
-    const personalizedRenderingIds = personalizedRenderings.map((r) => r.uid);
+    const personalizedRenderingIds = personalizableRenderings.map((r) => r.uid);
     let personalizedFragments: { [key: string]: ComponentRendering | null | undefined } = {};
 
     try {
       const personalizationDecisionsResult = await this.personalizationDecisionsService.getPersonalizationDecisions(
         {
-          routePath: context.itemPath as string,
-          language: context.language as string,
+          routePath: context.routePath,
+          language: context.language,
           renderingIds: personalizedRenderingIds,
         }
       );
@@ -161,7 +162,7 @@ export class LayoutPersonalizationService {
     }
 
     const result: { [key: string]: ComponentRendering | null } = {};
-    personalizedRenderings.forEach((pr) => {
+    personalizableRenderings.forEach((pr) => {
       result[pr.uid] = this.layoutPersonalizationUtils.buildPersonalizedFragment(
         pr.uid,
         personalizedFragments,
@@ -175,12 +176,13 @@ export class LayoutPersonalizationService {
   /**
    * Resolves the fragments.
    * @param {PersonalizationDecisionData} personalizationDecisionsResult The personalization decisions.
-   * @param {LayoutServiceContext} context The layout service context.
+   * @param {PersonalizationContext} context The context.
+   * @returns {{ [key: string]: ComponentRendering | null | undefined; }} The fragments.
    */
   private async resolveFragments(
     personalizationDecisionsResult: PersonalizationDecisionData,
-    context: LayoutServiceContext
-  ) {
+    context: PersonalizationContext
+  ): Promise<{ [key: string]: ComponentRendering | null | undefined }> {
     const personalizedFragments: { [key: string]: ComponentRendering | null | undefined } = {};
     const renderingsDecisions = personalizationDecisionsResult.renderings;
     const personalizedFragmentsRequests: Promise<void>[] = [];
@@ -191,12 +193,7 @@ export class LayoutPersonalizationService {
         // load fragments in parallel
         personalizedFragmentsRequests.push(
           this.layoutFragmentService
-            .fetchLayoutFragmentData(
-              context.itemPath as string,
-              context.language as string,
-              renderingId,
-              variantKey
-            )
+            .fetchLayoutFragmentData(context.routePath, context.language, renderingId, variantKey)
             .then((fr) => {
               personalizedFragments[renderingId] = fr.fragment;
             })

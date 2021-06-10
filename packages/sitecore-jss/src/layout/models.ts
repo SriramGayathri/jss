@@ -103,26 +103,26 @@ export function isComponentRendering(
 }
 
 /**
- * Verifies the component is of @see {PersonalizedComponentRendering}
+ * Verifies the component is of @see {PersonalizableComponentRendering}
  * @param {ComponentRendering | HtmlElementRendering} component
- * @returns {PersonalizedComponentRendering} type predicate
+ * @returns {PersonalizableComponentRendering} type predicate
  */
-export function isPersonalizedComponentRendering(
+export function isPersonalizableComponentRendering(
   component: ComponentRendering | HtmlElementRendering
-): component is PersonalizedComponentRendering {
+): component is PersonalizableComponentRendering {
   return 'personalization' in component;
 }
 
 /**
- * Definition of a personalized component instance
+ * Definition of a personalizable component instance
  */
-export interface PersonalizedComponentRendering extends ComponentRendering {
+export interface PersonalizableComponentRendering extends ComponentRendering {
   uid: string;
   personalization: PersonalizationData;
 }
 
 /**
- * Content used for personalization
+ * Context used for personalization
  */
 export interface PersonalizationData {
   hiddenByDefault: boolean;

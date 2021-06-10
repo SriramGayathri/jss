@@ -138,7 +138,7 @@ export class SitecorePagePropsFactory {
         });
       }
 
-      this.layoutPersonalizationUtils.replacePersonalizedComponentsWithLoaderComponents(
+      this.layoutPersonalizationUtils.replacePersonalizableComponentsWithLoaderComponents(
         layoutData.sitecore.route?.placeholders,
         'PersonalizationLoadingComponent'
       );

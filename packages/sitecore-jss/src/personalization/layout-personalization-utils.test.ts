@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import {
   ComponentRendering,
   HtmlElementRendering,
-  PersonalizedComponentRendering,
+  PersonalizableComponentRendering,
   PlaceholdersData,
 } from '../layout/models';
 import { LayoutPersonalizationUtils } from './layout-personalization-utils';
@@ -18,11 +18,11 @@ describe('LayoutPersonalizationUtils', () => {
     layoutPersonalizationUtils = new LayoutPersonalizationUtils();
   });
 
-  describe('replacePersonalizedComponentsWithLoaderComponents', () => {
+  describe('replacePersonalizableComponentsWithLoaderComponents', () => {
     it('should set defaultComponent to each placeholder where hasPersonalization is true', () => {
       mockPlaceholdersData = {
         'jss-main': [
-          <PersonalizedComponentRendering>{
+          <PersonalizableComponentRendering>{
             uid: 'e02ddb9b-a062-5e50-924a-1940d7e053ce',
             componentName: 'ContentBlock',
             personalization: {
@@ -35,7 +35,7 @@ describe('LayoutPersonalizationUtils', () => {
             componentName: 'Styleguide-Layout',
             placeholders: {
               'jss-styleguide-section': [
-                <PersonalizedComponentRendering>{
+                <PersonalizableComponentRendering>{
                   uid: '538e4831-f157-50bb-ac74-277fcac9fddb',
                   componentName: 'Styleguide-Layout-Tabs',
                   personalization: {
@@ -48,29 +48,29 @@ describe('LayoutPersonalizationUtils', () => {
           },
         ],
       };
-      layoutPersonalizationUtils.replacePersonalizedComponentsWithLoaderComponents(
+      layoutPersonalizationUtils.replacePersonalizableComponentsWithLoaderComponents(
         mockPlaceholdersData,
         personalizationComponentName
       );
 
-      const resultJssMain: PersonalizedComponentRendering = mockPlaceholdersData[
+      const resultJssMain: PersonalizableComponentRendering = mockPlaceholdersData[
         'jss-main'
-      ][0] as PersonalizedComponentRendering;
+      ][0] as PersonalizableComponentRendering;
       expect(resultJssMain.componentName).to.equal(personalizationComponentName);
       expect(resultJssMain.personalization?.defaultComponent?.componentName).to.equal(
         'ContentBlock'
       );
       expect(resultJssMain.personalization?.hiddenByDefault).to.be.false;
 
-      const resultJssStyleguideSection: PersonalizedComponentRendering = mockPlaceholdersData[
+      const resultJssStyleguideSection: PersonalizableComponentRendering = mockPlaceholdersData[
         'jss-main'
-      ][1] as PersonalizedComponentRendering;
+      ][1] as PersonalizableComponentRendering;
       expect(resultJssStyleguideSection.componentName).to.equal('Styleguide-Layout');
       expect(resultJssStyleguideSection.personalization?.defaultComponent).is.undefined;
       expect(resultJssStyleguideSection.personalization?.hiddenByDefault).is.undefined;
 
-      const resultJssStyleguideLayoutTabsSection: PersonalizedComponentRendering = resultJssStyleguideSection
-        .placeholders?.['jss-styleguide-section'][0] as PersonalizedComponentRendering;
+      const resultJssStyleguideLayoutTabsSection: PersonalizableComponentRendering = resultJssStyleguideSection
+        .placeholders?.['jss-styleguide-section'][0] as PersonalizableComponentRendering;
       expect(resultJssStyleguideLayoutTabsSection.componentName).to.equal(
         personalizationComponentName
       );
@@ -98,7 +98,7 @@ describe('LayoutPersonalizationUtils', () => {
         ],
       };
 
-      layoutPersonalizationUtils.replacePersonalizedComponentsWithLoaderComponents(
+      layoutPersonalizationUtils.replacePersonalizableComponentsWithLoaderComponents(
         mockPlaceholdersData,
         personalizationComponentName
       );
@@ -119,7 +119,7 @@ describe('LayoutPersonalizationUtils', () => {
             dataSource: '{C4BA1BA0-2D7A-5BDB-9C33-6891174EF4F6}',
             placeholders: {
               'jss-styleguide-section': [
-                <PersonalizedComponentRendering>{
+                <PersonalizableComponentRendering>{
                   uid: '538e4831-f157-50bb-ac74-277fcac9fddb',
                   componentName: 'Styleguide-Layout-Tabs',
                   personalization: {
@@ -133,7 +133,7 @@ describe('LayoutPersonalizationUtils', () => {
         ],
       };
 
-      layoutPersonalizationUtils.replacePersonalizedComponentsWithLoaderComponents(
+      layoutPersonalizationUtils.replacePersonalizableComponentsWithLoaderComponents(
         mockPlaceholdersData,
         personalizationComponentName
       );
@@ -159,7 +159,7 @@ describe('LayoutPersonalizationUtils', () => {
         ],
       };
 
-      layoutPersonalizationUtils.replacePersonalizedComponentsWithLoaderComponents(
+      layoutPersonalizationUtils.replacePersonalizableComponentsWithLoaderComponents(
         mockPlaceholdersData,
         personalizationComponentName
       );
@@ -177,7 +177,7 @@ describe('LayoutPersonalizationUtils', () => {
     it('should return defaultComponent as null if <hiddenByDefault> is true', () => {
       mockPlaceholdersData = {
         'jss-main': [
-          <PersonalizedComponentRendering>{
+          <PersonalizableComponentRendering>{
             uid: 'e02ddb9b-a062-5e50-924a-1940d7e053ce',
             componentName: 'ContentBlock',
             personalization: {
@@ -188,14 +188,14 @@ describe('LayoutPersonalizationUtils', () => {
         ],
       };
 
-      layoutPersonalizationUtils.replacePersonalizedComponentsWithLoaderComponents(
+      layoutPersonalizationUtils.replacePersonalizableComponentsWithLoaderComponents(
         mockPlaceholdersData,
         personalizationComponentName
       );
 
-      const result: PersonalizedComponentRendering = mockPlaceholdersData[
+      const result: PersonalizableComponentRendering = mockPlaceholdersData[
         'jss-main'
-      ][0] as PersonalizedComponentRendering;
+      ][0] as PersonalizableComponentRendering;
       expect(result.componentName).to.be.equal(personalizationComponentName);
       expect(result.personalization).not.to.be.undefined;
       expect(result.personalization.hiddenByDefault).to.be.true;
@@ -203,11 +203,11 @@ describe('LayoutPersonalizationUtils', () => {
     });
   });
 
-  describe('getPersonalizedComponents', () => {
+  describe('getPersonalizableComponents', () => {
     it('should return collection contains components only with section <personalization>', () => {
       mockPlaceholdersData = {
         'jss-main': [
-          <PersonalizedComponentRendering>{
+          <PersonalizableComponentRendering>{
             uid: 'e02ddb9b-a062-5e50-924a-1940d7e053ce',
             componentName: 'PersonalizationLoadingComponent',
             personalization: {
@@ -225,14 +225,14 @@ describe('LayoutPersonalizationUtils', () => {
         ],
       };
 
-      const personalizedComponents = layoutPersonalizationUtils.getPersonalizedComponents(
+      const personalizableComponents = layoutPersonalizationUtils.getPersonalizableComponents(
         mockPlaceholdersData
       );
-      expect(personalizedComponents.length).to.equal(1);
-      expect(personalizedComponents[0].componentName).to.equal(personalizationComponentName);
+      expect(personalizableComponents.length).to.equal(1);
+      expect(personalizableComponents[0].componentName).to.equal(personalizationComponentName);
     });
 
-    it('should return collection contains nested components only with section <componentName> where isPersonalizedComponentRendering for root component is false', () => {
+    it('should return collection contains nested components only with section <componentName> where isPersonalizableComponentRendering for root component is false', () => {
       mockPlaceholdersData = {
         'jss-main': [
           {
@@ -240,7 +240,7 @@ describe('LayoutPersonalizationUtils', () => {
             uid: '34a6553c-81de-5cd3-989e-853f6cb6df8c',
             placeholders: {
               'jss-styleguide-layout': [
-                <PersonalizedComponentRendering>{
+                <PersonalizableComponentRendering>{
                   uid: 'e02ddb9b-a062-5e50-924a-1940d7e053ce',
                   componentName: 'PersonalizationLoadingComponent',
                   personalization: {
@@ -266,17 +266,17 @@ describe('LayoutPersonalizationUtils', () => {
         ],
       };
 
-      const personalizedComponents = layoutPersonalizationUtils.getPersonalizedComponents(
+      const personalizableComponents = layoutPersonalizationUtils.getPersonalizableComponents(
         mockPlaceholdersData
       );
-      expect(personalizedComponents.length).to.equal(2);
-      expect(personalizedComponents[0].componentName).to.equal(personalizationComponentName);
-      expect(personalizedComponents[1].componentName).to.equal(
+      expect(personalizableComponents.length).to.equal(2);
+      expect(personalizableComponents[0].componentName).to.equal(personalizationComponentName);
+      expect(personalizableComponents[1].componentName).to.equal(
         personalizationComponentName.concat('2')
       );
     });
 
-    it('should return empty collection if for each element isPersonalizedComponentRendering is false', () => {
+    it('should return empty collection if for each element isPersonalizableComponentRendering is false', () => {
       mockPlaceholdersData = {
         'jss-main': [
           {
@@ -287,7 +287,7 @@ describe('LayoutPersonalizationUtils', () => {
         ],
       };
 
-      const personalizedComponents = layoutPersonalizationUtils.getPersonalizedComponents(
+      const personalizedComponents = layoutPersonalizationUtils.getPersonalizableComponents(
         mockPlaceholdersData
       );
 
@@ -304,13 +304,13 @@ describe('LayoutPersonalizationUtils', () => {
         'e02ddb9b-a062-5e50-924a-1940d7e053ce': null,
       };
 
-      const builtPersonalizedFragnment = layoutPersonalizationUtils.buildPersonalizedFragment(
+      const builtPersonalizedFragment = layoutPersonalizationUtils.buildPersonalizedFragment(
         'e02ddb9b-a062-5e50-924a-1940d7e053ce',
         mockPersonalizedFragments,
         null
       );
 
-      expect(builtPersonalizedFragnment).to.be.null;
+      expect(builtPersonalizedFragment).to.be.null;
     });
 
     it('should return default component if nested ComponentRendering is undefined', () => {
@@ -323,13 +323,13 @@ describe('LayoutPersonalizationUtils', () => {
         uid: 'uid',
       };
 
-      const builtPersonalizedFragnment = layoutPersonalizationUtils.buildPersonalizedFragment(
+      const builtPersonalizedFragment = layoutPersonalizationUtils.buildPersonalizedFragment(
         'e02ddb9b-a062-5e50-924a-1940d7e053ce',
         mockPersonalizedFragments,
         defaultComponent
       );
 
-      expect(builtPersonalizedFragnment).to.deep.equal(defaultComponent);
+      expect(builtPersonalizedFragment).to.deep.equal(defaultComponent);
     });
 
     it('should return personalizedFragment if collection contains 0 placeholders', () => {
@@ -351,25 +351,25 @@ describe('LayoutPersonalizationUtils', () => {
       };
 
       let personalizedFragment = mockPersonalizedFragments['e02ddb9b-a062-5e50-924a-1940d7e053ce'];
-      let builtPersonalizedFragnment = layoutPersonalizationUtils.buildPersonalizedFragment(
+      let builtPersonalizedFragment = layoutPersonalizationUtils.buildPersonalizedFragment(
         'e02ddb9b-a062-5e50-924a-1940d7e053ce',
         mockPersonalizedFragments,
         defaultComponent
       );
 
-      expect(builtPersonalizedFragnment).to.deep.equal(personalizedFragment);
+      expect(builtPersonalizedFragment).to.deep.equal(personalizedFragment);
 
       personalizedFragment = mockPersonalizedFragments['34a6553c-6666-5cd3-989e-853f6cb6df8c'];
-      builtPersonalizedFragnment = layoutPersonalizationUtils.buildPersonalizedFragment(
+      builtPersonalizedFragment = layoutPersonalizationUtils.buildPersonalizedFragment(
         '34a6553c-6666-5cd3-989e-853f6cb6df8c',
         mockPersonalizedFragments,
         defaultComponent
       );
 
-      expect(builtPersonalizedFragnment).to.deep.equal(personalizedFragment);
+      expect(builtPersonalizedFragment).to.deep.equal(personalizedFragment);
     });
 
-    it('should return personalizedFragment if placeholders ComponentRendering doesnt require personalization', () => {
+    it('should return personalizedFragment if placeholders ComponentRendering does not require personalization', () => {
       mockPersonalizedFragments = {
         'e02ddb9b-a062-5e50-924a-1940d7e053ce': {
           componentName: 'Styleguide-Layout',
@@ -393,13 +393,13 @@ describe('LayoutPersonalizationUtils', () => {
 
       const personalizedFragment =
         mockPersonalizedFragments['e02ddb9b-a062-5e50-924a-1940d7e053ce'];
-      const builtPersonalizedFragnment = layoutPersonalizationUtils.buildPersonalizedFragment(
+      const builtPersonalizedFragment = layoutPersonalizationUtils.buildPersonalizedFragment(
         'e02ddb9b-a062-5e50-924a-1940d7e053ce',
         mockPersonalizedFragments,
         defaultComponent
       );
 
-      expect(builtPersonalizedFragnment).to.deep.equal(personalizedFragment);
+      expect(builtPersonalizedFragment).to.deep.equal(personalizedFragment);
     });
 
     it('should return defaultComponent if personalizedFragment searched by key in nested placeholder is null', () => {
@@ -425,13 +425,13 @@ describe('LayoutPersonalizationUtils', () => {
 
       const personalizedFragment =
         mockPersonalizedFragments['e02ddb9b-a062-5e50-924a-1940d7e053ce'];
-      const builtPersonalizedFragnment = layoutPersonalizationUtils.buildPersonalizedFragment(
+      const builtPersonalizedFragment = layoutPersonalizationUtils.buildPersonalizedFragment(
         'e02ddb9b-a062-5e50-924a-1940d7e053ce',
         mockPersonalizedFragments,
         defaultComponent
       );
 
-      expect(builtPersonalizedFragnment).to.deep.equal(personalizedFragment);
+      expect(builtPersonalizedFragment).to.deep.equal(personalizedFragment);
     });
   });
 });

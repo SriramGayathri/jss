@@ -119,7 +119,7 @@ describe('SitecorePagePropsFactory', () => {
       await factory.create(context);
 
       expect(
-        layoutPersonalizationUtils.replacePersonalizedComponentsWithLoaderComponents
+        layoutPersonalizationUtils.replacePersonalizableComponentsWithLoaderComponents
       ).to.have.been.calledWith(
         layoutServiceData.sitecore.route?.placeholders,
         'PersonalizationLoadingComponent'

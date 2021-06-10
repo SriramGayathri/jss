@@ -53,7 +53,7 @@ export function usePersonalization(options: UsePersonalizationOptions): UsePerso
     }
 
     let isUnMounted = false;
-    options.layoutPersonalizationService.loadPersonalizedComponent(options.uid).then(() => {
+    options.layoutPersonalizationService.ensurePersonalizedComponentLoaded(options.uid).then(() => {
       // emulate forceUpdate, do not set state if component already unmounted
       if (!isUnMounted) {
         forceUpdate();

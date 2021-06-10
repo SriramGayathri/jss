@@ -47,7 +47,6 @@ export { LayoutPersonalizationUtils } from './personalization/layout-personaliza
 export {
   LayoutPersonalizationService,
   PersonalizationResult,
-  PersonalizationLoadResult,
 } from './personalization/layout-personalization-service';
 
 export {

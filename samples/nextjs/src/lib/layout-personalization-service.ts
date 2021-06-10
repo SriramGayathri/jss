@@ -47,7 +47,8 @@ export const loadPersonalization = async (
     return;
   }
 
-  if (!pageProps.layoutData.sitecore.route) {
+  const route = pageProps.layoutData.sitecore.route;
+  if (!route) {
     return;
   }
 
@@ -60,21 +61,22 @@ export const loadPersonalization = async (
     return;
   }
 
-  const personalizationResult = await layoutPersonalizationService.loadPersonalization(
-    pageProps.layoutData.sitecore.context,
-    pageProps.layoutData.sitecore.route
+  const context = pageProps.layoutData.sitecore.context;
+  const personalizationResult = await layoutPersonalizationService.fetchPersonalization(
+    {
+      routePath: context.itemPath as string,
+      language: context.language as string,
+    },
+    route
   );
 
   // page is already tracked either by Personalization decision service or by Layout service
-  if (personalizationResult.hasPersonalizationComponents || pageProps.tracked) {
+  if (personalizationResult.isPersonalizable || pageProps.tracked) {
     return;
   }
 
   try {
-    await trackingService.trackCurrentPage(
-      pageProps.layoutData.sitecore.context,
-      pageProps.layoutData.sitecore.route
-    );
+    await trackingService.trackCurrentPage(context, route);
   } catch (error) {
     console.error('Tracking failed: ' + error);
   }

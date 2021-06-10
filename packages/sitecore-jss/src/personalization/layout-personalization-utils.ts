@@ -1,7 +1,7 @@
 import {
-  PersonalizedComponentRendering,
+  PersonalizableComponentRendering,
   isComponentRendering,
-  isPersonalizedComponentRendering,
+  isPersonalizableComponentRendering,
   ComponentRendering,
   PlaceholdersData,
 } from '../layout/models';
@@ -31,15 +31,15 @@ export class LayoutPersonalizationUtils {
     }
   }
 
-  getPersonalizedComponents(placeholders: PlaceholdersData): PersonalizedComponentRendering[] {
-    const result: PersonalizedComponentRendering[] = [];
+  getPersonalizableComponents(placeholders: PlaceholdersData): PersonalizableComponentRendering[] {
+    const result: PersonalizableComponentRendering[] = [];
 
     for (const placeholder of Object.values(placeholders)) {
       for (const component of placeholder) {
-        if (isPersonalizedComponentRendering(component)) {
+        if (isPersonalizableComponentRendering(component)) {
           result.push(component);
         } else if (isComponentRendering(component) && component.placeholders) {
-          const components = this.getPersonalizedComponents(component.placeholders);
+          const components = this.getPersonalizableComponents(component.placeholders);
           result.push(...components);
         }
       }
@@ -48,7 +48,7 @@ export class LayoutPersonalizationUtils {
     return result;
   }
 
-  replacePersonalizedComponentsWithLoaderComponents(
+  replacePersonalizableComponentsWithLoaderComponents(
     placeholders: PlaceholdersData,
     loaderComponentName: string
   ) {
@@ -58,8 +58,8 @@ export class LayoutPersonalizationUtils {
 
     for (const placeholder of Object.values(placeholders)) {
       placeholder.forEach((component, index) => {
-        if (isPersonalizedComponentRendering(component)) {
-          const personalizedComponentRendering: PersonalizedComponentRendering = {
+        if (isPersonalizableComponentRendering(component)) {
+          const personalizableComponentRendering: PersonalizableComponentRendering = {
             componentName: loaderComponentName,
             uid: component.uid,
             personalization: {
@@ -67,9 +67,9 @@ export class LayoutPersonalizationUtils {
               defaultComponent: component.personalization.hiddenByDefault ? null : component,
             },
           };
-          placeholder[index] = personalizedComponentRendering;
+          placeholder[index] = personalizableComponentRendering;
         } else if (isComponentRendering(component) && component.placeholders) {
-          this.replacePersonalizedComponentsWithLoaderComponents(
+          this.replacePersonalizableComponentsWithLoaderComponents(
             component.placeholders,
             loaderComponentName
           );

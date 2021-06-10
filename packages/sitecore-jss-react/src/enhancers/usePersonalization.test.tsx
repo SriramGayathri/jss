@@ -69,13 +69,15 @@ describe('usePersonalization', () => {
       const componentLayout = { componentName: 'test' };
       layoutPersonalizationService.isLoading.returns(true);
 
-      layoutPersonalizationService.loadPersonalizedComponent.withArgs('testuid').callsFake(() => {
-        layoutPersonalizationService.isLoading.returns(false);
-        layoutPersonalizationService.getPersonalizedComponent
-          .withArgs('testuid')
-          .returns(componentLayout);
-        return Promise.resolve(componentLayout);
-      });
+      layoutPersonalizationService.ensurePersonalizedComponentLoaded
+        .withArgs('testuid')
+        .callsFake(() => {
+          layoutPersonalizationService.isLoading.returns(false);
+          layoutPersonalizationService.getPersonalizedComponent
+            .withArgs('testuid')
+            .returns(componentLayout);
+          return Promise.resolve(componentLayout);
+        });
       componentFactory.withArgs(componentLayout.componentName).returns('div');
 
       let personalizationResult: UsePersonalizationResult | null = null;

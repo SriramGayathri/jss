@@ -14,14 +14,14 @@ use(sinonChai);
 describe('SitecorePage', () => {
   describe('render', () => {
     beforeEach(function () {
-      sinon.spy(layoutPersonalizationService, 'loadPersonalization');
+      sinon.spy(layoutPersonalizationService, 'fetchPersonalization');
     });
 
     afterEach(function () {
       sinon.restore();
     });
 
-    it('should call loadPersonalization once with passed props', () => {
+    it('should call fetchPersonalization once with passed props', () => {
       const router = {
         query: {},
         asPath: '',
@@ -34,14 +34,17 @@ describe('SitecorePage', () => {
           </RouterContext.Provider>
         );
       } catch {}
-      expect(layoutPersonalizationService.loadPersonalization).to.have.been.callCount(1);
-      expect(layoutPersonalizationService.loadPersonalization).to.have.been.calledWith(
-        sitecorePageProps?.layoutData?.sitecore?.context,
+      expect(layoutPersonalizationService.fetchPersonalization).to.have.been.callCount(1);
+      expect(layoutPersonalizationService.fetchPersonalization).to.have.been.calledWith(
+        {
+          routePath: sitecorePageProps?.layoutData?.sitecore?.context?.itemPath as string,
+          language: sitecorePageProps?.layoutData?.sitecore?.context?.language,
+        },
         sitecorePageProps?.layoutData?.sitecore?.route
       );
     });
 
-    it('should not call loadPersonalization if query params are not ready', () => {
+    it('should not call fetchPersonalization if query params are not ready', () => {
       const router = {
         query: {},
         asPath: 'some?thing',
@@ -54,10 +57,10 @@ describe('SitecorePage', () => {
           </RouterContext.Provider>
         );
       } catch {}
-      expect(layoutPersonalizationService.loadPersonalization).to.not.have.been.called;
+      expect(layoutPersonalizationService.fetchPersonalization).to.not.have.been.called;
     });
 
-    it('should not call loadPersonalization if application is running in disconnected mode', () => {
+    it('should not call fetchPersonalization if application is running in disconnected mode', () => {
       const props: SitecorePageProps = {
         ...sitecorePageProps,
         layoutData: {
@@ -72,22 +75,22 @@ describe('SitecorePage', () => {
         },
       };
       shallow(<SitecorePage {...props} />);
-      expect(layoutPersonalizationService.loadPersonalization).to.not.have.been.called;
+      expect(layoutPersonalizationService.fetchPersonalization).to.not.have.been.called;
     });
 
-    it('should not call loadPersonalization if application is running on server', () => {
+    it('should not call fetchPersonalization if application is running on server', () => {
       global.window = undefined;
       shallow(<SitecorePage {...sitecorePageProps} />);
-      expect(layoutPersonalizationService.loadPersonalization).to.not.have.been.called;
+      expect(layoutPersonalizationService.fetchPersonalization).to.not.have.been.called;
     });
 
-    it('should not call loadPersonalization if application is running in preview mode', () => {
+    it('should not call fetchPersonalization if application is running in preview mode', () => {
       const props: SitecorePageProps = {
         ...sitecorePageProps,
         isPreview: true,
       };
       shallow(<SitecorePage {...props} />);
-      expect(layoutPersonalizationService.loadPersonalization).to.not.have.been.called;
+      expect(layoutPersonalizationService.fetchPersonalization).to.not.have.been.called;
     });
   });
 });

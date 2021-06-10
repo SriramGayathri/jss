@@ -20,7 +20,6 @@ export {
   ComponentParams,
   LayoutPersonalizationService,
   PersonalizationResult,
-  PersonalizationLoadResult,
   LayoutPersonalizationUtils,
   LayoutFragmentData,
   LayoutFragmentService,
