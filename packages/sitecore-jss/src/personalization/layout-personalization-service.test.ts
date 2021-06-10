@@ -240,7 +240,7 @@ describe('LayoutPersonalizationService', () => {
     });
 
     it('should return null if component for specified uid not defined', () => {
-      (<any>layoutPersonalizationService).personalizedComponents = {
+      (<any>layoutPersonalizationService).personalizationResult.components = {
         test2: { componentName: 'cn2' },
       };
       const result = layoutPersonalizationService.getPersonalizedComponent('test');
@@ -249,7 +249,7 @@ describe('LayoutPersonalizationService', () => {
     });
 
     it('should return component if component for specified uid is resolved', () => {
-      (<any>layoutPersonalizationService).personalizedComponents = {
+      (<any>layoutPersonalizationService).personalizationResult.components = {
         test: { componentName: 'cn2' },
       };
       const result = layoutPersonalizationService.getPersonalizedComponent('test');
