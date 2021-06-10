@@ -3,23 +3,44 @@ import { fetchData, HttpDataFetcher } from './../data-fetcher';
 import debug from '../debug';
 
 export interface RenderingPersonalizationDecision {
+  /**
+   * The variant key
+   */
   variantKey?: string;
+  /**
+   * The error message
+   */
   errorMessage?: string;
 }
 
 export interface DecisionsContext {
+  /**
+   * The route path
+   */
   routePath: string;
+  /**
+   * The language
+   */
   language: string;
+  /**
+   * The rendering identifiers
+   */
   renderingIds: string[];
 }
 
 export interface PersonalizationDecisionData {
+  /**
+   * The renderings
+   */
   renderings: {
     [renderingId: string]: RenderingPersonalizationDecision;
   };
 }
 
 export interface PersonalizationDecisionsService {
+  /**
+   * Gets personalization decisions
+   */
   getPersonalizationDecisions(context: DecisionsContext): Promise<PersonalizationDecisionData>;
 }
 
@@ -78,6 +99,10 @@ export type RestPersonalizationDecisionsServiceConfig = {
   dataFetcherResolver?: DataFetcherResolver;
 };
 
+/**
+ * Fetches personalization decisions using the Sitecore REST API.
+ * Uses Axios as the default data fetcher (@see AxiosDataFetcher).
+ */
 export class RestPersonalizationDecisionsService implements PersonalizationDecisionsService {
   private serviceConfig: RestPersonalizationDecisionsServiceConfig;
 
@@ -90,6 +115,11 @@ export class RestPersonalizationDecisionsService implements PersonalizationDecis
     };
   }
 
+  /**
+   * Gets personalization decisions.
+   * @param {DecisionsContext} context The decisions context
+   * @returns {Promise<PersonalizationDecisionData>} The personalization decision data
+   */
   getPersonalizationDecisions(context: DecisionsContext): Promise<PersonalizationDecisionData> {
     const fetcher = this.serviceConfig.dataFetcherResolver
       ? this.serviceConfig.dataFetcherResolver<PersonalizationDecisionData>({
@@ -137,7 +167,11 @@ export class RestPersonalizationDecisionsService implements PersonalizationDecis
     return fetcher;
   };
 
-  private getCurrentPageParamsToTrack = () => {
+  /**
+   * Gets the current page params to track
+   * @returns { [key: string]: string; } The current page params to track
+   */
+  private getCurrentPageParamsToTrack(): { [key: string]: string } {
     const queryStringParams: { [key: string]: string } = {};
 
     window.location.search
@@ -156,5 +190,5 @@ export class RestPersonalizationDecisionsService implements PersonalizationDecis
       });
 
     return queryStringParams;
-  };
+  }
 }
