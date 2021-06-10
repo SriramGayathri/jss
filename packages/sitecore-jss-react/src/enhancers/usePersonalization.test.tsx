@@ -37,7 +37,7 @@ describe('usePersonalization', () => {
     spy.restore(console);
   });
 
-  describe('usePersonalization()', () => {
+  describe('usePersonalization', () => {
     it('should return personalizedComponent and isLoading from personalization service', () => {
       layoutPersonalizationService.isLoading.returns(false);
 
@@ -178,7 +178,7 @@ describe('usePersonalization', () => {
       );
     });
 
-    it('should log error if componentFactorty is not not found', () => {
+    it('should log error if componentFactory is not not found', () => {
       const componentLayout = { componentName: 'test' };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const componentFactory: any = null;
