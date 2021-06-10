@@ -7,7 +7,7 @@ import {
   loadPersonalization,
 } from 'lib/layout-personalization-service';
 import { NextRouter } from 'next/router';
-import { LayoutServiceData, PersonalizationResult } from '../../../../packages/sitecore-jss/types';
+import { LayoutServiceData, PersonalizationResult } from '@sitecore-jss/sitecore-jss-nextjs';
 import { trackingService } from './tracking-service';
 
 use(sinonChai);
