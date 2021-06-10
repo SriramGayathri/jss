@@ -202,7 +202,7 @@ describe('LayoutPersonalizationService', () => {
       expect(result).is.true;
     });
 
-    it('should return true if personalizedComponents are defined', async () => {
+    it('should return false if personalizedComponents are defined', async () => {
       const routeData = { name: 'testroute', placeholders: { 'jss-main': [] } };
       const personalizedRendering = [
         {
@@ -246,6 +246,15 @@ describe('LayoutPersonalizationService', () => {
       const result = layoutPersonalizationService.getPersonalizedComponent('test');
 
       expect(result).is.null;
+    });
+
+    it('should return component if component for specified uid is resolved', () => {
+      (<any>layoutPersonalizationService).personalizedComponents = {
+        test: { componentName: 'cn2' },
+      };
+      const result = layoutPersonalizationService.getPersonalizedComponent('test');
+
+      expect(result).to.deep.equals({ componentName: 'cn2' });
     });
   });
 
