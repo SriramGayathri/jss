@@ -77,12 +77,6 @@ describe('SitecorePagePropsFactory', () => {
   });
 
   describe('create', () => {
-    it('should return not null page props', async () => {
-      const sitecorePageProps = await factory.create(context);
-
-      expect(sitecorePageProps).not.to.be.null;
-    });
-
     it('should return page props with preview equal to false if context preview is false', async () => {
       context.preview = false;
 
