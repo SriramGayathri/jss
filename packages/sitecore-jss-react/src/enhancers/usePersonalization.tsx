@@ -76,8 +76,7 @@ export function usePersonalization(options: UsePersonalizationOptions): UsePerso
 /**
  * @param {ComponentRendering} personalizedComponentLayout
  * @param {UsePersonalizationOptions} options
- * @param {ComponentFactory} componentFactory
- * @returns {React.ReactElement} component
+ * @returns {React.ReactElement | null} component
  */
 function createPersonalizedComponent(
   personalizedComponentLayout: ComponentRendering,

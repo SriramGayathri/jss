@@ -132,7 +132,7 @@ export class LayoutPersonalizationService {
    * Personalizes components.
    * @param {PersonalizationContext} context The context.
    * @param {PersonalizableComponentRendering[]} personalizableRenderings The personalizable components.
-   * @returns {{ [key: string]: ComponentRendering | null }} The personalized components.
+   * @returns {Object.<string, ComponentRendering | null>} The personalized components.
    */
   async personalizeComponents(
     context: PersonalizationContext,
@@ -177,7 +177,7 @@ export class LayoutPersonalizationService {
    * Resolves the fragments.
    * @param {PersonalizationDecisionData} personalizationDecisionsResult The personalization decisions.
    * @param {PersonalizationContext} context The context.
-   * @returns {{ [key: string]: ComponentRendering | null | undefined; }} The fragments.
+   * @returns {Object.<string, ComponentRendering | null | undefined>} The fragments.
    */
   private async resolveFragments(
     personalizationDecisionsResult: PersonalizationDecisionData,

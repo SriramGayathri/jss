@@ -169,7 +169,7 @@ export class RestPersonalizationDecisionsService implements PersonalizationDecis
 
   /**
    * Gets the current page params to track
-   * @returns { [key: string]: string; } The current page params to track
+   * @returns {Object.<string, string>} The current page params to track
    */
   private getCurrentPageParamsToTrack(): { [key: string]: string } {
     const queryStringParams: { [key: string]: string } = {};

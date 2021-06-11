@@ -10,7 +10,7 @@ export class LayoutPersonalizationUtils {
   /**
    * Builds the personalized fragment.
    * @param {string} uid The unique identifier of a component.
-   * @param {{ [key: string]: ComponentRendering | null | undefined }} personalizedFragments The personalized fragments.
+   * @param {Object.<string, ComponentRendering | null | undefined>} personalizedFragments The personalized fragments.
    * @param {ComponentRendering} defaultComponent The default component.
    * @returns {ComponentRendering} The personalized component.
    */
