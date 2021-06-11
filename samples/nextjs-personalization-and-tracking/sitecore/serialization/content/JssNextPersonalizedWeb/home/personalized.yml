@@ -1,0 +1,122 @@
+﻿---
+ID: "a9abb392-43fa-4986-81ae-86cd929d4be7"
+Parent: "d2493ad9-5d53-4e7c-8849-6f2ea3a5a2d8"
+Template: "b36ba9fd-0dc0-49c8-bea2-e55d70e6af28"
+Path: /sitecore/content/JssNextPersonalizedWeb/home/personalized
+SharedFields:
+- ID: "1172f251-dad4-4efb-a329-0c63500e4f1e"
+  Hint: __Masters
+  Value: |
+    {A87A00B1-E6DB-45AB-8B54-636FEC3B5523}
+    {B36BA9FD-0DC0-49C8-BEA2-E55D70E6AF28}
+- ID: "f1a1fe9e-a60c-4ddb-a3a0-bb5b29fe732e"
+  Hint: __Renderings
+  Value: |
+    <r xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <d
+        id="{FE5D7FDF-89C0-4D99-9AA3-B5FBD009C9F3}"
+        l="{8D88DB6A-5F04-4DCA-8F2B-4680BD4F7928}">
+        <p
+          uid="{F53E36B0-D009-4071-9393-622397CFAD53}"
+          key="jssnextpersonalizedweb-main"
+          md="{2AA8A834-D14B-4AC7-88D7-6785ED7B7119}" />
+        <r
+          ds="{2DBF9023-1BCC-4851-B8AD-89B4D1681833}"
+          id="{7DDAC3D5-CDFE-479B-A3ED-D07AC0142121}"
+          pt="{B5D52152-8DFC-4C32-BC39-055B78D1650E}"
+          ph="jssnextpersonalizedweb-main"
+          uid="{BF12071E-F986-45B0-BD66-07C9F862456D}">
+          <rls>
+            <ruleset
+              pet="true">
+              <rule
+                name="language variation"
+                uid="{DEC36F28-B955-4741-A20C-1BB281130E2F}"
+                test="true">
+                <conditions>
+                  <condition
+                    id="{4F59DE1D-EA1D-4745-99AB-A846452E5532}"
+                    uid="394FA54C03DD436BA11470BA646DBC6B"
+                    operatorid="{10537C58-1684-4CAB-B4C0-40C10907CE31}"
+                    value="da-DK" />
+                </conditions>
+                <actions>
+                  <action
+                    id="{0F3C6BEC-E56B-4875-93D7-2846A75881D2}"
+                    uid="D2B2672F41A8440B98C0CC4FD2E87E20"
+                    DataSource="{9525A7CA-F0FB-4D56-B216-7CFE053F0BB7}" />
+                </actions>
+              </rule>
+              <rule
+                uid="{00000000-0000-0000-0000-000000000000}"
+                name="Default"
+                test="true">
+                <conditions>
+                  <condition
+                    id="{4888ABBB-F17D-4485-B14B-842413F88732}"
+                    uid="F056E487A9244DD6B3117EC6248774E4" />
+                </conditions>
+                <actions />
+              </rule>
+            </ruleset>
+          </rls>
+        </r>
+      </d>
+    </r>
+Languages:
+- Language: "da-DK"
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "001dd393-96c5-490b-924a-b0f25cd9efd8"
+      Hint: __Lock
+      Value: <r />
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210611T042006Z
+    - ID: "52807595-0f8f-4b20-8d2a-cb71d28c6103"
+      Hint: __Owner
+      Value: |
+        sitecore\Admin
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "e10ec677-fad7-41d9-8155-4d1681a319bb"
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\Admin
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20210611T042352Z
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "001dd393-96c5-490b-924a-b0f25cd9efd8"
+      Hint: __Lock
+      Value: <r />
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210611T041329Z
+    - ID: "52807595-0f8f-4b20-8d2a-cb71d28c6103"
+      Hint: __Owner
+      Value: |
+        sitecore\Admin
+    - ID: "5dd74568-4d4b-44c1-b513-0af5f4cda34f"
+      Hint: __Created by
+      Value: |
+        sitecore\Admin
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "1be85417-564b-43c3-8401-f2d6e40e8286"
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\Admin
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20210611T042628Z

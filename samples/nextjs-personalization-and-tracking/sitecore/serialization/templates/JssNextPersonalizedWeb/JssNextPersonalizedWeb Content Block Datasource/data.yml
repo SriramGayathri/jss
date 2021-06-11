@@ -1,0 +1,23 @@
+﻿---
+ID: "910c7b49-3421-43a8-8a93-d0dbfe90f334"
+Parent: "ddfd2a9f-9f56-4500-9d08-15f515cd06c6"
+Template: "e269fbb5-3750-427a-9149-7aa950b49301"
+Path: /sitecore/templates/Project/JssNextPersonalizedWeb/JssNextPersonalizedWeb Content Block Datasource/data
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210610T183418Z
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "1d375f02-9a41-4c2f-a61a-d5c41e8fde24"
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\Admin
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20210610T183536Z

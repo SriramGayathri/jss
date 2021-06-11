@@ -1,0 +1,29 @@
+﻿---
+ID: "9525a7ca-f0fb-4d56-b216-7cfe053f0bb7"
+Parent: "314a0c8b-987f-4564-9458-ff6e3ad7a776"
+Template: "ddfd2a9f-9f56-4500-9d08-15f515cd06c6"
+Path: /sitecore/content/JssNextPersonalizedWeb/home/personalized/datasources/Content Block 2
+Languages:
+- Language: en
+  Versions:
+  - Version: 1
+    Fields:
+    - ID: "15984ac8-9c26-4445-971e-a30c0b96e2e4"
+      Hint: heading
+      Value: Content Block 2
+    - ID: "25bed78c-4957-4165-998a-ca1b52f67497"
+      Hint: __Created
+      Value: 20210611T041729Z
+    - ID: "8cdc337e-a112-42fb-bbb4-4143751e123f"
+      Hint: __Revision
+      Value: "2cb8bd4b-063d-4850-a817-077f9b10fe6b"
+    - ID: "badd9cf9-53e0-4d0c-bcc0-2d784c282f6a"
+      Hint: __Updated by
+      Value: |
+        sitecore\Admin
+    - ID: "d9cf14b1-fa16-4ba6-9288-e8a174d4d522"
+      Hint: __Updated
+      Value: 20210611T041950Z
+    - ID: "f1ceb95a-214e-4995-9107-3640d535b2a7"
+      Hint: content
+      Value: <p>Two two two two two</p>
