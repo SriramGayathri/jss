@@ -95,21 +95,19 @@ describe('LayoutPersonalizationService', () => {
 
     it('should call fetchPersonalization and trackCurrentPage if query params are valid', async () => {
       await loadPersonalization({ layoutData: layoutServiceData, isPreview: false }, router);
-      setImmediate(() => {
-        expect(layoutPersonalizationService.fetchPersonalization).have.callCount(1);
-        expect(layoutPersonalizationService.fetchPersonalization).have.been.calledWith(
-          {
-            routePath: layoutServiceData.sitecore.context.itemPath as string,
-            language: layoutServiceData.sitecore.context.language as string,
-          },
-          layoutServiceData.sitecore.route!
-        );
-        expect(trackingService.trackCurrentPage).have.callCount(1);
-        expect(trackingService.trackCurrentPage).have.been.calledWith(
-          layoutServiceData.sitecore.context,
-          layoutServiceData.sitecore.route
-        );
-      });
+      expect(layoutPersonalizationService.fetchPersonalization).have.callCount(1);
+      expect(layoutPersonalizationService.fetchPersonalization).have.been.calledWith(
+        {
+          routePath: layoutServiceData.sitecore.context.itemPath as string,
+          language: layoutServiceData.sitecore.context.language as string,
+        },
+        layoutServiceData.sitecore.route!
+      );
+      expect(trackingService.trackCurrentPage).have.callCount(1);
+      expect(trackingService.trackCurrentPage).have.been.calledWith(
+        layoutServiceData.sitecore.context,
+        layoutServiceData.sitecore.route
+      );
     });
   });
 });
