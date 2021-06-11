@@ -1,6 +1,7 @@
 import { AxiosDataFetcher } from './../axios-fetcher';
 import { fetchData, HttpDataFetcher } from './../data-fetcher';
 import debug from '../debug';
+import { extractQueryStringParams } from '../utils/extract-querystring-params';
 
 export interface RenderingPersonalizationDecision {
   /**
@@ -76,7 +77,7 @@ export type RestPersonalizationDecisionsServiceConfig = {
   /**
    * Query string parameters of the current page to pass with request to decision service
    */
-  currentPageParamsToTrack?: string[];
+  currentPageParamsToExtract?: string[];
   /**
    * Enables/disables analytics tracking for the Layout Service invocation (default is true).
    * More than likely, this would be set to false for SSG/hybrid implementations, and the
@@ -110,7 +111,6 @@ export class RestPersonalizationDecisionsService implements PersonalizationDecis
     this.serviceConfig = {
       host: '',
       route: '/sitecore/api/layout/personalization/decision',
-      currentPageParamsToTrack: ['sc_camp', 'sc_trk'],
       ...serviceConfig,
     };
   }
@@ -126,12 +126,20 @@ export class RestPersonalizationDecisionsService implements PersonalizationDecis
           timeout: this.serviceConfig.timeout,
         })
       : this.getDefaultFetcher<PersonalizationDecisionData>();
-    const queryParams = {
-      ...this.getCurrentPageParamsToTrack(),
+    let queryParams = {
       sc_apikey: this.serviceConfig.apiKey,
       sc_site: this.serviceConfig.siteName,
       tracking: this.serviceConfig.tracking ?? true,
     };
+    if (this.serviceConfig.currentPageParamsToExtract) {
+      queryParams = {
+        ...extractQueryStringParams(
+          window.location.search,
+          this.serviceConfig.currentPageParamsToExtract
+        ),
+        ...queryParams,
+      };
+    }
     const requestBody = {
       routePath: context.routePath,
       language: context.language,
@@ -166,29 +174,4 @@ export class RestPersonalizationDecisionsService implements PersonalizationDecis
 
     return fetcher;
   };
-
-  /**
-   * Gets the current page params to track
-   * @returns {Object.<string, string>} The current page params to track
-   */
-  private getCurrentPageParamsToTrack(): { [key: string]: string } {
-    const queryStringParams: { [key: string]: string } = {};
-
-    window.location.search
-      .substring(1)
-      .split('&')
-      .forEach((param) => {
-        this.serviceConfig.currentPageParamsToTrack?.forEach((name) => {
-          if (!param.toLowerCase().startsWith(name.toLowerCase().concat('='))) {
-            return;
-          }
-
-          queryStringParams[name] = decodeURIComponent(
-            param.toLowerCase().substring(name.length + 1)
-          );
-        });
-      });
-
-    return queryStringParams;
-  }
 }

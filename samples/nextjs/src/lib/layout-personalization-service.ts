@@ -16,6 +16,7 @@ export const layoutPersonalizationService = new LayoutPersonalizationService(
     apiKey: config.sitecoreServicesApiKey,
     siteName: config.jssAppName,
     tracking: config.trackingEnabled.toLocaleLowerCase() === 'true',
+    currentPageParamsToExtract: ['sc_camp', 'sc_trk'],
   }),
   new GraphQLLayoutFragmentService({
     endpoint: config.graphQLEndpoint,
