@@ -1,13 +1,13 @@
 /**
- * Extract query string parameters from locationSearch.
- * @param {string} locationSearch The value to exract parameters from.
- * @param {string[]} paramsToExtract The parameters to extract.
- * @returns {Object} The extracted parameters.
+ * Extracts query string parameters from locationSearch.
+ * @param {string} locationSearch The value to extract parameters from.
+ * @param {string[]} paramsToExtract The names of parameters to extract.
+ * @returns {Object.<string, string>} The extracted parameters.
  */
-export const extractQueryStringParams = (
+export function extractQueryStringParams(
   locationSearch: string,
   paramsToExtract: string[]
-): { [key: string]: string } => {
+): { [key: string]: string } {
   const queryStringParams: { [key: string]: string } = {};
 
   locationSearch
@@ -26,4 +26,4 @@ export const extractQueryStringParams = (
     });
 
   return queryStringParams;
-};
+}
