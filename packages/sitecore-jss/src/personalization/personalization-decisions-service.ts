@@ -94,8 +94,6 @@ export type RestPersonalizationDecisionsServiceConfig = {
    * @see DataFetcherResolver
    * @see HttpDataFetcher<T>
    * @see AxiosDataFetcher used by default
-   * @param {IncomingMessage} [req] Request instance
-   * @param {ServerResponse} [res] Response instance
    */
   dataFetcherResolver?: DataFetcherResolver;
 };
