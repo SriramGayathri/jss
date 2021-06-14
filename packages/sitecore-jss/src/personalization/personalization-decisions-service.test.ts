@@ -6,6 +6,8 @@ import {
   RestPersonalizationDecisionsServiceConfig,
 } from './personalization-decisions-service';
 import Sinon, { stub } from 'sinon';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 
 use(spies);
 
@@ -22,8 +24,13 @@ declare const global: Global;
 
 describe('RestPersonalizationDecisionsService', () => {
   describe('getPersonalizationDecisions', () => {
+    let mock: MockAdapter;
     let stubDataFetcher: Sinon.SinonStub;
     let context: DecisionsContext;
+
+    before(() => {
+      mock = new MockAdapter(axios);
+    });
 
     beforeEach(() => {
       stubDataFetcher = stub();
@@ -40,8 +47,39 @@ describe('RestPersonalizationDecisionsService', () => {
       };
     });
 
+    afterEach(() => {
+      mock.reset();
+    });
+
     after(() => {
       global.window = undefined;
+      mock.restore();
+    });
+
+    it('should use AxiosDataFetcher if dataFetcherResolver not specified', async () => {
+      mock.onPost().reply(() => {
+        return [200, { status: 200, statusText: 'ok', data: {} }];
+      });
+      const config: RestPersonalizationDecisionsServiceConfig = {
+        apiKey: 'testApiKey',
+        siteName: 'testSiteName',
+      };
+      const decisionsService = new RestPersonalizationDecisionsService(config);
+
+      await decisionsService.getPersonalizationDecisions(context);
+
+      expect(mock.history.post.length).equal(1);
+      expect(mock.history.post[0].url).equal(
+        '/sitecore/api/layout/personalization/decision?sc_apikey=testApiKey&sc_site=testSiteName&tracking=true'
+      );
+      expect(mock.history.post[0].data).to.equal(
+        JSON.stringify({
+          routePath: 'testRoutePath',
+          language: 'testLanguage',
+          renderingIds: ['testik1'],
+          url: '',
+        })
+      );
     });
 
     it('should use default host, route, tracking when not specified in config', async () => {
