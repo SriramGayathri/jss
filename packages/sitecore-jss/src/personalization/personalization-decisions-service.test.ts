@@ -2,8 +2,8 @@ import { expect, use } from 'chai';
 import spies from 'chai-spies';
 import {
   DecisionsContext,
-  RestPersonalizationDecisionsService,
-  RestPersonalizationDecisionsServiceConfig,
+  PersonalizationDecisionsService,
+  PersonalizationDecisionsServiceConfig,
 } from './personalization-decisions-service';
 import Sinon, { stub } from 'sinon';
 import axios from 'axios';
@@ -22,7 +22,7 @@ interface Global {
 
 declare const global: Global;
 
-describe('RestPersonalizationDecisionsService', () => {
+describe('PersonalizationDecisionsService', () => {
   describe('getPersonalizationDecisions', () => {
     let mock: MockAdapter;
     let stubDataFetcher: Sinon.SinonStub;
@@ -60,11 +60,11 @@ describe('RestPersonalizationDecisionsService', () => {
       mock.onPost().reply(() => {
         return [200, { status: 200, statusText: 'ok', data: {} }];
       });
-      const config: RestPersonalizationDecisionsServiceConfig = {
+      const config: PersonalizationDecisionsServiceConfig = {
         apiKey: 'testApiKey',
         siteName: 'testSiteName',
       };
-      const decisionsService = new RestPersonalizationDecisionsService(config);
+      const decisionsService = new PersonalizationDecisionsService(config);
 
       await decisionsService.getPersonalizationDecisions(context);
 
@@ -83,12 +83,12 @@ describe('RestPersonalizationDecisionsService', () => {
     });
 
     it('should use default host, route, tracking when not specified in config', async () => {
-      const config: RestPersonalizationDecisionsServiceConfig = {
+      const config: PersonalizationDecisionsServiceConfig = {
         apiKey: 'testApiKey',
         siteName: 'testSiteName',
         dataFetcherResolver: () => stubDataFetcher,
       };
-      const decisionsService = new RestPersonalizationDecisionsService(config);
+      const decisionsService = new PersonalizationDecisionsService(config);
 
       await decisionsService.getPersonalizationDecisions(context);
 
@@ -106,7 +106,7 @@ describe('RestPersonalizationDecisionsService', () => {
     });
 
     it('should use serviceUrl for url and ignore host with routes', async () => {
-      const config: RestPersonalizationDecisionsServiceConfig = {
+      const config: PersonalizationDecisionsServiceConfig = {
         apiKey: 'testApiKey',
         siteName: 'testSiteName',
         host: 'testHost',
@@ -114,7 +114,7 @@ describe('RestPersonalizationDecisionsService', () => {
         serviceUrl: 'testServiceUrl',
         dataFetcherResolver: () => stubDataFetcher,
       };
-      const decisionsService = new RestPersonalizationDecisionsService(config);
+      const decisionsService = new PersonalizationDecisionsService(config);
 
       await decisionsService.getPersonalizationDecisions(context);
 
@@ -132,7 +132,7 @@ describe('RestPersonalizationDecisionsService', () => {
     });
 
     it('should use config params for url preparation', async () => {
-      const config: RestPersonalizationDecisionsServiceConfig = {
+      const config: PersonalizationDecisionsServiceConfig = {
         apiKey: 'testApiKey',
         siteName: 'testSiteName',
         dataFetcherResolver: () => stubDataFetcher,
@@ -140,7 +140,7 @@ describe('RestPersonalizationDecisionsService', () => {
         host: 'testHost',
         route: 'testRoute',
       };
-      const decisionsService = new RestPersonalizationDecisionsService(config);
+      const decisionsService = new PersonalizationDecisionsService(config);
 
       await decisionsService.getPersonalizationDecisions(context);
 
@@ -168,7 +168,7 @@ describe('RestPersonalizationDecisionsService', () => {
         },
       };
 
-      const config: RestPersonalizationDecisionsServiceConfig = {
+      const config: PersonalizationDecisionsServiceConfig = {
         apiKey: 'testApiKey',
         siteName: 'testSiteName',
         dataFetcherResolver: () => stubDataFetcher,
@@ -176,7 +176,7 @@ describe('RestPersonalizationDecisionsService', () => {
         host: 'testHost',
         route: 'testRoute',
       };
-      const decisionsService = new RestPersonalizationDecisionsService(config);
+      const decisionsService = new PersonalizationDecisionsService(config);
 
       await decisionsService.getPersonalizationDecisions(context);
 
@@ -204,7 +204,7 @@ describe('RestPersonalizationDecisionsService', () => {
         },
       };
 
-      const config: RestPersonalizationDecisionsServiceConfig = {
+      const config: PersonalizationDecisionsServiceConfig = {
         apiKey: 'testApiKey',
         siteName: 'testSiteName',
         dataFetcherResolver: () => stubDataFetcher,
@@ -213,7 +213,7 @@ describe('RestPersonalizationDecisionsService', () => {
         host: 'testHost',
         route: 'testRoute',
       };
-      const decisionsService = new RestPersonalizationDecisionsService(config);
+      const decisionsService = new PersonalizationDecisionsService(config);
 
       await decisionsService.getPersonalizationDecisions(context);
 

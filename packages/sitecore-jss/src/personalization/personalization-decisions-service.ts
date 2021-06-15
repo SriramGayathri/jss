@@ -38,13 +38,6 @@ export interface PersonalizationDecisionData {
   };
 }
 
-export interface PersonalizationDecisionsService {
-  /**
-   * Gets personalization decisions
-   */
-  getPersonalizationDecisions(context: DecisionsContext): Promise<PersonalizationDecisionData>;
-}
-
 export type DataFetcherResolver = <T>(config: {
   /**
    * The request timeout in milliseconds
@@ -52,7 +45,7 @@ export type DataFetcherResolver = <T>(config: {
   timeout?: number;
 }) => HttpDataFetcher<T>;
 
-export type RestPersonalizationDecisionsServiceConfig = {
+export type PersonalizationDecisionsServiceConfig = {
   /**
    * Hostname of decisions service; e.g. http://my.site.core; Default: '', same host as a page
    */
@@ -102,15 +95,17 @@ export type RestPersonalizationDecisionsServiceConfig = {
  * Fetches personalization decisions using the Sitecore REST API.
  * Uses Axios as the default data fetcher (@see AxiosDataFetcher).
  */
-export class RestPersonalizationDecisionsService implements PersonalizationDecisionsService {
-  private serviceConfig: RestPersonalizationDecisionsServiceConfig;
+export class PersonalizationDecisionsService {
+  public isTrackingEnabled: boolean;
+  private serviceConfig: PersonalizationDecisionsServiceConfig;
 
-  constructor(serviceConfig: RestPersonalizationDecisionsServiceConfig) {
+  constructor(serviceConfig: PersonalizationDecisionsServiceConfig) {
     this.serviceConfig = {
       host: '',
       route: '/sitecore/api/layout/personalization/decision',
       ...serviceConfig,
     };
+    this.isTrackingEnabled = serviceConfig.tracking ?? true;
   }
 
   /**
@@ -127,7 +122,7 @@ export class RestPersonalizationDecisionsService implements PersonalizationDecis
     let queryParams = {
       sc_apikey: this.serviceConfig.apiKey,
       sc_site: this.serviceConfig.siteName,
-      tracking: this.serviceConfig.tracking ?? true,
+      tracking: this.isTrackingEnabled,
     };
     if (this.serviceConfig.currentPageParamsToExtract) {
       queryParams = {
@@ -160,7 +155,7 @@ export class RestPersonalizationDecisionsService implements PersonalizationDecis
     );
   }
 
-  private getDefaultFetcher = <T>() => {
+  protected getDefaultFetcher = <T>() => {
     const axiosFetcher = new AxiosDataFetcher({
       timeout: this.serviceConfig.timeout,
       debugger: debug.personalizationDecisions,

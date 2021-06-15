@@ -28,8 +28,9 @@ export {
   PersonalizationDecisionData,
   RenderingPersonalizationDecision,
   PersonalizationDecisionsService,
-  RestPersonalizationDecisionsServiceConfig,
-  RestPersonalizationDecisionsService,
+  PersonalizationDecisionsServiceConfig,
+  SitecorePersonalizationContext,
+  SitecorePersonalizationContextState,
 } from '@sitecore-jss/sitecore-jss';
 export { ComponentFactory } from './components/sharedTypes';
 export { Placeholder } from './components/Placeholder';
@@ -40,6 +41,11 @@ export { DateField } from './components/Date';
 export { Link, LinkField, LinkFieldValue, LinkProps, LinkPropTypes } from './components/Link';
 export { File, FileField } from './components/File';
 export { VisitorIdentification } from './components/VisitorIdentification';
+export {
+  SitecorePersonalizationContextProps,
+  SitecorePersonalizationReactContext,
+  withSitecorePersonalizationContext,
+} from './enhancers/withSitecorePersonalizationContext';
 export {
   SitecoreContext,
   SitecoreContextState,

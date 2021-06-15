@@ -12,16 +12,10 @@ import { sitecorePagePropsFactory } from 'lib/page-props-factory';
 import { componentFactory } from 'temp/componentFactory';
 import { StyleguideSitecoreContextValue } from 'lib/component-props';
 import { trackingService } from 'lib/tracking-service';
-import { loadPersonalization } from 'lib/layout-personalization-service';
-import { useRouter } from 'next/router';
+import { layoutPersonalizationService } from 'lib/layout-personalization-service';
+import { withPersonalizationAndTracking } from 'lib/with-personalization-and-tracking';
 
-const SitecorePage = ({
-  notFound,
-  layoutData,
-  componentProps,
-  tracked,
-  isPreview,
-}: SitecorePageProps): JSX.Element => {
+const SitecorePage = ({ notFound, layoutData, componentProps }: SitecorePageProps): JSX.Element => {
   useEffect(() => {
     // Since Experience Editor does not support Fast Refresh need to refresh EE chromes after Fast Refresh finished
     handleExperienceEditorFastRefresh();
@@ -37,9 +31,6 @@ const SitecorePage = ({
     itemId: layoutData.sitecore.route?.itemId,
     ...layoutData.sitecore.context,
   };
-
-  // Start loading personalization before render occurs, do not awaiting result as do not want block page rendering
-  loadPersonalization({ layoutData, isPreview, tracked }, useRouter());
 
   return (
     <ComponentPropsContext value={componentProps}>
@@ -75,4 +66,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-export default SitecorePage;
+export default withPersonalizationAndTracking(
+  SitecorePage,
+  layoutPersonalizationService,
+  trackingService
+);

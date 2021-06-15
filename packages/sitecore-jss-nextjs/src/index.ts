@@ -47,8 +47,7 @@ export {
   PersonalizationDecisionData,
   RenderingPersonalizationDecision,
   PersonalizationDecisionsService,
-  RestPersonalizationDecisionsServiceConfig,
-  RestPersonalizationDecisionsService,
+  PersonalizationDecisionsServiceConfig,
   LayoutPersonalizationUtils,
 } from '@sitecore-jss/sitecore-jss';
 
@@ -82,7 +81,7 @@ export {
   useComponentProps,
 } from './components/ComponentPropsContext';
 
-export { handleExperienceEditorFastRefresh } from './utils';
+export { handleExperienceEditorFastRefresh, areQueryParamsReady } from './utils';
 
 export { EditingData, EditingPreviewData, isEditingData } from './sharedTypes/editing-data';
 export {
@@ -93,6 +92,7 @@ export {
 
 export { Link } from './components/Link';
 export { RichText } from './components/RichText';
+export { withSitecorePersonalizationContext } from './enhancers/withSitecorePersonalizationContext';
 
 export {
   ComponentFactory,
@@ -116,4 +116,8 @@ export {
   withPlaceholder,
   withComponentFactory,
   usePersonalization,
+  SitecorePersonalizationContextProps,
+  SitecorePersonalizationReactContext,
+  SitecorePersonalizationContext,
+  SitecorePersonalizationContextState,
 } from '@sitecore-jss/sitecore-jss-react';

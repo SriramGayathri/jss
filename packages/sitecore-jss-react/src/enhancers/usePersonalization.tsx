@@ -1,7 +1,8 @@
-import { ComponentRendering, LayoutPersonalizationService } from '@sitecore-jss/sitecore-jss';
-import { useEffect, createElement, useReducer, ComponentType } from 'react';
+import { ComponentRendering } from '@sitecore-jss/sitecore-jss';
+import { useEffect, createElement, useReducer, ComponentType, useContext } from 'react';
 import { MissingComponent } from '../components/MissingComponent';
 import { ComponentFactory } from '../components/sharedTypes';
+import { SitecorePersonalizationReactContext } from './withSitecorePersonalizationContext';
 
 export interface UsePersonalizationOptions {
   /**
@@ -12,10 +13,6 @@ export interface UsePersonalizationOptions {
    * The component factory
    */
   componentFactory: ComponentFactory;
-  /**
-   * The layout personalization service
-   */
-  layoutPersonalizationService: LayoutPersonalizationService;
   /**
    * The component type for a missing component
    */
@@ -30,7 +27,7 @@ export interface UsePersonalizationResult {
   /**
    * The personalized component
    */
-  personalizedComponent: React.ReactElement | null;
+  personalizedComponent: React.ReactElement | null | undefined;
 }
 
 /**
@@ -40,12 +37,17 @@ export interface UsePersonalizationResult {
  */
 export function usePersonalization(options: UsePersonalizationOptions): UsePersonalizationResult {
   // forceUpdate emulating, we need to re-render the component after personalization loading
-  const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
-  const personalizedComponentLayout = options.layoutPersonalizationService.getPersonalizedComponent(
-    options.uid
-  );
-  const isLoading = options.layoutPersonalizationService.isLoading();
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  const sitecorePersonalizationContext = useContext(SitecorePersonalizationReactContext);
+  let personalizedComponentLayout: ComponentRendering | null | undefined = undefined;
+  let isLoading = false;
+  if (sitecorePersonalizationContext) {
+    personalizedComponentLayout = sitecorePersonalizationContext.getPersonalizedComponent(
+      options.uid
+    );
+    isLoading = sitecorePersonalizationContext.isLoading(options.uid);
+  }
 
   useEffect(() => {
     if (!isLoading) {
@@ -53,7 +55,7 @@ export function usePersonalization(options: UsePersonalizationOptions): UsePerso
     }
 
     let isUnMounted = false;
-    options.layoutPersonalizationService.ensurePersonalizedComponentLoaded(options.uid).then(() => {
+    sitecorePersonalizationContext?.ensurePersonalizedComponentLoaded(options.uid).then(() => {
       // emulate forceUpdate, do not set state if component already unmounted
       if (!isUnMounted) {
         forceUpdate();
@@ -68,7 +70,7 @@ export function usePersonalization(options: UsePersonalizationOptions): UsePerso
   return {
     personalizedComponent: personalizedComponentLayout
       ? createPersonalizedComponent(personalizedComponentLayout, options)
-      : null,
+      : personalizedComponentLayout,
     isLoading: isLoading,
   };
 }

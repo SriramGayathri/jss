@@ -5,6 +5,10 @@ import {
 } from './personalization-decisions-service';
 import { LayoutFragmentService } from './layout-fragment-service';
 import { LayoutPersonalizationUtils } from './layout-personalization-utils';
+import {
+  SitecorePersonalizationContext,
+  SitecorePersonalizationContextState,
+} from './layout-personalization-context';
 
 export interface PersonalizationResult {
   /**
@@ -29,103 +33,43 @@ export interface PersonalizationContext {
  * to initiate the personalization and load personalized components
  */
 export class LayoutPersonalizationService {
-  private personalizationResult: {
-    personalizationOperation?: Promise<{
-      [key: string]: ComponentRendering | null;
-    }>;
-    components?: { [key: string]: ComponentRendering | null };
-  } = {};
-  private layoutPersonalizationUtils = new LayoutPersonalizationUtils();
-
   constructor(
-    private personalizationDecisionsService: PersonalizationDecisionsService,
-    private layoutFragmentService: LayoutFragmentService
+    protected personalizationDecisionsService: PersonalizationDecisionsService,
+    protected layoutFragmentService: LayoutFragmentService,
+    protected layoutPersonalizationUtils: LayoutPersonalizationUtils
   ) {}
 
   /**
    * Fetches the personalized data.
    * @param {PersonalizationContext} context The context.
    * @param {RouteData} route The route.
-   * @returns {PersonalizationResult} The personalization result.
    */
-  async fetchPersonalization(
+  startPersonalization(
     context: PersonalizationContext,
     route: RouteData
-  ): Promise<PersonalizationResult> {
-    // clear personalization before getting new one
-    this.personalizationResult = {};
-
+  ): SitecorePersonalizationContextState {
     const personalizedRenderings = this.layoutPersonalizationUtils.getPersonalizableComponents(
       route.placeholders
     );
+    let personalizationOperation:
+      | Promise<{ [key: string]: ComponentRendering | null }>
+      | undefined = undefined;
+    let isTracked: boolean;
 
-    if (!personalizedRenderings.length) {
-      return { isPersonalizable: false };
-    }
-
-    const currentResult = this.personalizationResult;
-    currentResult.personalizationOperation = this.personalizeComponents(
-      {
-        routePath: context.routePath,
-        language: context.language,
-      },
-      personalizedRenderings
-    );
-
-    try {
-      const components = await currentResult.personalizationOperation;
-      currentResult.components = components;
-      return { isPersonalizable: true };
-    } catch (error) {
-      currentResult.personalizationOperation = undefined;
-      throw error;
-    }
-  }
-
-  /**
-   * Gets the personalized component.
-   * @param {string} componentUid The unique identifier of a component.
-   * @returns {ComponentRendering} The personalized component.
-   */
-  getPersonalizedComponent(componentUid: string): ComponentRendering | null {
-    if (!this.personalizationResult.components) {
-      return null;
-    }
-
-    return this.personalizationResult.components[componentUid] ?? null;
-  }
-
-  /**
-   * Provides a value that indicates whether the loading is in-progress.
-   * @returns {boolean} The value that indicates whether the loading is in-progress.
-   */
-  isLoading(): boolean {
-    return (
-      !!this.personalizationResult.personalizationOperation &&
-      !this.personalizationResult.components
-    );
-  }
-
-  /**
-   * Ensures the personalized component is loaded.
-   * @param {string} componentUid The unique identifier of a component.
-   * @returns {ComponentRendering} The personalized component.
-   */
-  async ensurePersonalizedComponentLoaded(
-    componentUid: string
-  ): Promise<ComponentRendering | null> {
-    if (!this.personalizationResult.personalizationOperation) {
-      throw new Error(
-        `${this.fetchPersonalization.name} should be called before getting personalized component`
+    if (personalizedRenderings.length) {
+      personalizationOperation = this.personalizeComponents(
+        {
+          routePath: context.routePath,
+          language: context.language,
+        },
+        personalizedRenderings
       );
+      isTracked = this.personalizationDecisionsService.isTrackingEnabled;
+    } else {
+      isTracked = false;
     }
 
-    const personalizedComponents = await this.personalizationResult.personalizationOperation;
-    if (!personalizedComponents) {
-      return null;
-    }
-
-    return personalizedComponents[componentUid] ?? null;
+    return new SitecorePersonalizationContext(personalizationOperation, isTracked);
   }
 
   /**

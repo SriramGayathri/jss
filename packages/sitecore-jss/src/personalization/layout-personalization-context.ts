@@ -1,0 +1,84 @@
+import { ComponentRendering } from '../layout/models';
+
+export interface SitecorePersonalizationContextState {
+  /**
+   * A value that indicates whether a route is tracked
+   */
+  isTracked: boolean;
+
+  getPersonalizedComponent(componentUid: string): ComponentRendering | null | undefined;
+
+  isLoading(componentUid: string): boolean;
+
+  ensurePersonalizedComponentLoaded(componentUid: string): Promise<ComponentRendering | null>;
+}
+
+export class SitecorePersonalizationContext implements SitecorePersonalizationContextState {
+  components?: { [key: string]: ComponentRendering | null };
+  personalizationOperation?: Promise<{
+    [key: string]: ComponentRendering | null;
+  }>;
+
+  isTracked: boolean;
+
+  constructor(
+    personalizationOperation:
+      | Promise<{
+          [key: string]: ComponentRendering | null;
+        }>
+      | undefined,
+    isTracked: boolean
+  ) {
+    this.personalizationOperation = personalizationOperation;
+    this.isTracked = isTracked;
+    personalizationOperation
+      ?.then((components) => {
+        this.components = components;
+      })
+      .catch(() => {
+        this.personalizationOperation = undefined;
+      });
+  }
+
+  /**
+   * Gets the personalized component.
+   * @param {string} componentUid The unique identifier of a component.
+   * @returns {ComponentRendering} The personalized component.
+   */
+  getPersonalizedComponent(componentUid: string): ComponentRendering | null | undefined {
+    if (!this.components) {
+      return undefined;
+    }
+
+    return this.components[componentUid];
+  }
+
+  /**
+   * Provides a value that indicates whether the loading is in-progress.
+   * @param componentUid
+   * @returns {boolean} The value that indicates whether the loading is in-progress.
+   */
+  isLoading(componentUid: string): boolean {
+    return !!this.personalizationOperation && (!this.components || !this.components[componentUid]);
+  }
+
+  /**
+   * Ensures the personalized component is loaded.
+   * @param {string} componentUid The unique identifier of a component.
+   * @returns {ComponentRendering} The personalized component.
+   */
+  async ensurePersonalizedComponentLoaded(
+    componentUid: string
+  ): Promise<ComponentRendering | null> {
+    if (!this.personalizationOperation) {
+      throw new Error('failed to start personalization');
+    }
+
+    const personalizedComponents = await this.personalizationOperation;
+    if (!personalizedComponents) {
+      return null;
+    }
+
+    return personalizedComponents[componentUid] ?? null;
+  }
+}

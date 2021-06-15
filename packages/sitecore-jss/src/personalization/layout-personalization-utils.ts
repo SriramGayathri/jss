@@ -21,10 +21,12 @@ export class LayoutPersonalizationUtils {
   ): ComponentRendering | null {
     const personalizedFragment = personalizedFragments[uid];
 
+    // component is hidden so return null to render nothing
     if (personalizedFragment === null) {
       return null;
     }
 
+    // unable to resolve fragment for component so return default
     if (personalizedFragment === undefined) {
       return defaultComponent;
     }

@@ -50,6 +50,11 @@ export {
 } from './personalization/layout-personalization-service';
 
 export {
+  SitecorePersonalizationContext,
+  SitecorePersonalizationContextState,
+} from './personalization/layout-personalization-context';
+
+export {
   LayoutFragmentData,
   LayoutFragmentService,
   GraphQLLayoutFragmentService,
@@ -60,8 +65,7 @@ export {
   PersonalizationDecisionData,
   RenderingPersonalizationDecision,
   PersonalizationDecisionsService,
-  RestPersonalizationDecisionsServiceConfig,
-  RestPersonalizationDecisionsService,
+  PersonalizationDecisionsServiceConfig,
 } from './personalization/personalization-decisions-service';
 
 // TODO: these are deprecated and we should stop exporting them

@@ -1,4 +1,4 @@
-import { CommonFieldTypes, SitecoreIcon, Manifest } from '@sitecore-jss/sitecore-jss-manifest';
+import { SitecoreIcon, Manifest } from '@sitecore-jss/sitecore-jss-manifest';
 
 /**
  * Adds the PersonalizationLoadingComponent component to the disconnected manifest.
@@ -9,6 +9,5 @@ export default function (manifest: Manifest): void {
   manifest.addComponent({
     name: 'PersonalizationLoadingComponent',
     icon: SitecoreIcon.DocumentTag,
-    fields: [{ name: 'heading', type: CommonFieldTypes.SingleLineText }],
   });
 }
