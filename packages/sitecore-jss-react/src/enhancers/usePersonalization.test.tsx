@@ -7,14 +7,7 @@ import React from 'react';
 import { expect, spy, use } from 'chai';
 import spies from 'chai-spies';
 import { mount } from 'enzyme';
-import {
-  createStubInstance,
-  stub,
-  StubbableType,
-  SinonStubbedInstance,
-  SinonStubbedMember,
-  SinonStub,
-} from 'sinon';
+import { createStubInstance, stub, SinonStubbedInstance, SinonStub } from 'sinon';
 import { usePersonalization, UsePersonalizationResult } from '../enhancers/usePersonalization';
 import { ComponentFactoryReactContext } from '../components/SitecoreContext';
 import { SitecorePersonalizationContext } from '@sitecore-jss/sitecore-jss';
@@ -24,12 +17,12 @@ import { SitecorePersonalizationReactContext } from './withSitecorePersonalizati
 use(spies);
 
 describe('usePersonalization', () => {
-  let personalizationContext: StubbedClass<SitecorePersonalizationContext>;
+  let personalizationContext: SinonStubbedInstance<SitecorePersonalizationContext>;
   let componentFactory: SinonStub;
 
   beforeEach(() => {
     spy.on(console, 'error');
-    personalizationContext = createSinonStubInstance(SitecorePersonalizationContext);
+    personalizationContext = createStubInstance(SitecorePersonalizationContext);
     componentFactory = stub();
   });
 
@@ -211,18 +204,3 @@ describe('usePersonalization', () => {
     });
   });
 });
-
-export type StubbedClass<T> = SinonStubbedInstance<T> & T;
-
-// Cannot createStubInstance on class with private members https://github.com/sinonjs/sinon/issues/1963
-/**
- * @param constructor
- * @param overrides
- */
-export function createSinonStubInstance<T>(
-  constructor: StubbableType<T>,
-  overrides?: { [K in keyof T]?: SinonStubbedMember<T[K]> }
-): StubbedClass<T> {
-  const stub = createStubInstance<T>(constructor, overrides);
-  return (stub as unknown) as StubbedClass<T>;
-}
