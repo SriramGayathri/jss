@@ -47,27 +47,22 @@ export class LayoutPersonalizationService {
   startPersonalization(
     context: PersonalizationContext,
     route: RouteData
-  ): SitecorePersonalizationContextState {
+  ): SitecorePersonalizationContextState | undefined {
     const personalizedRenderings = this.layoutPersonalizationUtils.getPersonalizableComponents(
       route.placeholders
     );
-    let personalizationOperation:
-      | Promise<{ [key: string]: ComponentRendering | null }>
-      | undefined = undefined;
-    let isTracked: boolean;
-
-    if (personalizedRenderings.length) {
-      personalizationOperation = this.personalizeComponents(
-        {
-          routePath: context.routePath,
-          language: context.language,
-        },
-        personalizedRenderings
-      );
-      isTracked = this.personalizationDecisionsService.isTrackingEnabled;
-    } else {
-      isTracked = false;
+    if (!personalizedRenderings.length) {
+      return undefined;
     }
+
+    const personalizationOperation = this.personalizeComponents(
+      {
+        routePath: context.routePath,
+        language: context.language,
+      },
+      personalizedRenderings
+    );
+    const isTracked = this.personalizationDecisionsService.isTrackingEnabled;
 
     return new SitecorePersonalizationContext(personalizationOperation, isTracked);
   }

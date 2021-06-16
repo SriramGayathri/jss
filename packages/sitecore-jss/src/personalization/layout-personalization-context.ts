@@ -15,29 +15,23 @@ export interface SitecorePersonalizationContextState {
 
 export class SitecorePersonalizationContext implements SitecorePersonalizationContextState {
   components?: { [key: string]: ComponentRendering | null };
-  personalizationOperation?: Promise<{
+  personalizationOperation: Promise<{
     [key: string]: ComponentRendering | null;
   }>;
 
   isTracked: boolean;
 
   constructor(
-    personalizationOperation:
-      | Promise<{
-          [key: string]: ComponentRendering | null;
-        }>
-      | undefined,
+    personalizationOperation: Promise<{
+      [key: string]: ComponentRendering | null;
+    }>,
     isTracked: boolean
   ) {
     this.personalizationOperation = personalizationOperation;
     this.isTracked = isTracked;
-    personalizationOperation
-      ?.then((components) => {
-        this.components = components;
-      })
-      .catch(() => {
-        this.personalizationOperation = undefined;
-      });
+    personalizationOperation.then((components) => {
+      this.components = components;
+    });
   }
 
   /**
@@ -59,7 +53,7 @@ export class SitecorePersonalizationContext implements SitecorePersonalizationCo
    * @returns {boolean} The value that indicates whether the loading is in-progress.
    */
   isLoading(componentUid: string): boolean {
-    return !!this.personalizationOperation && (!this.components || !this.components[componentUid]);
+    return !this.components || !this.components[componentUid];
   }
 
   /**
@@ -70,10 +64,6 @@ export class SitecorePersonalizationContext implements SitecorePersonalizationCo
   async ensurePersonalizedComponentLoaded(
     componentUid: string
   ): Promise<ComponentRendering | null> {
-    if (!this.personalizationOperation) {
-      throw new Error('failed to start personalization');
-    }
-
     const personalizedComponents = await this.personalizationOperation;
     if (!personalizedComponents) {
       return null;
