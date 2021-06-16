@@ -56,7 +56,7 @@ describe('PersonalizationDecisionsService', () => {
       mock.restore();
     });
 
-    it('should use AxiosDataFetcher if dataFetcherResolver not specified', async () => {
+    it('should use AxiosDataFetcher if fetcher is not specified', async () => {
       mock.onPost().reply(() => {
         return [200, { status: 200, statusText: 'ok', data: {} }];
       });
@@ -82,11 +82,11 @@ describe('PersonalizationDecisionsService', () => {
       );
     });
 
-    it('should use default host, route, tracking when not specified in config', async () => {
+    it('should use default endpoint and tracking if not specified in config', async () => {
       const config: PersonalizationDecisionsServiceConfig = {
         apiKey: 'testApiKey',
         siteName: 'testSiteName',
-        dataFetcherResolver: () => stubDataFetcher,
+        fetcher: stubDataFetcher,
       };
       const decisionsService = new PersonalizationDecisionsService(config);
 
@@ -105,14 +105,12 @@ describe('PersonalizationDecisionsService', () => {
       });
     });
 
-    it('should use serviceUrl for url and ignore host with routes', async () => {
+    it('should use serviceUrl from config', async () => {
       const config: PersonalizationDecisionsServiceConfig = {
         apiKey: 'testApiKey',
         siteName: 'testSiteName',
-        host: 'testHost',
-        route: 'testRoute',
-        serviceUrl: 'testServiceUrl',
-        dataFetcherResolver: () => stubDataFetcher,
+        endpoint: 'testServiceUrl',
+        fetcher: stubDataFetcher,
       };
       const decisionsService = new PersonalizationDecisionsService(config);
 
@@ -135,10 +133,9 @@ describe('PersonalizationDecisionsService', () => {
       const config: PersonalizationDecisionsServiceConfig = {
         apiKey: 'testApiKey',
         siteName: 'testSiteName',
-        dataFetcherResolver: () => stubDataFetcher,
-        tracking: false,
-        host: 'testHost',
-        route: 'testRoute',
+        endpoint: 'testServiceUrl',
+        fetcher: stubDataFetcher,
+        isTrackingEnabled: false,
       };
       const decisionsService = new PersonalizationDecisionsService(config);
 
@@ -146,7 +143,7 @@ describe('PersonalizationDecisionsService', () => {
 
       const stubDataFetcherArgs = stubDataFetcher.getCall(0).args;
       expect(stubDataFetcherArgs[0]).equals(
-        'testHosttestRoute?sc_apikey=testApiKey&sc_site=testSiteName&tracking=false'
+        'testServiceUrl?sc_apikey=testApiKey&sc_site=testSiteName&tracking=false'
       );
       expect(stubDataFetcherArgs[1]).deep.equals({
         language: 'testLanguage',
@@ -171,10 +168,9 @@ describe('PersonalizationDecisionsService', () => {
       const config: PersonalizationDecisionsServiceConfig = {
         apiKey: 'testApiKey',
         siteName: 'testSiteName',
-        dataFetcherResolver: () => stubDataFetcher,
-        tracking: false,
-        host: 'testHost',
-        route: 'testRoute',
+        endpoint: 'testServiceUrl',
+        fetcher: stubDataFetcher,
+        isTrackingEnabled: false,
       };
       const decisionsService = new PersonalizationDecisionsService(config);
 
@@ -182,7 +178,7 @@ describe('PersonalizationDecisionsService', () => {
 
       const stubDataFetcherArgs = stubDataFetcher.getCall(0).args;
       expect(stubDataFetcherArgs[0]).equals(
-        'testHosttestRoute?sc_apikey=testApiKey&sc_site=testSiteName&tracking=false'
+        'testServiceUrl?sc_apikey=testApiKey&sc_site=testSiteName&tracking=false'
       );
       expect(stubDataFetcherArgs[1]).deep.equals({
         language: 'testLanguage',
@@ -207,11 +203,10 @@ describe('PersonalizationDecisionsService', () => {
       const config: PersonalizationDecisionsServiceConfig = {
         apiKey: 'testApiKey',
         siteName: 'testSiteName',
-        dataFetcherResolver: () => stubDataFetcher,
+        endpoint: 'testServiceUrl',
+        fetcher: stubDataFetcher,
         currentPageParamsToExtract: ['sc_camp'],
-        tracking: false,
-        host: 'testHost',
-        route: 'testRoute',
+        isTrackingEnabled: false,
       };
       const decisionsService = new PersonalizationDecisionsService(config);
 
@@ -219,7 +214,7 @@ describe('PersonalizationDecisionsService', () => {
 
       const stubDataFetcherArgs = stubDataFetcher.getCall(0).args;
       expect(stubDataFetcherArgs[0]).equals(
-        'testHosttestRoute?sc_camp=testcamp&sc_apikey=testApiKey&sc_site=testSiteName&tracking=false'
+        'testServiceUrl?sc_apikey=testApiKey&sc_site=testSiteName&tracking=false&sc_camp=testcamp'
       );
       expect(stubDataFetcherArgs[1]).deep.equals({
         language: 'testLanguage',

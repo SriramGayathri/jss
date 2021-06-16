@@ -5,11 +5,11 @@ import { extractQueryStringParams } from '../utils/extract-querystring-params';
 
 export interface RenderingPersonalizationDecision {
   /**
-   * The variant key
+   * The variant key to get layout for the personalized component
    */
   variantKey?: string | null;
   /**
-   * The error message
+   * The message for identification the error occurred during decision making
    */
   errorMessage?: string;
 }
@@ -24,41 +24,25 @@ export interface DecisionsContext {
    */
   language: string;
   /**
-   * The rendering identifiers
+   * The rendering identifiers to get layout for the personalized component
    */
   renderingIds: string[];
 }
 
 export interface PersonalizationDecisionData {
   /**
-   * The renderings
+   * The rendering identifiers of layouts for the personalized component
    */
   renderings: {
     [renderingId: string]: RenderingPersonalizationDecision;
   };
 }
 
-export type DataFetcherResolver = <T>(config: {
-  /**
-   * The request timeout in milliseconds
-   */
-  timeout?: number;
-}) => HttpDataFetcher<T>;
-
 export type PersonalizationDecisionsServiceConfig = {
   /**
-   * Hostname of decisions service; e.g. http://my.site.core; Default: '', same host as a page
+   * Absolute or relative URL of decision service. Default: /sitecore/api/layout/personalization/decision
    */
-  host?: string;
-  /**
-   * Relative path from host to decisions service. Default: /sitecore/api/layout/personalization/decision
-   */
-  route?: string;
-  /**
-   * This value overrides the default service URL.
-   * Note: `host` and `route` options are ignored if `serviceUrl` is set.
-   */
-  serviceUrl?: string;
+  endpoint?: string;
   /**
    * The Sitecore SSC API key your app uses
    */
@@ -77,18 +61,15 @@ export type PersonalizationDecisionsServiceConfig = {
    * JSS tracker would instead be used on the client-side: {@link https://jss.sitecore.com/docs/fundamentals/services/tracking}
    * @default true
    */
-  tracking?: boolean;
+  isTrackingEnabled?: boolean;
   /**
    * The request timeout in milliseconds
    */
   timeout?: number;
   /**
-   * Data fetcher resolver in order to provide custom data fetcher
-   * @see DataFetcherResolver
-   * @see HttpDataFetcher<T>
-   * @see AxiosDataFetcher used by default
+   * The fetcher that performs the HTTP request and returns a promise to JSON
    */
-  dataFetcherResolver?: DataFetcherResolver;
+  fetcher?: HttpDataFetcher<PersonalizationDecisionData>;
 };
 
 /**
@@ -98,14 +79,22 @@ export type PersonalizationDecisionsServiceConfig = {
 export class PersonalizationDecisionsService {
   public isTrackingEnabled: boolean;
   private serviceConfig: PersonalizationDecisionsServiceConfig;
+  private readonly fetcher: HttpDataFetcher<PersonalizationDecisionData>;
 
-  constructor(serviceConfig: PersonalizationDecisionsServiceConfig) {
-    this.serviceConfig = {
-      host: '',
-      route: '/sitecore/api/layout/personalization/decision',
-      ...serviceConfig,
-    };
-    this.isTrackingEnabled = serviceConfig.tracking ?? true;
+  constructor(personalicationDecisionsserviceConfig: PersonalizationDecisionsServiceConfig) {
+    this.serviceConfig = personalicationDecisionsserviceConfig;
+    this.isTrackingEnabled = personalicationDecisionsserviceConfig.isTrackingEnabled ?? true;
+
+    if (this.serviceConfig.fetcher) {
+      this.fetcher = this.serviceConfig.fetcher;
+    } else {
+      const axiosFetcher = new AxiosDataFetcher({
+        timeout: this.serviceConfig.timeout,
+        debugger: debug.personalizationDecisions,
+      });
+      this.fetcher = (url: string, data?: unknown) =>
+        axiosFetcher.fetch<PersonalizationDecisionData>(url, data);
+    }
   }
 
   /**
@@ -114,24 +103,19 @@ export class PersonalizationDecisionsService {
    * @returns {Promise<PersonalizationDecisionData>} The personalization decision data
    */
   getPersonalizationDecisions(context: DecisionsContext): Promise<PersonalizationDecisionData> {
-    const fetcher = this.serviceConfig.dataFetcherResolver
-      ? this.serviceConfig.dataFetcherResolver<PersonalizationDecisionData>({
-          timeout: this.serviceConfig.timeout,
-        })
-      : this.getDefaultFetcher<PersonalizationDecisionData>();
-    let queryParams = {
+    const queryParams = {
       sc_apikey: this.serviceConfig.apiKey,
       sc_site: this.serviceConfig.siteName,
       tracking: this.isTrackingEnabled,
     };
     if (this.serviceConfig.currentPageParamsToExtract) {
-      queryParams = {
-        ...extractQueryStringParams(
+      Object.assign(
+        queryParams,
+        extractQueryStringParams(
           window.location.search,
           this.serviceConfig.currentPageParamsToExtract
-        ),
-        ...queryParams,
-      };
+        )
+      );
     }
     const requestBody = {
       routePath: context.routePath,
@@ -148,23 +132,17 @@ export class PersonalizationDecisionsService {
     );
 
     return fetchData<PersonalizationDecisionData>(
-      this.serviceConfig.serviceUrl ?? `${this.serviceConfig.host}${this.serviceConfig.route}`,
-      fetcher,
+      this.getUrl(),
+      this.fetcher,
       queryParams,
       requestBody
     );
   }
 
-  protected getDefaultFetcher = <T>() => {
-    const axiosFetcher = new AxiosDataFetcher({
-      timeout: this.serviceConfig.timeout,
-      debugger: debug.personalizationDecisions,
-    });
-
-    const fetcher = (url: string, data?: unknown) => {
-      return axiosFetcher.fetch<T>(url, data);
-    };
-
-    return fetcher;
-  };
+  /**
+   * Generate URL of decision service
+   */
+  protected getUrl(): string {
+    return this.serviceConfig.endpoint ?? '/sitecore/api/layout/personalization/decision';
+  }
 }

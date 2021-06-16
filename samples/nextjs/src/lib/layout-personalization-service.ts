@@ -8,10 +8,10 @@ import {
 
 export const layoutPersonalizationService = new LayoutPersonalizationService(
   new PersonalizationDecisionsService({
-    serviceUrl: config.personalizationDecisionsEndpoint,
+    endpoint: config.personalizationDecisionsEndpoint,
     apiKey: config.sitecoreServicesApiKey,
     siteName: config.jssAppName,
-    tracking: config.trackingEnabled.toLocaleLowerCase() === 'true',
+    isTrackingEnabled: config.isTrackingEnabled.toLocaleLowerCase() === 'true',
     currentPageParamsToExtract: ['sc_camp', 'sc_trk'],
   }),
   new GraphQLLayoutFragmentService({

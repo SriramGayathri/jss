@@ -18,7 +18,7 @@ export function generateConfig(configOverrides?: { [key: string]: string }): voi
     sitecoreApiKey: 'no-api-key-set',
     sitecoreApiHost: '',
     jssAppName: 'Unknown',
-    trackingEnabled: 'true',
+    isTrackingEnabled: 'true',
   };
 
   // require + combine config sources

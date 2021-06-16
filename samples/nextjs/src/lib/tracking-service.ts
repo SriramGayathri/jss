@@ -7,7 +7,7 @@ import {
 import config from 'temp/config';
 
 export class TrackingService extends SitecoreTrackingService {
-  constructor(private trackingEnabled: boolean, options: TrackingServiceConfig) {
+  constructor(private isTrackingEnabled: boolean, options: TrackingServiceConfig) {
     super(options);
   }
 
@@ -15,7 +15,7 @@ export class TrackingService extends SitecoreTrackingService {
     context?: LayoutServiceContext | null,
     route?: RouteData | null
   ): Promise<void> {
-    if (!this.trackingEnabled) {
+    if (!this.isTrackingEnabled) {
       return Promise.resolve();
     }
     return super.trackCurrentPage(context, route);
@@ -25,7 +25,7 @@ export class TrackingService extends SitecoreTrackingService {
     pageView: PageViewData,
     querystringParams?: { [key: string]: unknown }
   ): Promise<void> {
-    if (!this.trackingEnabled) {
+    if (!this.isTrackingEnabled) {
       return Promise.resolve();
     }
 
@@ -34,7 +34,7 @@ export class TrackingService extends SitecoreTrackingService {
 }
 
 export const trackingService = new TrackingService(
-  config.trackingEnabled.toLocaleLowerCase() === 'true',
+  config.isTrackingEnabled.toLocaleLowerCase() === 'true',
   {
     endpoint: config.trackingEndpoint,
     apiKey: config.sitecoreServicesApiKey,
