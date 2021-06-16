@@ -26,6 +26,6 @@ export function withSitecorePersonalizationContext<T extends SitecorePersonaliza
     if (!isServer() && !areQueryParamsReady(router)) {
       newProps.isPersonalizationSuppressed = true;
     }
-    return <WrappedComponent {...props} />;
+    return <WrappedComponent {...newProps} />;
   };
 }

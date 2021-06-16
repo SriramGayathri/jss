@@ -2,6 +2,8 @@ import { isServer, LayoutPersonalizationService } from '@sitecore-jss/sitecore-j
 import { withSitecorePersonalizationContext } from '@sitecore-jss/sitecore-jss-nextjs';
 import { TrackingService } from '../../../../packages/sitecore-jss-tracking/types';
 import { SitecorePageProps } from 'lib/page-props';
+import { areQueryParamsReady } from '@sitecore-jss/sitecore-jss-nextjs';
+import { useRouter } from 'next/router';
 
 export function withCurrentPageTracking<T extends SitecorePageProps>(
   Component: React.ComponentClass<T> | React.SFC<T>,
@@ -10,6 +12,7 @@ export function withCurrentPageTracking<T extends SitecorePageProps>(
   return function WithCurrentPageTrackingHoc(props: T) {
     const route = props.layoutData?.sitecore.route;
     if (
+      areQueryParamsReady(useRouter()) &&
       route &&
       !props.isPreview &&
       !isServer() &&
