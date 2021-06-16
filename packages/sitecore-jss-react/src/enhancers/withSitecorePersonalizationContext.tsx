@@ -3,7 +3,6 @@ import {
   isServer,
   LayoutPersonalizationService,
   LayoutServiceData,
-  SitecorePersonalizationContext,
   SitecorePersonalizationContextState,
 } from '@sitecore-jss/sitecore-jss';
 
@@ -29,7 +28,7 @@ export function withSitecorePersonalizationContext<T extends SitecorePersonaliza
   return function WithSitecorePersonalizationContext(props: T) {
     const route = props.layoutData?.sitecore.route;
 
-    let personalizationContext: SitecorePersonalizationContext | undefined = undefined;
+    let personalizationContext: SitecorePersonalizationContextState | undefined = undefined;
     const newProps = { ...props };
     if (
       !props.isPersonalizationSuppressed &&
@@ -45,7 +44,9 @@ export function withSitecorePersonalizationContext<T extends SitecorePersonaliza
         },
         route
       );
-      newProps.tracked = personalizationContext.isTracked;
+      if (personalizationContext) {
+        newProps.tracked = personalizationContext.isTracked;
+      }
     }
 
     return (

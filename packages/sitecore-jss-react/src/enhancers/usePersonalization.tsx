@@ -37,8 +37,8 @@ export interface UsePersonalizationResult {
  */
 export function usePersonalization(options: UsePersonalizationOptions): UsePersonalizationResult {
   // forceUpdate emulating, we need to re-render the component after personalization loading
-
   const [, forceUpdate] = useReducer((x) => x + 1, 0);
+
   const sitecorePersonalizationContext = useContext(SitecorePersonalizationReactContext);
   let personalizedComponentLayout: ComponentRendering | null | undefined = undefined;
   let isLoading = false;

@@ -15,21 +15,21 @@ import {
   SinonStubbedMember,
   SinonStub,
 } from 'sinon';
-
 import { usePersonalization, UsePersonalizationResult } from '../enhancers/usePersonalization';
 import { ComponentFactoryReactContext } from '../components/SitecoreContext';
-import { LayoutPersonalizationService } from '@sitecore-jss/sitecore-jss';
+import { SitecorePersonalizationContext } from '@sitecore-jss/sitecore-jss';
 import { MissingComponent } from '../components/MissingComponent';
+import { SitecorePersonalizationReactContext } from './withSitecorePersonalizationContext';
 
 use(spies);
 
 describe('usePersonalization', () => {
-  let layoutPersonalizationService: StubbedClass<LayoutPersonalizationService>;
+  let personalizationContext: StubbedClass<SitecorePersonalizationContext>;
   let componentFactory: SinonStub;
 
   beforeEach(() => {
     spy.on(console, 'error');
-    layoutPersonalizationService = createSinonStubInstance(LayoutPersonalizationService);
+    personalizationContext = createSinonStubInstance(SitecorePersonalizationContext);
     componentFactory = stub();
   });
 
@@ -38,15 +38,16 @@ describe('usePersonalization', () => {
   });
 
   describe('usePersonalization', () => {
-    it('should return personalizedComponent and isLoading from personalization service', () => {
-      layoutPersonalizationService.isLoading.returns(false);
+    it('should return personalizedComponent and isLoading from personalization context', () => {
+      const componentLayout = { componentName: 'test' };
+      personalizationContext.isLoading.withArgs('testuid').returns(false);
+      personalizationContext.getPersonalizedComponent.withArgs('testuid').returns(componentLayout);
 
       let personalizationResult: UsePersonalizationResult | null = null;
       const TestComponent = () => {
         personalizationResult = usePersonalization({
           uid: 'testuid',
           componentFactory: componentFactory,
-          layoutPersonalizationService: layoutPersonalizationService,
         });
 
         return <div></div>;
@@ -54,7 +55,9 @@ describe('usePersonalization', () => {
 
       const wrapper = mount(
         <ComponentFactoryReactContext.Provider value={componentFactory}>
-          <TestComponent />
+          <SitecorePersonalizationReactContext.Provider value={personalizationContext}>
+            <TestComponent />
+          </SitecorePersonalizationReactContext.Provider>
         </ComponentFactoryReactContext.Provider>
       );
 
@@ -62,22 +65,21 @@ describe('usePersonalization', () => {
 
       expect(personalizationResult).is.not.null;
       expect(personalizationResult!.isLoading).is.false;
-      expect(personalizationResult!.personalizedComponent).is.null;
+      expect(personalizationResult!.personalizedComponent).is.not.null;
+      expect(personalizationResult!.personalizedComponent!.props!.rendering).equal(componentLayout);
     });
 
     it('should return loaded personalizedComponent', () => {
       const componentLayout = { componentName: 'test' };
-      layoutPersonalizationService.isLoading.returns(true);
+      personalizationContext.isLoading.returns(true);
 
-      layoutPersonalizationService.ensurePersonalizedComponentLoaded
-        .withArgs('testuid')
-        .callsFake(() => {
-          layoutPersonalizationService.isLoading.returns(false);
-          layoutPersonalizationService.getPersonalizedComponent
-            .withArgs('testuid')
-            .returns(componentLayout);
-          return Promise.resolve(componentLayout);
-        });
+      personalizationContext.ensurePersonalizedComponentLoaded.withArgs('testuid').callsFake(() => {
+        personalizationContext.isLoading.withArgs('testuid').returns(false);
+        personalizationContext.getPersonalizedComponent
+          .withArgs('testuid')
+          .returns(componentLayout);
+        return Promise.resolve(componentLayout);
+      });
       componentFactory.withArgs(componentLayout.componentName).returns('div');
 
       let personalizationResult: UsePersonalizationResult | null = null;
@@ -85,7 +87,6 @@ describe('usePersonalization', () => {
         personalizationResult = usePersonalization({
           uid: 'testuid',
           componentFactory: componentFactory,
-          layoutPersonalizationService: layoutPersonalizationService,
         });
 
         return <div></div>;
@@ -93,7 +94,9 @@ describe('usePersonalization', () => {
 
       mount(
         <ComponentFactoryReactContext.Provider value={componentFactory}>
-          <TestComponent />
+          <SitecorePersonalizationReactContext.Provider value={personalizationContext}>
+            <TestComponent />
+          </SitecorePersonalizationReactContext.Provider>
         </ComponentFactoryReactContext.Provider>
       );
 
@@ -109,10 +112,8 @@ describe('usePersonalization', () => {
     it('should return missingComponentComponent when component not found', () => {
       const componentLayout = { componentName: 'test' };
       const missingComponentComponent = () => <div></div>;
-      layoutPersonalizationService.isLoading.returns(false);
-      layoutPersonalizationService.getPersonalizedComponent
-        .withArgs('testuid')
-        .returns(componentLayout);
+      personalizationContext.isLoading.returns(false);
+      personalizationContext.getPersonalizedComponent.withArgs('testuid').returns(componentLayout);
 
       componentFactory.withArgs(componentLayout.componentName).returns(null);
 
@@ -121,7 +122,6 @@ describe('usePersonalization', () => {
         personalizationResult = usePersonalization({
           uid: 'testuid',
           componentFactory: componentFactory,
-          layoutPersonalizationService: layoutPersonalizationService,
           missingComponentComponent: missingComponentComponent,
         });
 
@@ -130,7 +130,9 @@ describe('usePersonalization', () => {
 
       mount(
         <ComponentFactoryReactContext.Provider value={componentFactory}>
-          <TestComponent />
+          <SitecorePersonalizationReactContext.Provider value={personalizationContext}>
+            <TestComponent />
+          </SitecorePersonalizationReactContext.Provider>
         </ComponentFactoryReactContext.Provider>
       );
 
@@ -145,10 +147,8 @@ describe('usePersonalization', () => {
 
     it('should return MissingComponent when component not found', () => {
       const componentLayout = { componentName: 'test' };
-      layoutPersonalizationService.isLoading.returns(false);
-      layoutPersonalizationService.getPersonalizedComponent
-        .withArgs('testuid')
-        .returns(componentLayout);
+      personalizationContext.isLoading.returns(false);
+      personalizationContext.getPersonalizedComponent.withArgs('testuid').returns(componentLayout);
 
       componentFactory.withArgs(componentLayout.componentName).returns(null);
 
@@ -157,7 +157,6 @@ describe('usePersonalization', () => {
         personalizationResult = usePersonalization({
           uid: 'testuid',
           componentFactory: componentFactory,
-          layoutPersonalizationService: layoutPersonalizationService,
         });
 
         return <div></div>;
@@ -165,7 +164,9 @@ describe('usePersonalization', () => {
 
       mount(
         <ComponentFactoryReactContext.Provider value={componentFactory}>
-          <TestComponent />
+          <SitecorePersonalizationReactContext.Provider value={personalizationContext}>
+            <TestComponent />
+          </SitecorePersonalizationReactContext.Provider>
         </ComponentFactoryReactContext.Provider>
       );
 
@@ -182,17 +183,14 @@ describe('usePersonalization', () => {
       const componentLayout = { componentName: 'test' };
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const componentFactory: any = null;
-      layoutPersonalizationService.isLoading.returns(false);
-      layoutPersonalizationService.getPersonalizedComponent
-        .withArgs('testuid')
-        .returns(componentLayout);
+      personalizationContext.isLoading.returns(false);
+      personalizationContext.getPersonalizedComponent.withArgs('testuid').returns(componentLayout);
 
       let personalizationResult: UsePersonalizationResult | null = null;
       const TestComponent = () => {
         personalizationResult = usePersonalization({
           uid: 'testuid',
           componentFactory: componentFactory,
-          layoutPersonalizationService: layoutPersonalizationService,
         });
 
         return <div></div>;
@@ -200,7 +198,9 @@ describe('usePersonalization', () => {
 
       mount(
         <ComponentFactoryReactContext.Provider value={componentFactory}>
-          <TestComponent />
+          <SitecorePersonalizationReactContext.Provider value={personalizationContext}>
+            <TestComponent />
+          </SitecorePersonalizationReactContext.Provider>
         </ComponentFactoryReactContext.Provider>
       );
 
