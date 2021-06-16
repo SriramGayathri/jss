@@ -1,11 +1,18 @@
 /* eslint-disable no-unused-expressions */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 
 import { expect, spy, use } from 'chai';
 import spies from 'chai-spies';
 import chaiAsPromised from 'chai-as-promised';
 import { PersonalizationDecisionsService } from './personalization-decisions-service';
-import { createStubInstance, stub, SinonStubbedInstance, SinonStub } from 'sinon';
+import {
+  createStubInstance,
+  stub,
+  SinonStubbedInstance,
+  SinonStub,
+  StubbableType,
+  SinonStubbedMember,
+} from 'sinon';
 import { LayoutFragmentService } from './layout-fragment-service';
 import {
   LayoutPersonalizationService,
@@ -21,7 +28,7 @@ describe('LayoutPersonalizationService', () => {
   let layoutPersonalizationService: LayoutPersonalizationService;
   let fetchLayoutFragmentDataStub: SinonStub;
   let getPersonalizationDecisionsStub: SinonStub;
-  let layoutPersonalizationUtils: SinonStubbedInstance<LayoutPersonalizationUtils>;
+  let layoutPersonalizationUtils: StubbedClass<LayoutPersonalizationUtils>;
   const context: PersonalizationContext = {
     routePath: 'ip',
     language: 'lang',
@@ -36,7 +43,7 @@ describe('LayoutPersonalizationService', () => {
     const layoutFragmentService = <LayoutFragmentService>{};
     fetchLayoutFragmentDataStub = stub();
     layoutFragmentService.fetchLayoutFragmentData = fetchLayoutFragmentDataStub;
-    layoutPersonalizationUtils = createStubInstance(LayoutPersonalizationUtils);
+    layoutPersonalizationUtils = createSinonStubInstance(LayoutPersonalizationUtils);
     layoutPersonalizationUtils.buildPersonalizedFragment.callsFake(
       (
         uid: string,
@@ -49,65 +56,16 @@ describe('LayoutPersonalizationService', () => {
 
     layoutPersonalizationService = new LayoutPersonalizationService(
       personalizationDecisionsService,
-      layoutFragmentService
+      layoutFragmentService,
+      layoutPersonalizationUtils
     );
-    (<any>layoutPersonalizationService).layoutPersonalizationUtils = layoutPersonalizationUtils;
   });
 
   afterEach(() => {
     spy.restore(console);
   });
 
-  describe('fetchPersonalization', () => {
-    it('should clear state before loading', async () => {
-      const routeData = { name: 'testroute', placeholders: { 'jss-main': [] } };
-      layoutPersonalizationUtils.getPersonalizableComponents
-        .withArgs(routeData.placeholders)
-        .returns([]);
-      (<any>(
-        layoutPersonalizationService
-      )).personalizationResult.personalizationOperation = Promise.resolve({});
-      (<any>layoutPersonalizationService).personalizationResult.components = {};
-
-      await layoutPersonalizationService.fetchPersonalization(context, routeData);
-
-      expect((<any>layoutPersonalizationService).personalizationResult.personalizationOperation).to
-        .be.undefined;
-      expect((<any>layoutPersonalizationService).personalizationResult.components).to.be.undefined;
-    });
-
-    it('should return isPersonalizable false if no personalizable components', async () => {
-      const routeData = { name: 'testroute', placeholders: { 'jss-main': [] } };
-      layoutPersonalizationUtils.getPersonalizableComponents
-        .withArgs(routeData.placeholders)
-        .returns([]);
-
-      const result = await layoutPersonalizationService.fetchPersonalization(context, routeData);
-
-      expect(result.isPersonalizable).to.be.false;
-    });
-
-    it('should return error if personalize fails', () => {
-      const routeData = { name: 'testroute', placeholders: { 'jss-main': [] } };
-      const personalizedRendering = [
-        {
-          componentName: 'cn1',
-          uid: 'uid1',
-          personalization: { hiddenByDefault: false, defaultComponent: null },
-        },
-      ];
-      layoutPersonalizationUtils.getPersonalizableComponents
-        .withArgs(routeData.placeholders)
-        .returns(personalizedRendering);
-      layoutPersonalizationService.personalizeComponents = stub()
-        .withArgs(context, personalizedRendering)
-        .returns(Promise.reject('test error'));
-
-      expect(
-        layoutPersonalizationService.fetchPersonalization(context, routeData)
-      ).to.be.rejectedWith('test error');
-    });
-
+  describe('startPersonalization', () => {
     it('should set state and return result', async () => {
       const routeData = { name: 'testroute', placeholders: { 'jss-main': [] } };
       const personalizedRendering = [
@@ -126,135 +84,12 @@ describe('LayoutPersonalizationService', () => {
         .withArgs(context, personalizedRendering)
         .returns(personalizeResult);
 
-      const result = await layoutPersonalizationService.fetchPersonalization(context, routeData);
+      const result = layoutPersonalizationService.startPersonalization(context, routeData);
+      await personalizeResult;
 
-      expect(result.isPersonalizable).to.be.true;
-      expect((<any>layoutPersonalizationService).personalizationResult.components).to.be.deep.equal(
-        personalizeComponents
-      );
-    });
-  });
-
-  describe('ensurePersonalizedComponentLoaded', () => {
-    it('should return error if personalizationResult is not defined', () => {
-      expect(
-        layoutPersonalizationService.ensurePersonalizedComponentLoaded('test')
-      ).to.be.rejectedWith(
-        'fetchPersonalization should be called before getting personalized component'
-      );
-    });
-
-    it('should return error if personalizationResult is rejected', () => {
-      (<any>(
-        layoutPersonalizationService
-      )).personalizationResult.personalizationOperation = Promise.reject('testError');
-      expect(
-        layoutPersonalizationService.ensurePersonalizedComponentLoaded('test')
-      ).to.be.rejectedWith('testError');
-    });
-
-    it('should return component from personalizationResult', async () => {
-      (<any>(
-        layoutPersonalizationService
-      )).personalizationResult.personalizationOperation = Promise.resolve({
-        test1: { componentName: 'cn1' },
-      });
-
-      const result = await layoutPersonalizationService.ensurePersonalizedComponentLoaded('test1');
-
-      expect(result).to.be.deep.equal({ componentName: 'cn1' });
-    });
-
-    it('should return null if component not found in personalizationResult', async () => {
-      (<any>(
-        layoutPersonalizationService
-      )).personalizationResult.personalizationOperation = Promise.resolve({
-        test1: { componentName: 'cn1' },
-      });
-
-      const result = await layoutPersonalizationService.ensurePersonalizedComponentLoaded('test2');
-
-      expect(result).to.be.null;
-    });
-  });
-
-  describe('isLoading', () => {
-    it('should return true if personalizedComponents is not yet resolved', () => {
-      const routeData = { name: 'testroute', placeholders: { 'jss-main': [] } };
-      const personalizedRendering = [
-        {
-          componentName: 'cn1',
-          uid: 'uid1',
-          personalization: { hiddenByDefault: false, defaultComponent: null },
-        },
-      ];
-      layoutPersonalizationUtils.getPersonalizableComponents
-        .withArgs(routeData.placeholders)
-        .returns(personalizedRendering);
-      layoutPersonalizationService.personalizeComponents = stub()
-        .withArgs(context, personalizedRendering)
-        .returns(new Promise((resolve) => setTimeout(() => resolve({}), 1)));
-
-      layoutPersonalizationService.fetchPersonalization(context, routeData);
-
-      const result = layoutPersonalizationService.isLoading();
-
-      expect(result).is.true;
-    });
-
-    it('should return false if personalizedComponents are defined', async () => {
-      const routeData = { name: 'testroute', placeholders: { 'jss-main': [] } };
-      const personalizedRendering = [
-        {
-          componentName: 'cn1',
-          uid: 'uid1',
-          personalization: { hiddenByDefault: false, defaultComponent: null },
-        },
-      ];
-      layoutPersonalizationUtils.getPersonalizableComponents
-        .withArgs(routeData.placeholders)
-        .returns(personalizedRendering);
-      layoutPersonalizationService.personalizeComponents = stub()
-        .withArgs(context, personalizedRendering)
-        .returns(Promise.resolve({}));
-
-      await layoutPersonalizationService.fetchPersonalization(context, routeData);
-
-      const result = layoutPersonalizationService.isLoading();
-
-      expect(result).is.false;
-    });
-
-    it('should return false if personalization was not started', () => {
-      const result = layoutPersonalizationService.isLoading();
-
-      expect(result).is.false;
-    });
-  });
-
-  describe('getPersonalizedComponent', () => {
-    it('should return null if personalizedComponents is not defined', () => {
-      const result = layoutPersonalizationService.getPersonalizedComponent('test');
-
-      expect(result).is.null;
-    });
-
-    it('should return null if component for specified uid not defined', () => {
-      (<any>layoutPersonalizationService).personalizationResult.components = {
-        test2: { componentName: 'cn2' },
-      };
-      const result = layoutPersonalizationService.getPersonalizedComponent('test');
-
-      expect(result).is.null;
-    });
-
-    it('should return component if component for specified uid is resolved', () => {
-      (<any>layoutPersonalizationService).personalizationResult.components = {
-        test: { componentName: 'cn2' },
-      };
-      const result = layoutPersonalizationService.getPersonalizedComponent('test');
-
-      expect(result).to.deep.equals({ componentName: 'cn2' });
+      expect(result).not.undefined;
+      expect(result!.isLoading('uid1')).to.be.false;
+      expect(result!.getPersonalizedComponent('uid1')).to.be.deep.equal(personalizeComponents.uid1);
     });
   });
 
@@ -413,3 +248,14 @@ describe('LayoutPersonalizationService', () => {
     });
   });
 });
+
+export type StubbedClass<T> = SinonStubbedInstance<T> & T;
+
+// Cannot createStubInstance on class with private members https://github.com/sinonjs/sinon/issues/1963
+export const createSinonStubInstance = <T>(
+  constructor: StubbableType<T>,
+  overrides?: { [K in keyof T]?: SinonStubbedMember<T[K]> }
+): StubbedClass<T> => {
+  const stub = createStubInstance<T>(constructor, overrides);
+  return (stub as unknown) as StubbedClass<T>;
+};

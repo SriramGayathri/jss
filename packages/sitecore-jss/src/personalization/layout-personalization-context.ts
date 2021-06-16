@@ -49,7 +49,7 @@ export class SitecorePersonalizationContext implements SitecorePersonalizationCo
 
   /**
    * Provides a value that indicates whether the loading is in-progress.
-   * @param componentUid
+   * @param {string} componentUid The unique identifier of a component.
    * @returns {boolean} The value that indicates whether the loading is in-progress.
    */
   isLoading(componentUid: string): boolean {

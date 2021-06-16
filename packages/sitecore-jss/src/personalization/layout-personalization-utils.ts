@@ -102,7 +102,7 @@ export class LayoutPersonalizationUtils {
    * @param {ComponentRendering} context The component rendering.
    * @param {object} personalizedFragments The personalized fragments.
    */
-  private replaceNestedPersonalizedRenderings(
+  protected replaceNestedPersonalizedRenderings(
     context: ComponentRendering,
     personalizedFragments: { [key: string]: ComponentRendering | null | undefined }
   ) {
