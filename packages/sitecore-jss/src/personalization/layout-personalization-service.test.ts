@@ -9,7 +9,6 @@ import {
   createStubInstance,
   stub,
   SinonStubbedInstance,
-  SinonStub,
   StubbableType,
   SinonStubbedMember,
 } from 'sinon';
@@ -26,9 +25,10 @@ use(chaiAsPromised);
 
 describe('LayoutPersonalizationService', () => {
   let layoutPersonalizationService: LayoutPersonalizationService;
-  let fetchLayoutFragmentDataStub: SinonStub;
-  let getPersonalizationDecisionsStub: SinonStub;
-  let layoutPersonalizationUtils: StubbedClass<LayoutPersonalizationUtils>;
+  let layoutFragmentServiceStub: SinonStubbedInstance<LayoutFragmentService> &
+    LayoutFragmentService;
+  let personalizationDecisionsServiceStub: StubbedClass<PersonalizationDecisionsService>;
+  let layoutPersonalizationUtilsStub: StubbedClass<LayoutPersonalizationUtils>;
   const context: PersonalizationContext = {
     routePath: 'ip',
     language: 'lang',
@@ -36,15 +36,11 @@ describe('LayoutPersonalizationService', () => {
 
   beforeEach(() => {
     spy.on(console, 'error');
-    const personalizationDecisionsService = <PersonalizationDecisionsService>{};
-    getPersonalizationDecisionsStub = stub();
-    personalizationDecisionsService.getPersonalizationDecisions = getPersonalizationDecisionsStub;
-
-    const layoutFragmentService = <LayoutFragmentService>{};
-    fetchLayoutFragmentDataStub = stub();
-    layoutFragmentService.fetchLayoutFragmentData = fetchLayoutFragmentDataStub;
-    layoutPersonalizationUtils = createSinonStubInstance(LayoutPersonalizationUtils);
-    layoutPersonalizationUtils.buildPersonalizedFragment.callsFake(
+    personalizationDecisionsServiceStub = createSinonStubInstance(PersonalizationDecisionsService);
+    layoutFragmentServiceStub = stub({} as LayoutFragmentService);
+    layoutFragmentServiceStub.fetchLayoutFragmentData = stub();
+    layoutPersonalizationUtilsStub = createSinonStubInstance(LayoutPersonalizationUtils);
+    layoutPersonalizationUtilsStub.buildPersonalizedFragment.callsFake(
       (
         uid: string,
         personalizedFragments: { [key: string]: ComponentRendering | null | undefined }
@@ -55,9 +51,9 @@ describe('LayoutPersonalizationService', () => {
     );
 
     layoutPersonalizationService = new LayoutPersonalizationService(
-      personalizationDecisionsService,
-      layoutFragmentService,
-      layoutPersonalizationUtils
+      personalizationDecisionsServiceStub,
+      layoutFragmentServiceStub,
+      layoutPersonalizationUtilsStub
     );
   });
 
@@ -66,6 +62,16 @@ describe('LayoutPersonalizationService', () => {
   });
 
   describe('startPersonalization', () => {
+    it('should return undefined if not personalizable components', async () => {
+      const routeData = { name: 'testroute', placeholders: { 'jss-main': [] } };
+      layoutPersonalizationUtilsStub.getPersonalizableComponents
+        .withArgs(routeData.placeholders)
+        .returns([]);
+
+      const result = layoutPersonalizationService.startPersonalization(context, routeData);
+
+      expect(result).be.undefined;
+    });
     it('should set state and return result', async () => {
       const routeData = { name: 'testroute', placeholders: { 'jss-main': [] } };
       const personalizedRendering = [
@@ -75,7 +81,7 @@ describe('LayoutPersonalizationService', () => {
           personalization: { hiddenByDefault: false, defaultComponent: null },
         },
       ];
-      layoutPersonalizationUtils.getPersonalizableComponents
+      layoutPersonalizationUtilsStub.getPersonalizableComponents
         .withArgs(routeData.placeholders)
         .returns(personalizedRendering);
       const personalizeComponents = { uid1: { componentName: 'cm1' } };
@@ -111,7 +117,7 @@ describe('LayoutPersonalizationService', () => {
         uid: 'uid2',
         personalization: { hiddenByDefault: false, defaultComponent: null },
       };
-      getPersonalizationDecisionsStub.returns(
+      personalizationDecisionsServiceStub.getPersonalizationDecisions.returns(
         Promise.resolve({
           renderings: {
             uid1: { variantKey: null },
@@ -140,7 +146,9 @@ describe('LayoutPersonalizationService', () => {
         personalization: { hiddenByDefault: false, defaultComponent: null },
       };
       const error = new Error('I am Error!');
-      getPersonalizationDecisionsStub.returns(Promise.reject(error));
+      personalizationDecisionsServiceStub.getPersonalizationDecisions.returns(
+        Promise.reject(error)
+      );
 
       const result = await layoutPersonalizationService.personalizeComponents(context, [
         personalizedRendering1,
@@ -150,10 +158,10 @@ describe('LayoutPersonalizationService', () => {
       expect(console.error).to.have.been.called.with(error);
       expect(result).to.deep.equals({ uid1: null, uid2: null });
       expect(
-        layoutPersonalizationUtils.buildPersonalizedFragment.getCall(0).args[1]
+        layoutPersonalizationUtilsStub.buildPersonalizedFragment.getCall(0).args[1]
       ).to.deep.equals({ uid1: undefined, uid2: undefined });
       expect(
-        layoutPersonalizationUtils.buildPersonalizedFragment.getCall(1).args[1]
+        layoutPersonalizationUtilsStub.buildPersonalizedFragment.getCall(1).args[1]
       ).to.deep.equals({ uid1: undefined, uid2: undefined });
     });
 
@@ -168,7 +176,7 @@ describe('LayoutPersonalizationService', () => {
         uid: 'uid2',
         personalization: { hiddenByDefault: false, defaultComponent: null },
       };
-      getPersonalizationDecisionsStub.returns(
+      personalizationDecisionsServiceStub.getPersonalizationDecisions.returns(
         Promise.resolve({
           renderings: {
             uid1: { variantKey: 'var1' },
@@ -177,12 +185,12 @@ describe('LayoutPersonalizationService', () => {
         })
       );
 
-      fetchLayoutFragmentDataStub
+      layoutFragmentServiceStub.fetchLayoutFragmentData
         .withArgs(context.routePath, context.language, personalizedRendering1.uid, 'var1')
         .returns(
           Promise.resolve({ fragment: { componentName: 'comp1', uid: personalizedRendering1.uid } })
         );
-      fetchLayoutFragmentDataStub
+      layoutFragmentServiceStub.fetchLayoutFragmentData
         .withArgs(context.routePath, context.language, personalizedRendering2.uid, 'var2')
         .returns(
           Promise.resolve({ fragment: { componentName: 'comp2', uid: personalizedRendering2.uid } })
@@ -210,7 +218,7 @@ describe('LayoutPersonalizationService', () => {
         uid: 'uid2',
         personalization: { hiddenByDefault: false, defaultComponent: null },
       };
-      getPersonalizationDecisionsStub.returns(
+      personalizationDecisionsServiceStub.getPersonalizationDecisions.returns(
         Promise.resolve({
           renderings: {
             uid1: { variantKey: 'var1' },
@@ -219,13 +227,13 @@ describe('LayoutPersonalizationService', () => {
         })
       );
 
-      fetchLayoutFragmentDataStub
+      layoutFragmentServiceStub.fetchLayoutFragmentData
         .withArgs(context.routePath, context.language, personalizedRendering1.uid, 'var1')
         .returns(
           Promise.resolve({ fragment: { componentName: 'comp1', uid: personalizedRendering1.uid } })
         );
       const error = new Error('I am Error!');
-      fetchLayoutFragmentDataStub
+      layoutFragmentServiceStub.fetchLayoutFragmentData
         .withArgs(context.routePath, context.language, personalizedRendering2.uid, 'var2')
         .returns(Promise.reject(error));
 
@@ -239,7 +247,7 @@ describe('LayoutPersonalizationService', () => {
         uid2: null,
       });
       expect(
-        layoutPersonalizationUtils.buildPersonalizedFragment.getCall(1).args[1]
+        layoutPersonalizationUtilsStub.buildPersonalizedFragment.getCall(1).args[1]
       ).to.deep.equals({
         uid1: { componentName: 'comp1', uid: personalizedRendering1.uid },
         uid2: undefined,

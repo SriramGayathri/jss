@@ -19,7 +19,6 @@ export {
   ComponentFields,
   ComponentParams,
   LayoutPersonalizationService,
-  PersonalizationResult,
   LayoutPersonalizationUtils,
   LayoutFragmentData,
   LayoutFragmentService,

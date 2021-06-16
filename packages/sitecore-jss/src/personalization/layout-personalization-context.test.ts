@@ -9,8 +9,20 @@ use(spies);
 use(chaiAsPromised);
 
 describe('SitecorePersonalizationContext', () => {
+  describe('isTracked', () => {
+    [true, false].forEach((isTracked) => {
+      it(`should return ${isTracked} which passed to ctor`, () => {
+        const personalizationContext = new SitecorePersonalizationContext(
+          Promise.resolve({}),
+          isTracked
+        );
+        expect(personalizationContext.isTracked).equal(isTracked);
+      });
+    });
+  });
+
   describe('ensurePersonalizedComponentLoaded', () => {
-    it('should return error if personalizationResult is rejected', () => {
+    it('should return error if personalizationOperation is rejected', () => {
       const personalizationContext = new SitecorePersonalizationContext(
         Promise.reject('testError'),
         true
@@ -20,7 +32,7 @@ describe('SitecorePersonalizationContext', () => {
       );
     });
 
-    it('should return component from personalizationResult', async () => {
+    it('should return component after personalizationOperation is resolved', async () => {
       const personalizationContext = new SitecorePersonalizationContext(
         Promise.resolve({
           test1: { componentName: 'cn1' },
@@ -33,7 +45,7 @@ describe('SitecorePersonalizationContext', () => {
       expect(result).to.be.deep.equal({ componentName: 'cn1' });
     });
 
-    it('should return null if component not found in personalizationResult', async () => {
+    it('should return null if component not found in personalizationOperation result', async () => {
       const personalizationContext = new SitecorePersonalizationContext(
         Promise.resolve({
           test1: { componentName: 'cn1' },
@@ -48,7 +60,7 @@ describe('SitecorePersonalizationContext', () => {
   });
 
   describe('isLoading', () => {
-    it('should return true if personalizedComponents is not yet resolved', () => {
+    it('should return true if components is not yet resolved', () => {
       const personalizationContext = new SitecorePersonalizationContext(
         new Promise((resolve) => setTimeout(() => resolve({}), 1)),
         true
@@ -59,7 +71,7 @@ describe('SitecorePersonalizationContext', () => {
       expect(result).is.true;
     });
 
-    it('should return false if personalizedComponents are defined', async () => {
+    it('should return false if components are resolved', async () => {
       const personalizationOperation = Promise.resolve({
         uid1: {
           componentName: 'cn1',
@@ -80,9 +92,39 @@ describe('SitecorePersonalizationContext', () => {
   });
 
   describe('getPersonalizedComponent', () => {
-    it('should return undefined if personalizedComponents is not defined', async () => {
+    it('should return undefined if components was not resolved', async () => {
+      const personalizationOperation = Promise.reject('error');
+      const personalizationContext = new SitecorePersonalizationContext(
+        personalizationOperation,
+        true
+      );
+      try {
+        await personalizationOperation;
+      } catch {
+        // wait personalization operation processed
+      }
+
+      const result = personalizationContext.getPersonalizedComponent('testUid');
+
+      expect(result).is.undefined;
+    });
+
+    it('should return undefined while personalizationOperation is resolving', () => {
+      const personalizationContext = new SitecorePersonalizationContext(
+        new Promise((resolve) =>
+          setTimeout(() => resolve({ testUid: { componentName: 'cn' } }), 1)
+        ),
+        true
+      );
+
+      const result = personalizationContext.getPersonalizedComponent('testUid');
+
+      expect(result).is.undefined;
+    });
+
+    it('should return undefined if component is not defined', async () => {
       const personalizationOperation = Promise.resolve({
-        test2: { componentName: 'cn2' },
+        testUid: { componentName: 'cn2', uid: 'testUid' },
       });
       const personalizationContext = new SitecorePersonalizationContext(
         personalizationOperation,
@@ -90,7 +132,7 @@ describe('SitecorePersonalizationContext', () => {
       );
       await personalizationOperation;
 
-      const result = personalizationContext.getPersonalizedComponent('test');
+      const result = personalizationContext.getPersonalizedComponent('otherTestUid');
 
       expect(result).is.undefined;
     });

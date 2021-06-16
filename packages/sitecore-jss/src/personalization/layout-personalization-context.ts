@@ -14,12 +14,11 @@ export interface SitecorePersonalizationContextState {
 }
 
 export class SitecorePersonalizationContext implements SitecorePersonalizationContextState {
-  components?: { [key: string]: ComponentRendering | null };
-  personalizationOperation: Promise<{
+  public isTracked: boolean;
+  private components?: { [key: string]: ComponentRendering | null };
+  private personalizationOperation: Promise<{
     [key: string]: ComponentRendering | null;
   }>;
-
-  isTracked: boolean;
 
   constructor(
     personalizationOperation: Promise<{
@@ -65,9 +64,6 @@ export class SitecorePersonalizationContext implements SitecorePersonalizationCo
     componentUid: string
   ): Promise<ComponentRendering | null> {
     const personalizedComponents = await this.personalizationOperation;
-    if (!personalizedComponents) {
-      return null;
-    }
 
     return personalizedComponents[componentUid] ?? null;
   }

@@ -7,7 +7,7 @@ export interface RenderingPersonalizationDecision {
   /**
    * The variant key
    */
-  variantKey?: string;
+  variantKey?: string | null;
   /**
    * The error message
    */

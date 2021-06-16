@@ -44,10 +44,7 @@ export { GraphQLLayoutService, GraphQLLayoutServiceConfig } from './layout/graph
 
 export { LayoutPersonalizationUtils } from './personalization/layout-personalization-utils';
 
-export {
-  LayoutPersonalizationService,
-  PersonalizationResult,
-} from './personalization/layout-personalization-service';
+export { LayoutPersonalizationService } from './personalization/layout-personalization-service';
 
 export {
   SitecorePersonalizationContext,

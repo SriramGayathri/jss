@@ -10,13 +10,6 @@ import {
   SitecorePersonalizationContextState,
 } from './layout-personalization-context';
 
-export interface PersonalizationResult {
-  /**
-   * A value that indicates whether a route is personalizable
-   */
-  isPersonalizable: boolean;
-}
-
 export interface PersonalizationContext {
   /**
    * The route path
