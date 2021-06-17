@@ -120,6 +120,11 @@ export class LayoutPersonalizationService {
     const personalizedFragmentsRequests: Promise<void>[] = [];
 
     for (const [renderingId, decision] of Object.entries(renderingsDecisions)) {
+      const errorMessage = decision?.errorMessage;
+      if (errorMessage) {
+        console.debug(errorMessage);
+      }
+
       const variantKey = decision?.variantKey;
       if (variantKey) {
         // load fragments in parallel
