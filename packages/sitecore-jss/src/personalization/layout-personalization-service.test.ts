@@ -35,7 +35,7 @@ describe('LayoutPersonalizationService', () => {
   };
 
   beforeEach(() => {
-    spy.on(console, ['error', 'debug']);
+    spy.on(console, 'debug');
     personalizationDecisionsServiceStub = createSinonStubInstance(PersonalizationDecisionsService);
     layoutFragmentServiceStub = stub({} as LayoutFragmentService);
     layoutFragmentServiceStub.fetchLayoutFragmentData = stub();
@@ -159,7 +159,7 @@ describe('LayoutPersonalizationService', () => {
         personalizedRendering2,
       ]);
 
-      expect(console.error).to.have.been.called.with(error);
+      expect(console.debug).to.have.been.called.with(error);
       expect(result).to.deep.equals({ uid1: null, uid2: null });
       expect(
         layoutPersonalizationUtilsStub.buildPersonalizedFragment.getCall(0).args[1]
@@ -256,7 +256,7 @@ describe('LayoutPersonalizationService', () => {
         uid1: { componentName: 'comp1', uid: personalizedRendering1.uid },
         uid2: undefined,
       });
-      expect(console.error).to.have.been.called.with(error);
+      expect(console.debug).to.have.been.called.with(error);
     });
   });
 });

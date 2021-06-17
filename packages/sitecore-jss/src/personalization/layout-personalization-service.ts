@@ -88,7 +88,7 @@ export class LayoutPersonalizationService {
       personalizedFragments = await this.resolveFragments(personalizationDecisionsResult, context);
     } catch (error) {
       // catch all errors on getting a personalization decision
-      console.error(error);
+      console.debug(error);
       // default will be used for unresolved fragments
       personalizedRenderingIds.forEach((id) => (personalizedFragments[id] = undefined));
     }
@@ -135,7 +135,7 @@ export class LayoutPersonalizationService {
               personalizedFragments[renderingId] = fr.fragment;
             })
             .catch((error) => {
-              console.error(error);
+              console.debug(error);
 
               // default will be used in case failed to resolve the fragment
               personalizedFragments[renderingId] = undefined;
