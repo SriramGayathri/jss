@@ -77,7 +77,7 @@ export const getJssEditingSecret = (): string => {
  *
  */
 /**
- * @param router
+ * @param {NextRouter} router
  */
 export function areQueryParamsReady(router: NextRouter): boolean {
   if (!router) {

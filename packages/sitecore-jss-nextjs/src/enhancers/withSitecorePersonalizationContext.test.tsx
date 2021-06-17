@@ -1,18 +1,9 @@
 /* eslint-disable no-unused-expressions */
 import React from 'react';
 import { LayoutPersonalizationService, RouteData } from '@sitecore-jss/sitecore-jss';
-import {
-  createStubInstance,
-  SinonStubbedInstance,
-  StubbableType,
-  SinonStubbedMember,
-  stub,
-  SinonSpy,
-  createSandbox,
-  SinonStub,
-} from 'sinon';
+import { use, expect, spy } from 'chai';
+import spies from 'chai-spies';
 import { mount } from 'enzyme';
-import { expect } from 'chai';
 import { withSitecorePersonalizationContext } from './withSitecorePersonalizationContext';
 import { SitecorePersonalizationContextProps } from '@sitecore-jss/sitecore-jss-react';
 import { RouterContext } from 'next/dist/next-server/lib/router-context';
@@ -20,13 +11,13 @@ import * as SitecoreJssReact from '@sitecore-jss/sitecore-jss-react';
 import * as SitecoreJss from '@sitecore-jss/sitecore-jss';
 import * as SitecoreUtils from '../utils';
 
+use(spies);
+
 describe('withSitecorePersonalizationContext', () => {
-  const sandbox = createSandbox();
-  let layoutPersonalizationServiceStub: StubbedClass<LayoutPersonalizationService>;
+  const sandbox = spy.sandbox();
   let testComponentProps: SitecorePersonalizationContextProps;
-  let withSitecorePersonalizationContextFake: SinonSpy;
-  let areQueryParamsReadyStub: SinonStub;
-  let isServerStub: SinonStub;
+  let withSitecorePersonalizationContextSpy: ChaiSpies.SpyFunc0Proxy<JSX.Element>;
+
   const router = {
     pathname: '/',
     route: '/',
@@ -35,18 +26,21 @@ describe('withSitecorePersonalizationContext', () => {
     components: {},
     isFallback: false,
     basePath: '',
-    events: { emit: stub(), off: stub(), on: stub() },
-    push: stub().callsFake(() => Promise.resolve(true)),
-    replace: stub().callsFake(() => Promise.resolve(true)),
-    reload: stub(),
-    back: stub(),
-    prefetch: stub().callsFake(() => Promise.resolve()),
-    beforePopState: stub(),
+    events: { emit: spy(), off: spy(), on: spy() },
+    push: spy(() => Promise.resolve(true)),
+    replace: spy(() => Promise.resolve(true)),
+    reload: spy(),
+    back: spy(),
+    prefetch: spy(() => Promise.resolve()),
+    beforePopState: spy(),
   };
   let TestComponentWithContext: React.FC<SitecorePersonalizationContextProps>;
 
+  afterEach(function() {
+    sandbox.restore();
+  });
+
   beforeEach(() => {
-    layoutPersonalizationServiceStub = createSinonStubInstance(LayoutPersonalizationService);
     testComponentProps = {
       layoutData: {
         sitecore: {
@@ -58,26 +52,23 @@ describe('withSitecorePersonalizationContext', () => {
       isPersonalizationSuppressed: false,
       tracked: false,
     };
-    withSitecorePersonalizationContextFake = sandbox.fake(() => <div />);
-    sandbox
-      .stub(SitecoreJssReact, 'withSitecorePersonalizationContext')
-      .returns(withSitecorePersonalizationContextFake);
-    areQueryParamsReadyStub = sandbox.stub(SitecoreUtils, 'areQueryParamsReady');
-    isServerStub = sandbox.stub(SitecoreJss, 'isServer').returns(false);
+
+    withSitecorePersonalizationContextSpy = spy(() => <div />);
+    sandbox.on(
+      SitecoreJssReact,
+      'withSitecorePersonalizationContext',
+      () => withSitecorePersonalizationContextSpy
+    );
 
     TestComponentWithContext = withSitecorePersonalizationContext(
       () => <div />,
-      layoutPersonalizationServiceStub
+      {} as LayoutPersonalizationService
     );
-  });
-
-  afterEach(function() {
-    sandbox.restore();
   });
 
   it('should set suppress personalization when query params are not ready and not server rendering', () => {
-    areQueryParamsReadyStub.returns(false);
-    isServerStub.returns(false);
+    sandbox.on(SitecoreUtils, 'areQueryParamsReady', () => false);
+    sandbox.on(SitecoreJss, 'isServer', () => false);
 
     mount(
       <RouterContext.Provider value={router}>
@@ -85,19 +76,16 @@ describe('withSitecorePersonalizationContext', () => {
       </RouterContext.Provider>
     );
 
-    const call = withSitecorePersonalizationContextFake.getCall(0);
-    expect(call).not.null;
-    const props = call.args[0] as SitecorePersonalizationContextProps;
-    expect(props.isPersonalizationSuppressed).to.be.true;
-    expect(props).deep.equals({ ...testComponentProps, isPersonalizationSuppressed: true });
-    const areQueryParamsReadyCall = areQueryParamsReadyStub.getCall(0);
-    expect(areQueryParamsReadyCall).not.null;
-    expect(areQueryParamsReadyCall.args[0]).equal(router);
+    expect(SitecoreUtils.areQueryParamsReady).have.been.called.with(router);
+    expect(withSitecorePersonalizationContextSpy).to.have.been.called.with({
+      ...testComponentProps,
+      isPersonalizationSuppressed: true,
+    });
   });
 
   it('should not suppress personalization when query params are ready and not server rendering', () => {
-    areQueryParamsReadyStub.returns(true);
-    isServerStub.returns(false);
+    sandbox.on(SitecoreUtils, 'areQueryParamsReady', () => true);
+    sandbox.on(SitecoreJss, 'isServer', () => false);
 
     mount(
       <RouterContext.Provider value={router}>
@@ -105,16 +93,15 @@ describe('withSitecorePersonalizationContext', () => {
       </RouterContext.Provider>
     );
 
-    const call = withSitecorePersonalizationContextFake.getCall(0);
-    expect(call).not.null;
-    const props = call.args[0] as SitecorePersonalizationContextProps;
-    expect(props.isPersonalizationSuppressed).to.be.false;
-    expect(props).deep.equals({ ...testComponentProps });
+    expect(withSitecorePersonalizationContextSpy).to.have.been.called.with({
+      ...testComponentProps,
+      isPersonalizationSuppressed: false,
+    });
   });
 
   it('should not suppress personalization when query params are not ready and server rendering', () => {
-    areQueryParamsReadyStub.returns(false);
-    isServerStub.returns(true);
+    sandbox.on(SitecoreUtils, 'areQueryParamsReady', () => false);
+    sandbox.on(SitecoreJss, 'isServer', () => true);
 
     mount(
       <RouterContext.Provider value={router}>
@@ -122,21 +109,9 @@ describe('withSitecorePersonalizationContext', () => {
       </RouterContext.Provider>
     );
 
-    const call = withSitecorePersonalizationContextFake.getCall(0);
-    expect(call).not.null;
-    const props = call.args[0] as SitecorePersonalizationContextProps;
-    expect(props.isPersonalizationSuppressed).to.be.false;
-    expect(props).deep.equals({ ...testComponentProps });
+    expect(withSitecorePersonalizationContextSpy).to.have.been.called.with({
+      ...testComponentProps,
+      isPersonalizationSuppressed: false,
+    });
   });
 });
-
-export type StubbedClass<T> = SinonStubbedInstance<T> & T;
-
-// Cannot createStubInstance on class with private members https://github.com/sinonjs/sinon/issues/1963
-export const createSinonStubInstance = function<T>(
-  constructor: StubbableType<T>,
-  overrides?: { [K in keyof T]?: SinonStubbedMember<T[K]> }
-): StubbedClass<T> {
-  const stub = createStubInstance<T>(constructor, overrides);
-  return (stub as unknown) as StubbedClass<T>;
-};

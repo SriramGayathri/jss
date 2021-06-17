@@ -8,13 +8,13 @@ import {
 import { areQueryParamsReady } from '../utils';
 
 /**
- * @param Component
- * @param layoutPersonalizationService
+ * @param {React.ComponentClass<T> | React.SFC<T>} Component
+ * @param {LayoutPersonalizationService} layoutPersonalizationService
  */
 export function withSitecorePersonalizationContext<T extends SitecorePersonalizationContextProps>(
   Component: React.ComponentClass<T> | React.SFC<T>,
   layoutPersonalizationService: LayoutPersonalizationService
-) {
+): (props: T) => JSX.Element {
   const WrappedComponent = reactWithSitecorePersonalizationContext(
     Component,
     layoutPersonalizationService
