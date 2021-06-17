@@ -19,7 +19,7 @@ export function withCurrentPageTracking<T extends SitecorePageProps>(
       route.layoutId !== 'available-in-connected-mode' &&
       !props.tracked
     ) {
-      trackingService.trackCurrentPage(props.layoutData?.sitecore.context);
+      trackingService.trackCurrentPage(props.layoutData?.sitecore.context, route);
     }
     return <Component {...props} />;
   };
