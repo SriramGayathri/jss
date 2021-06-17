@@ -24,7 +24,7 @@ export interface DecisionsContext {
    */
   language: string;
   /**
-   * The rendering identifiers to get layout for the personalized component
+   * The unique identifiers of the personalizable renderings to get layout for
    */
   renderingIds: string[];
 }
