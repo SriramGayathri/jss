@@ -1,7 +1,6 @@
 import { usePersonalization, withComponentFactory } from '@sitecore-jss/sitecore-jss-nextjs';
 import { useI18n } from 'next-localization';
 import { StyleguideComponentProps } from 'lib/component-props';
-import React from 'react';
 
 const PersonalizationLoadingComponent = (props: StyleguideComponentProps): JSX.Element | null => {
   const { t } = useI18n();
