@@ -77,14 +77,9 @@ export type PersonalizationDecisionsServiceConfig = {
  * Uses Axios as the default data fetcher (@see AxiosDataFetcher).
  */
 export class PersonalizationDecisionsService {
-  public isTrackingEnabled: boolean;
-  private serviceConfig: PersonalizationDecisionsServiceConfig;
-  private readonly fetcher: HttpDataFetcher<PersonalizationDecisionData>;
+  protected readonly fetcher: HttpDataFetcher<PersonalizationDecisionData>;
 
-  constructor(personalicationDecisionsserviceConfig: PersonalizationDecisionsServiceConfig) {
-    this.serviceConfig = personalicationDecisionsserviceConfig;
-    this.isTrackingEnabled = personalicationDecisionsserviceConfig.isTrackingEnabled ?? true;
-
+  constructor(protected serviceConfig: PersonalizationDecisionsServiceConfig) {
     if (this.serviceConfig.fetcher) {
       this.fetcher = this.serviceConfig.fetcher;
     } else {
@@ -98,6 +93,14 @@ export class PersonalizationDecisionsService {
   }
 
   /**
+   * Provides a value that indicates whether tracking is enabled.
+   * @returns {boolean} The value that indicates whether tracking is enabled.
+   */
+  isTrackingEnabled(): boolean {
+    return this.serviceConfig.isTrackingEnabled ?? true;
+  }
+
+  /**
    * Gets personalization decisions.
    * @param {DecisionsContext} context The decisions context
    * @returns {Promise<PersonalizationDecisionData>} The personalization decision data
@@ -106,7 +109,7 @@ export class PersonalizationDecisionsService {
     const queryParams = {
       sc_apikey: this.serviceConfig.apiKey,
       sc_site: this.serviceConfig.siteName,
-      tracking: this.isTrackingEnabled,
+      tracking: this.isTrackingEnabled(),
     };
     if (this.serviceConfig.currentPageParamsToExtract) {
       Object.assign(

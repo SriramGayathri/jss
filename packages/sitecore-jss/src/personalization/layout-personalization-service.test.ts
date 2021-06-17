@@ -89,11 +89,13 @@ describe('LayoutPersonalizationService', () => {
       layoutPersonalizationService.personalizeComponents = stub()
         .withArgs(context, personalizedRendering)
         .returns(personalizeResult);
+      personalizationDecisionsServiceStub.isTrackingEnabled.returns(true);
 
       const result = layoutPersonalizationService.startPersonalization(context, routeData);
       await personalizeResult;
 
       expect(result).not.undefined;
+      expect(result!.isTracked).is.true;
       expect(result!.isLoading('uid1')).to.be.false;
       expect(result!.getPersonalizedComponent('uid1')).to.be.deep.equal(personalizeComponents.uid1);
     });

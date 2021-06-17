@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-expressions */
 import { expect, use } from 'chai';
 import spies from 'chai-spies';
 import {
@@ -23,6 +24,29 @@ interface Global {
 declare const global: Global;
 
 describe('PersonalizationDecisionsService', () => {
+  describe('isTrackingEnabled', () => {
+    it('should be true if not specified in config', () => {
+      const decisionsService = new PersonalizationDecisionsService({
+        apiKey: 'testApiKey',
+        siteName: 'testSiteName',
+      });
+
+      expect(decisionsService.isTrackingEnabled()).to.be.true;
+    });
+
+    [true, false].forEach((value) => {
+      it(`should be ${value} from config`, () => {
+        const decisionsService = new PersonalizationDecisionsService({
+          apiKey: 'testApiKey',
+          siteName: 'testSiteName',
+          isTrackingEnabled: value,
+        });
+
+        expect(decisionsService.isTrackingEnabled()).equal(value);
+      });
+    });
+  });
+
   describe('getPersonalizationDecisions', () => {
     let mock: MockAdapter;
     let stubDataFetcher: Sinon.SinonStub;

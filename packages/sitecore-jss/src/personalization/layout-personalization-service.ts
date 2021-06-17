@@ -55,7 +55,7 @@ export class LayoutPersonalizationService {
       },
       personalizedRenderings
     );
-    const isTracked = this.personalizationDecisionsService.isTrackingEnabled;
+    const isTracked = this.personalizationDecisionsService.isTrackingEnabled();
 
     return new SitecorePersonalizationContext(personalizationOperation, isTracked);
   }
