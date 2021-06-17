@@ -5,7 +5,7 @@ import { extractQueryStringParams } from '../utils/extract-querystring-params';
 
 export interface RenderingPersonalizationDecision {
   /**
-   * The variant key to get layout for the personalized component
+   * The unique key of the variant of personalized component layout
    */
   variantKey?: string | null;
   /**
@@ -31,7 +31,7 @@ export interface DecisionsContext {
 
 export interface PersonalizationDecisionData {
   /**
-   * The rendering identifiers of layouts for the personalized component
+   * The personalization decisions for each personalizable rendering
    */
   renderings: {
     [renderingId: string]: RenderingPersonalizationDecision;
