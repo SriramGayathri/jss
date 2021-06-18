@@ -2,10 +2,10 @@ import {
   isServer,
   LayoutPersonalizationService,
   withSitecorePersonalizationContext,
+  areQueryParamsReady,
 } from '@sitecore-jss/sitecore-jss-nextjs';
 import { TrackingService } from '../../../../packages/sitecore-jss-tracking/types';
 import { SitecorePageProps } from 'lib/page-props';
-import { areQueryParamsReady } from '@sitecore-jss/sitecore-jss-nextjs';
 import { useRouter } from 'next/router';
 
 export function withCurrentPageTracking<T extends SitecorePageProps>(
