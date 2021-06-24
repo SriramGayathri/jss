@@ -1,21 +1,59 @@
-<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom">
-  <h5 class="my-0 mr-md-auto font-weight-normal">
-    <a routerLink="/" class="text-dark" class="logo"></a>
-  </h5>
-  <nav class="my-2 my-md-0 mr-md-3">
-    <a
-      class="p-2 text-dark"
-      href="https://jss.sitecore.com"
-      target="_blank"
-      rel="noopener noreferrer"
-    >
-      {{ 'Documentation' | translate }}
-    </a>
-    <a routerLink="/styleguide" class="p-2 text-dark">
-      {{ 'Styleguide' | translate }}
-    </a>
-    <a routerLink="/graphql" class="p-2 text-dark">
-      {{ 'GraphQL' | translate }}
-    </a>
-  </nav>
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-center p-3 px-md-4">
+    <div class="d-flex align-items-center">
+        <div class="font-weight-normal">
+            <a routerLink="/" class="text-dark" class="logo d-flex align-items-center">
+                <img src="../../../assets/images/airside_logo.svg" class="mr-2">
+                <div class="d-flex flex-column logo-text">AIRSIDE <span>CARRER</span></div>
+            </a>
+        </div>
+        <nav class="navbar navbar-expand-lg navbar-light main-menu">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNavbar"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainNavbar">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="p-2 nav-link" href="/" rel="noopener noreferrer">
+                            {{ 'HOME' | translate }} <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/styleguide" class="nav-link p-2">
+                            {{ 'CARRER' | translate }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/graphql" class="nav-link p-2">
+                            {{ 'LEARNING' | translate }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/styleguide" class="nav-link p-2">
+                            {{ 'MAGAZINE' | translate }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a routerLink="/styleguide" class="nav-link p-2">
+                            {{ 'COMMUNITY' | translate }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+        </nav>
+
+    </div>
+    <nav class="d-flex align-items-center">
+        <div class="sign-in mr-3">
+            <a href="#"> Sign In </a>
+        </div>
+        <!---->
+        <div class="create-account">
+            <button class="btn btn-primary create-account-button rebrand">
+                <span class="not-mobile-only">Create Account</span>
+            </button>
+        </div>
+        <!---->
+    </nav>
 </div>

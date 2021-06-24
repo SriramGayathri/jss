@@ -10,6 +10,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NavigationComponent } from './navigation/navigation.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { VisitorIdentificationComponent } from './visitor-identification/visitor-identification.component';
+import { SubNavigationComponent } from './sub-navigation/sub-navigation.component';
+import { HeaderComponent } from './header/header.component';
 
 // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function jssRouteMatcher(url: UrlSegment[]): UrlMatchResult {
@@ -62,7 +64,9 @@ const routes: Routes = [
     ServerErrorComponent,
     LayoutComponent,
     NavigationComponent,
-    VisitorIdentificationComponent
+    VisitorIdentificationComponent,
+    SubNavigationComponent,
+    HeaderComponent
   ],
   providers: [
     JssRouteResolver,

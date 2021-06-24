@@ -1,22 +1,46 @@
+// @use 'variables';
+@import url('assets/scss/abstract/_variables.scss');
+
+
+@font-face {
+  font-family: 'Barlow Condensed';
+  src: url('assets/fonts/BarlowCondensed.woff2');
+}
+@font-face {
+  font-family: Termina-Bold;
+  src: url(./assets/fonts/termina-bold.woff2) format("woff2");     
+  font-weight: 800;
+  font-style: normal;
+}
+@font-face {
+  font-family: Barlow-lt;
+  src: url(./assets/fonts/Barlow-lt.woff2) format("woff2");     
+  font-weight: 400;
+  font-style: normal;
+}
+
 /*
   Hides Sitecore Experience Editor markup,
   if you run the app in connected mode while the Sitecore cookies
   are set to edit mode.
 */
-a[target='_blank'] {
-	&:after {
-		content: '\1F5D7';
-	}
+.scChromeData, .scpm { display: none !important; }
+
+.btn-primary{
+  background-color: #ffd616;
+  color: #29394b;
+  font-family: 'Barlow Condensed',Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  height: 36px;
+  letter-spacing: unset;
+  line-height: 16px;
+  padding: 10px 24px;
+  text-transform: uppercase;
+  border: 0;
 }
-.logo {
-	background-image: url('assets/images/sc_logo.svg');
-	display: block;
-	height: 48px;
-	width: 221px;
+.btn-primary:hover{
+  background-color: #ffd616;
+  color: #29394b;
 }
-.scChromeData {
-	display: none !important;
-}
-.scpm {
-	display: none !important;
-}
+

@@ -27,7 +27,10 @@
               "node_modules/bootstrap/scss/bootstrap.scss",
               "src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.js"
+            ],
             "allowedCommonJsDependencies": [
               "@sitecore-jss/sitecore-jss",
               "zen-observable",
@@ -86,7 +89,7 @@
             "karmaConfig": "./karma.conf.js",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
-            "scripts": [],
+            "scripts": [ ],
             "styles": [
               "src/styles.scss"
             ],
