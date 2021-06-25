@@ -1,0 +1,13 @@
+id: job-3
+displayName: job 3
+# Template defines the available fields. See /sitecore/definitions/templates/Styleguide-ContentList-Template.sitecore.js
+template: JobBanner
+fields:
+  jobTitle: Senior Manager in Fleet Engineering (Avionics)
+  postedTime: 30min. ago
+  employer: BAMBOO AIRWAYS
+  country: Vietnam
+  ViewJobBtn:
+    href: https://www.sitecore.com
+    target: _blank
+    text: VIEW JOB

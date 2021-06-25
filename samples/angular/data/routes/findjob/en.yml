@@ -1,0 +1,18 @@
+fields:
+  pageTitle: Find a Detail
+placeholders:
+  jss-main:
+  - componentName: Findjob
+    fields:
+      heading: FIND A JOB
+      allJob_list:
+        - id: job-1
+        - id: job-2
+        - id: job-3
+      loadMoreJobsBtn:
+        href: https://www.sitecore.com
+        target: _blank
+        text: LOAD MORE JOBS
+
+
+       

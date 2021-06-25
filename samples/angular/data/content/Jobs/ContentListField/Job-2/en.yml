@@ -1,0 +1,13 @@
+id: job-2
+displayName: job 2
+# Template defines the available fields. See /sitecore/definitions/templates/Styleguide-ContentList-Template.sitecore.js
+template: JobBanner
+fields:
+  jobTitle: Airframe / Powerplant / Avionic Aircraft Engineers 
+  postedTime: 30min ago
+  employer: CHINA EXPRESS AIR 
+  country: China 
+  ViewJobBtn:
+    href: https://www.sitecore.com
+    target: _blank
+    text: VIEW JOB

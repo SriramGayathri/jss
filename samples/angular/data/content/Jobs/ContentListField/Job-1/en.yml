@@ -1,0 +1,41 @@
+id: job-1
+displayName: job 1
+# Template defines the available fields. See /sitecore/definitions/templates/Styleguide-ContentList-Template.sitecore.js
+template: JobBanner
+fields:
+  jobTitle: MANAGER ENGINEERING - AVIONICS
+  postedTime: 30min ago
+  employer: XIAMEN AIRLINES
+  country: Fujian, China 
+  ViewJobBtn:
+    href: https://www.sitecore.com
+    target: _blank
+    text: VIEW JOB
+  applyPartnerBtn:
+    href: https://www.sitecore.com
+    target: _blank
+    text: APPLY ON PARTNER WEBSITE
+  savetoFavorites: SAVE TO FAVIORTES
+  jobReferenceLabel: Job Reference
+  jobReferenceValue: 24608
+  locatonLabel: Location
+  locationeValue: Fujian, China
+  jobTypeLabel: Job Type
+  jobTypeValue: Direct hire
+  addressLabel: Address
+  addressValue: FLC Landmark Tower,Le Duc Tho street,Hanoi
+  jobDescriptionLabel: Job description
+  jobDescriptionValue: |
+        <p>To impart trainings for the issue of a Private Pilot License</p>
+        <p>To impart trainings for the issue of a Private Pilot License</p>
+        <p>To impart trainings for the issue of a Private Pilot License</p>
+        <p>To impart trainings for the issue of a Private Pilot License</p>
+  minimumRequirementsLabel: Minimum Requirememts
+  minimumRequirementsValue: |
+        <div>Current CPL/IR or ATPL
+        Flight Instructor Rating
+        Must have a flight record free of any accident attributable to proficiency in handling any type of aircraft.
+        "CAE Parc Aviation is an Equal Opportunities Employer.
+        Personal data provided by applicants will be used strictly in accordance with our personal data policy. Please review the CAE Inc Privacy Policy https: https://www.cae.com/privacy-policy/
+        If you are registering on our website, you will be directed to our local privacy policy.
+        Alternatively, for a copy of the local privacy policy please contact our DPO: parc-dpo@cae.com.”</div>

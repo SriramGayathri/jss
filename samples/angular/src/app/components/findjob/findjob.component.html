@@ -1,0 +1,11 @@
+<div>
+  findjob JSS Component
+  <div *scRichText="rendering.fields.heading"></div>
+  <div *ngFor="let val of rendering.fields.allJob_list">
+    <div *scText="val.fields.jobTitle"></div>
+    <div *scText="val.fields.postedTime"></div>
+    <div *scText="val.fields.employer"></div>
+    <div *scText="val.fields.country"></div>
+    <div *scText="val.fields.ViewJobBtn.value.text"></div>
+  </div>
+</div>

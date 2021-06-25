@@ -11,6 +11,8 @@ export default function ContentBlock(manifest: Manifest) {
     fields: [
       { name: 'heading', type: CommonFieldTypes.SingleLineText },
       { name: 'content', type: CommonFieldTypes.RichText },
+      { name: 'createAccountBtn', type: CommonFieldTypes.GeneralLink },
+      { name: 'viewJobstBtn', type: CommonFieldTypes.GeneralLink },
     ],
   });
 }

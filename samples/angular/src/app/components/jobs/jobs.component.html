@@ -1,0 +1,13 @@
+<div>
+  jobs JSS Component test
+  <!-- <div *scText="rendering.fields.job_list[0].fields.jobTitle"></div>
+  <div *scText="rendering.fields.job_list[0].fields.JobSubTitle"></div> -->
+
+  <div *ngFor="let val of rendering.fields.job_list">
+    <div *scText="val.fields.jobTitle"></div>
+    <div *scText="val.fields.postedTime"></div>
+    <div *scText="val.fields.employer"></div>
+    <div *scText="val.fields.country"></div>
+    <div *scText="val.fields.ViewJobBtn.value.text"></div>
+  </div>
+</div>

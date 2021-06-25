@@ -12,6 +12,12 @@ import { JssTranslationClientLoaderService } from './i18n/jss-translation-client
 import { JssTranslationLoaderService } from './i18n/jss-translation-loader.service';
 import { GraphQLModule } from './jss-graphql.module';
 import { JssDataFetcherService } from './jss-data-fetcher.service';
+import { JobsComponent } from './components/jobs/jobs.component';
+import { JssModule } from '@sitecore-jss/sitecore-jss-angular';
+import { ContentBlockComponent } from './components/content-block/content-block.component';
+import { JobBannerComponent } from './components/job-banner/job-banner.component';
+import { FindjobComponent } from './components/findjob/findjob.component';
+
 
 @NgModule({
   imports: [
@@ -22,6 +28,12 @@ import { JssDataFetcherService } from './jss-data-fetcher.service';
     GraphQLModule,
     MetaModule.forRoot(),
     RoutingModule,
+    JssModule.withComponents([
+      { name: 'jobs', type: JobsComponent },
+      { name: 'ContentBlock', type: ContentBlockComponent },
+      { name: 'JobBanner', type: JobBannerComponent },
+      { name: 'Findjob', type: FindjobComponent},
+    ]),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
