@@ -16,12 +16,14 @@
     font-size: 1.5rem;
 }
 
-nav.main-menu a{
+nav.main-menu a.nav-link{
     color: #9b9b9b;
     font-family: Barlow-lt;
     font-weight: 700;
+    font-size: 18px;
+    text-transform: uppercase;
 }
-nav.main-menu a:hover{
+nav.main-menu a.nav-link:hover{
     color: #fff;
     text-decoration: underline;
     text-underline-position: under;

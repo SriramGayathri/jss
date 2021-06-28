@@ -1,16 +1,18 @@
-<div class="d-flex flex-column flex-md-row justify-content-between align-items-center px-3 px-md-4 mb-3">
+<div class="container-fluid">
+<div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
   <nav class="my-2 my-md-0 mr-md-3 sub-menu d-flex">
-    <div *ngFor="let val of rendering.fields.submenu_list">
-      <div *ngIf="val.fields.NavLinks.value.text == 'Overview' ;else other_content">
-        <a class="p-3" href="{{val.fields.NavLinks.value.href}}" rel="noopener noreferrer">
+    <div *ngFor="let val of rendering.fields.submenu_list" class="d-flex">
+      <div *ngIf="val.fields.NavLinks.value.text == 'Overview' ;else other_content" class="d-flex">
+        <a class="" href="{{val.fields.NavLinks.value.href}}">
           {{ val.fields.NavLinks.value.text | translate }}
         </a>
       </div>
       <ng-template #other_content>
-        <a class="p-3" href="{{val.fields.NavLinks.value.href}}">
+        <a class="" href="{{val.fields.NavLinks.value.href}}">
           {{ val.fields.NavLinks.value.text | translate }}
         </a>
       </ng-template>
     </div>
   </nav>
+</div>
 </div>

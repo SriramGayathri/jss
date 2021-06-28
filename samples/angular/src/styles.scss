@@ -2,8 +2,8 @@
 @font-face {
   font-family: 'Barlow Condensed';
   src: url(./assets/fonts/BarlowCondensed.woff2) format("woff2");
- // font-weight: 800;
-  //font-style: normal;
+//  font-weight: 800;
+//   font-style: normal;
 }
 @font-face {
   font-family: Termina-Bold;
@@ -18,9 +18,16 @@
   font-style: normal;
 }
 
-@import url('assets/scss/abstract/_variables.scss');
+@import url('./assets/scss/abstract/_variables.scss');
 @import url('./assets/scss/page/_carrier.scss');
 
+
+.headerbg{
+    background-color: #1b2430;
+}
+.headerbgsub{
+    background-color: #2c3dbe;
+}
 .carrier-banner-bg{
   background-color: #202F8B ;
   color: white;
@@ -55,11 +62,15 @@ h3{
   are set to edit mode.
 */
 .scChromeData, .scpm { display: none !important; }
+.container, .container-fluid{
+  padding-left:32px;
+  padding-right: 32px;
+}
 
-.btn-primary{
+button.btn-primary {
   background-color: #ffd616;
   color: #29394b;
-  font-family: 'Barlow Condensed',Arial,sans-serif;
+  font-family: 'Barlow Condensed', Arial,sans-serif;
   font-size: 16px;
   font-weight: 700;
   height: 36px;

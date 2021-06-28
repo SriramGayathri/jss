@@ -1,13 +1,17 @@
 <!-- <app-header></app-header> -->
-<div class="container">
+<div class="">
   <ng-container *ngIf="state === LayoutState.Layout">
     <app-visitor-identification></app-visitor-identification>
-      <div class="headerbg" style="background-color: #1b2430;">
-      <sc-placeholder name="jss-nav" [rendering]="route" (loaded)="onPlaceholderLoaded($event)"></sc-placeholder>    
-      </div>
-      <div class="headerbgsub" style="background-color: #2c3dbe;">
-        <sc-placeholder name="jss-subnav" [rendering]="route" (loaded)="onPlaceholderLoaded($event)"></sc-placeholder>
-      </div>
+    <div class="headerbg" >
+      <sc-placeholder name="jss-nav" [rendering]="route" (loaded)="onPlaceholderLoaded($event)"></sc-placeholder>
+    </div>
+    <div class="headerbgsub">
+      <sc-placeholder name="jss-subnav" [rendering]="route" (loaded)="onPlaceholderLoaded($event)"></sc-placeholder>
+    </div>
+    <div class="carrier-banner-bg">
+      <sc-placeholder name="jss-banner" [rendering]="route" (loaded)="onPlaceholderLoaded($event)" class="d-flex">
+      </sc-placeholder>
+    </div>
     <sc-placeholder name="jss-main" [rendering]="route" (loaded)="onPlaceholderLoaded($event)"></sc-placeholder>
   </ng-container>
 

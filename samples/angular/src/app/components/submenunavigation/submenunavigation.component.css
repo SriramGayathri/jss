@@ -1,9 +1,22 @@
+
 .sub-menu a {
     color: #fff;
     font-family: Barlow-lt,Arial,sans-serif;
     font-weight: 500;
     height: 100%;
+    display: flex;
+    align-items: center;
+    margin-right: 24px;
+    border-bottom: 3px solid transparent;
+    border-top: 3px solid transparent;
+    min-height: 50px;
 }
+.sub-menu a:hover {
+    text-decoration: none;
+    
+    border-bottom: 3px solid #fff;
+}
+
 .sub-menu a:first-child {
-    padding-left: 0!important;
+    margin-left: 0!important;
 }
