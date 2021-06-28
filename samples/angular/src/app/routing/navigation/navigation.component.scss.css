@@ -21,7 +21,7 @@ nav.main-menu a{
     font-family: Barlow-lt;
     font-weight: 700;
 }
-nav.main-menu a:hover, nav.main-menu a:active, nav.main-menu .nav-item.active a{
+nav.main-menu a:hover{
     color: #fff;
     text-decoration: underline;
     text-underline-position: under;

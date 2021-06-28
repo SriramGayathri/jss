@@ -4,6 +4,7 @@ import { APP_BASE_HREF } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MetaModule } from '@ngx-meta/core';
 import { RoutingModule } from './routing/routing.module';
+import { FormsModule, ReactiveFormsModule  } from '@angular/forms';
 import { JssContextService } from './jss-context.service';
 import { AppComponentsModule } from './components/app-components.module';
 import { AppComponent } from './app.component';
@@ -18,12 +19,15 @@ import { ContentBlockComponent } from './components/content-block/content-block.
 import { JobBannerComponent } from './components/job-banner/job-banner.component';
 import { FindjobComponent } from './components/findjob/findjob.component';
 
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
   imports: [
     // withServerTransition is needed to enable universal rendering
     BrowserModule.withServerTransition({ appId: 'my-app' }),
-    BrowserTransferStateModule,
+    BrowserTransferStateModule,   
+    FormsModule, ReactiveFormsModule , 
+    NgMultiSelectDropDownModule.forRoot(),
+   
     HttpClientModule,
     GraphQLModule,
     MetaModule.forRoot(),

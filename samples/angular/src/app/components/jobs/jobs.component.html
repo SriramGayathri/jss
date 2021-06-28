@@ -1,13 +1,16 @@
 <div>
-  jobs JSS Component test
   <!-- <div *scText="rendering.fields.job_list[0].fields.jobTitle"></div>
   <div *scText="rendering.fields.job_list[0].fields.JobSubTitle"></div> -->
 
-  <div *ngFor="let val of rendering.fields.job_list">
-    <div *scText="val.fields.jobTitle"></div>
-    <div *scText="val.fields.postedTime"></div>
-    <div *scText="val.fields.employer"></div>
-    <div *scText="val.fields.country"></div>
-    <div *scText="val.fields.ViewJobBtn.value.text"></div>
+  <div *ngFor="let val of rendering.fields.job_list" class="d-flex justify-content-between align-items-center py-3 banner-joblist">
+    <div class="d-flex flex-column w-100 pr-3">
+      <h3 *scText="val.fields.jobTitle"></h3>
+      <div *scText="val.fields.postedTime"></div>
+    </div>
+    <div class="d-flex flex-column w-75 pr-3">
+      <div *scText="val.fields.employer"></div>
+      <div *scText="val.fields.country"></div>
+    </div>
+    <button class="btn btn-secondary" *scText="val.fields.ViewJobBtn.value.text">sdsd</button>
   </div>
 </div>

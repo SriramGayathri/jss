@@ -1,15 +1,14 @@
-// @use 'variables';
-@import url('assets/scss/abstract/_variables.scss');
-
 
 @font-face {
   font-family: 'Barlow Condensed';
-  src: url('assets/fonts/BarlowCondensed.woff2');
+  src: url(./assets/fonts/BarlowCondensed.woff2) format("woff2");
+ // font-weight: 800;
+  //font-style: normal;
 }
 @font-face {
   font-family: Termina-Bold;
   src: url(./assets/fonts/termina-bold.woff2) format("woff2");     
-  font-weight: 800;
+  font-weight: 600;
   font-style: normal;
 }
 @font-face {
@@ -19,6 +18,37 @@
   font-style: normal;
 }
 
+@import url('assets/scss/abstract/_variables.scss');
+@import url('./assets/scss/page/_carrier.scss');
+
+.carrier-banner-bg{
+  background-color: #202F8B ;
+  color: white;
+  padding: 48px 32px;
+  app-content-block {
+    padding-right: 24px;
+    display: flex;
+    align-items: center;
+  }
+  app-jobs {
+    width: 80%;
+  }
+}
+
+h1{
+  font-size: 32px;  
+  font-family: Termina-Bold;
+  // @media (min-width:992px) {
+  //   font-size: 48px;
+  // }
+}
+h3{
+  font-size: 24px;  
+  font-family: Termina-Bold;
+  // @media (min-width:992px) {
+  //   font-size: 48px;
+  // }
+}
 /*
   Hides Sitecore Experience Editor markup,
   if you run the app in connected mode while the Sitecore cookies
@@ -38,9 +68,61 @@
   padding: 10px 24px;
   text-transform: uppercase;
   border: 0;
+  &:hover{
+    background-color: #ffd616;
+    color: #29394b;
+  }
 }
-.btn-primary:hover{
-  background-color: #ffd616;
-  color: #29394b;
+.btn-secondary{
+  background-color: transparent;
+  color: white;
+  font-family: 'Barlow Condensed',Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  height: 36px;
+  letter-spacing: unset;
+  line-height: 16px;
+  padding: 10px 24px;
+  text-transform: uppercase;
+  border: 2px solid #ffd616;
+  display: flex;
+    align-items: center;
+    transition: background-color 1s;
+  &:hover{
+    background-color: #ffd616;
+    color: #29394b;
+    border: 2px solid #ffd616;
+  }
+}
+.btn-text{
+  font-family: 'Barlow Condensed',Arial,sans-serif;
+  text-transform: uppercase;
+  color: #fff;
+  padding: 10px 24px;
+  position: relative;
+    display: inline-block;
+    cursor: pointer;
+  &:after{
+    content: "";
+    border-bottom: 3px solid #ffd616;
+    width: 40%;
+    height: 2px;
+    display: block;
+    transition: width 1s;
+  }
+  &:hover{
+    text-decoration: none;
+    color: #fff;
+    &:after{
+      width: 100%;
+    }
+  }
 }
 
+
+.banner-joblist{
+  border-bottom: 1px solid #D8D8D8;
+  &:last-child{
+    border-bottom: 0;
+  }
+}

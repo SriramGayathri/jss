@@ -9,6 +9,7 @@ export default (manifest: Manifest) => {
 
   manifest.addPlaceholder(
     { name: 'jss-main', displayName: 'Main' },
+    { name: 'jss-banner', displayName: 'Banner' },
     // you can optionally pass a GUID or unique (app-wide) string as an ID
     // this will inform the ID that is set when imported into Sitecore.
     // If the ID is not set, an ID is created based on the placeholder name.

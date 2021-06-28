@@ -1,8 +1,15 @@
 <app-header></app-header>
-<div class="container">
+<div class="carrier-banner-bg">
+  <sc-placeholder name="jss-banner" [rendering]="route" (loaded)="onPlaceholderLoaded($event)" class="d-flex">    
+  </sc-placeholder>
+</div>
+<div class="container-fluid">
   <ng-container *ngIf="state === LayoutState.Layout">
     <app-visitor-identification></app-visitor-identification>
-    <sc-placeholder name="jss-main" [rendering]="route" (loaded)="onPlaceholderLoaded($event)"></sc-placeholder>
+    <sc-placeholder name="jss-main" [rendering]="route" (loaded)="onPlaceholderLoaded($event)" >
+      
+    </sc-placeholder>
+  
   </ng-container>
 
   <app-not-found *ngIf="state === LayoutState.NotFound" [errorContextData]="errorContextData"></app-not-found>
