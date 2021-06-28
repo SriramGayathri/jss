@@ -1,0 +1,45 @@
+.logo{
+    font-size: 1rem;
+    color: #9b9b9b;
+}
+.logo:hover{
+    text-decoration: none;
+}
+.logo-text{
+    padding-right: 45px;
+    border-right: 1px solid #9b9b9b;
+    margin-right: 15px;
+    line-height: 20px;
+}
+.logo span{
+    color: #fff;
+    font-size: 1.5rem;
+}
+
+nav.main-menu a{
+    color: #9b9b9b;
+    font-family: Barlow-lt;
+    font-weight: 700;
+}
+nav.main-menu a:hover{
+    color: #fff;
+    text-decoration: underline;
+    text-underline-position: under;
+    text-decoration-color: #2c3dbe;
+}
+.sign-in a{
+    font-size: 14px;
+    font-family: Barlow-lt,Arial,sans-serif;
+    font-weight: 700;
+    color: #fff;
+}
+
+* {
+    font-family: Termina-Bold;
+  }
+.headerbg{
+    background-color: #1b2430;
+}
+.headerbgsub{
+    background-color: #2c3dbe;
+}

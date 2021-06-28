@@ -1,0 +1,9 @@
+id: Magazine
+displayName: Magazine
+# Template defines the available fields. See /sitecore/definitions/templates/Styleguide-ContentList-Template.sitecore.js
+template: Jobs-Template
+fields:
+  NavLinks:
+    href: https://www.sitecore.com
+    target: _blank
+    text: MAGAZINE
