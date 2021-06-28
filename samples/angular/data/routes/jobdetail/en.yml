@@ -44,3 +44,12 @@ placeholders:
         href: https://www.sitecore.com
         target: _blank
         text: REPORT THIS JOB
+  jss-nav:
+    - componentName: Globalnavigation 
+      fields:
+        nav_list:
+          - id: Home
+          - id: Carrer
+          - id: Learning
+          - id: Magazine
+          - id: Community

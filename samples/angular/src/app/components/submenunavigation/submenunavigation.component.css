@@ -1,0 +1,9 @@
+.sub-menu a {
+    color: #fff;
+    font-family: Barlow-lt,Arial,sans-serif;
+    font-weight: 500;
+    height: 100%;
+}
+.sub-menu a:first-child {
+    padding-left: 0!important;
+}

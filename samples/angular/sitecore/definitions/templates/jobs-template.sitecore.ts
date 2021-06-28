@@ -8,11 +8,11 @@ export default function JobsTemplate(manifest: Manifest) {
   manifest.addTemplate({
     name: 'Jobs-Template',
     fields:[
-      { name: 'jobTitle', type: CommonFieldTypes.SingleLineText },
-      { name: 'postedTime', type: CommonFieldTypes.SingleLineText },
-      { name: 'employer', type: CommonFieldTypes.SingleLineText },
-      { name: 'country', type: CommonFieldTypes.SingleLineText },
-      { name: 'ViewJobBtn', type: CommonFieldTypes.GeneralLink},
+      // { name: 'jobTitle', type: CommonFieldTypes.SingleLineText },
+      // { name: 'postedTime', type: CommonFieldTypes.SingleLineText },
+      // { name: 'employer', type: CommonFieldTypes.SingleLineText },
+      // { name: 'country', type: CommonFieldTypes.SingleLineText },
+      { name: 'NavLinks', type: CommonFieldTypes.GeneralLink},
     ],
   });
 }

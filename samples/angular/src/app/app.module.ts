@@ -17,6 +17,8 @@ import { JssModule } from '@sitecore-jss/sitecore-jss-angular';
 import { ContentBlockComponent } from './components/content-block/content-block.component';
 import { JobBannerComponent } from './components/job-banner/job-banner.component';
 import { FindjobComponent } from './components/findjob/findjob.component';
+import { GlobalnavigationComponent } from './components/globalnavigation/globalnavigation.component';
+import { SubmenunavigationComponent } from './components/submenunavigation/submenunavigation.component';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { FindjobComponent } from './components/findjob/findjob.component';
       { name: 'jobs', type: JobsComponent },
       { name: 'ContentBlock', type: ContentBlockComponent },
       { name: 'JobBanner', type: JobBannerComponent },
-      { name: 'Findjob', type: FindjobComponent},
+      { name: 'Findjob', type: FindjobComponent },
+      { name: 'Globalnavigation', type: GlobalnavigationComponent },
+      { name: 'Submenunavigation', type: SubmenunavigationComponent}
     ]),
     TranslateModule.forRoot({
       loader: {

@@ -13,6 +13,22 @@ placeholders:
         href: https://www.sitecore.com
         target: _blank
         text: LOAD MORE JOBS
+  jss-nav:
+    - componentName: Globalnavigation 
+      fields:
+        nav_list:
+          - id: Home
+          - id: Carrer
+          - id: Learning
+          - id: Magazine
+          - id: Community
+  jss-subnav:
+    - componentName: Submenunavigation 
+      fields:
+        submenu_list:
+          - id: Overview
+          - id: FindJob
+          - id: ViewJobs
 
 
        
