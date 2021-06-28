@@ -22,7 +22,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
   LayoutState = LayoutState;
   subscription: Subscription;
   errorContextData: LayoutServiceContextData;
-
+  flag: boolean;
   constructor(
     private activatedRoute: ActivatedRoute,
     private readonly meta: MetaService,
@@ -40,6 +40,7 @@ export class LayoutComponent implements OnInit, OnDestroy {
         this.route = data.jssState.sitecore.route;
         this.setMetadata(this.route.fields);
         this.state = LayoutState.Layout;
+        console.log(`layout the ${data.jssState.sitecore} ok`);
       }
 
       if (data.jssState.routeFetchError) {
@@ -70,5 +71,11 @@ export class LayoutComponent implements OnInit, OnDestroy {
     // you may optionally hook to the loaded event for a placeholder,
     // which can be useful for analytics and other DOM-based things that need to know when a placeholder's content is available.
     console.log(`layout.component.ts: placeholder component fired loaded event for the ${placeholderName} placeholder`);
+    if (placeholderName.includes('jss-banner')) {
+      this.flag = false;
+     } else {
+      this.flag = true;
+    }
+    console.log('test', this.flag);
   }
 }

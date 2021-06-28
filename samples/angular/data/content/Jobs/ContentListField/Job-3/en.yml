@@ -8,6 +8,6 @@ fields:
   employer: BAMBOO AIRWAYS
   country: Vietnam
   ViewJobBtn:
-    href: https://www.sitecore.com
+    href: /jobdetail
     target: _blank
     text: VIEW JOB

@@ -8,6 +8,6 @@ fields:
   employer: CHINA EXPRESS AIR 
   country: China 
   ViewJobBtn:
-    href: https://www.sitecore.com
+    href: /jobdetail
     target: _blank
     text: VIEW JOB

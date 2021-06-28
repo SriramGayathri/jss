@@ -8,8 +8,8 @@
     <div class="headerbgsub">
       <sc-placeholder name="jss-subnav" [rendering]="route" (loaded)="onPlaceholderLoaded($event)"></sc-placeholder>
     </div>
-    <div class="carrier-banner-bg">
-      <sc-placeholder name="jss-banner" [rendering]="route" (loaded)="onPlaceholderLoaded($event)" class="d-flex">
+    <div class="carrier-banner-bg" *ngIf="!flag">
+      <sc-placeholder name="jss-banner" class="d-flex" [rendering]="route" (loaded)="onPlaceholderLoaded($event)">
       </sc-placeholder>
     </div>
     <sc-placeholder name="jss-main" [rendering]="route" (loaded)="onPlaceholderLoaded($event)"></sc-placeholder>

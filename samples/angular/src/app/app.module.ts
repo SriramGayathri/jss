@@ -21,15 +21,13 @@ import { FindjobComponent } from './components/findjob/findjob.component';
 import { GlobalnavigationComponent } from './components/globalnavigation/globalnavigation.component';
 import { SubmenunavigationComponent } from './components/submenunavigation/submenunavigation.component';
 
-import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+//import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
   imports: [
     // withServerTransition is needed to enable universal rendering
     BrowserModule.withServerTransition({ appId: 'my-app' }),
-    BrowserTransferStateModule,   
-    FormsModule, ReactiveFormsModule , 
-    NgMultiSelectDropDownModule.forRoot(),
-   
+    BrowserTransferStateModule,
+    FormsModule, ReactiveFormsModule ,
     HttpClientModule,
     GraphQLModule,
     MetaModule.forRoot(),

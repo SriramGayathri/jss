@@ -2,7 +2,9 @@
 <h1 *scText="rendering.fields.heading"></h1>
 <div *scText="rendering.fields.content"></div>
 <div class="my-5">
-<button class="btn btn-primary mr-4" *scText="rendering.fields.createAccountBtn"></button>
-<a class="btn-text" *scText="rendering.fields.viewJobstBtn"></a>
+    <a href={{rendering.fields.createAccountBtn.value.href}}>
+<button class="btn btn-primary mr-4">{{rendering.fields.createAccountBtn.value.text}}</button>
+</a>
+<a class="btn-text" href={{rendering.fields.viewJobstBtn.value.href}}>{{rendering.fields.viewJobstBtn.value.text}}</a>
 </div>
 </div>

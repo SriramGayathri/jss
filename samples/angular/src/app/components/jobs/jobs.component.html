@@ -11,6 +11,8 @@
       <div *scText="val.fields.employer"></div>
       <div *scText="val.fields.country"></div>
     </div>
-    <button class="btn btn-secondary" *scText="val.fields.ViewJobBtn.value.text">sdsd</button>
+    <a href={{val.fields.ViewJobBtn.value.href}}>
+    <button class="btn btn-secondary" >{{val.fields.ViewJobBtn.value.text}}</button>
+    </a>
   </div>
 </div>

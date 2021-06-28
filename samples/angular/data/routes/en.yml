@@ -32,7 +32,7 @@ placeholders:
           target: _blank
           text: CREATE AN ACCOUNT        
         viewJobstBtn:
-          href: https://www.sitecore.com
+          href: /findjob
           target: _blank
           text: VIEW ALL JOBS
 

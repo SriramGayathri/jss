@@ -8,7 +8,7 @@ fields:
   employer: XIAMEN AIRLINES
   country: Fujian, China 
   ViewJobBtn:
-    href: https://www.sitecore.com
+    href: /jobdetail
     target: _blank
     text: VIEW JOB
   applyPartnerBtn:
