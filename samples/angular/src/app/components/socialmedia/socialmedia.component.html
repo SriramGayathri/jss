@@ -1,9 +1,9 @@
 <div>
-  socialmedia JSS Component
- 
-  <img src="{{rendering.fields.linkedIn.value.src}}" alt="{{rendering.fields.linkedIn.value.alt}}" />
-  <img src="{{rendering.fields.facebook.value.src}}" alt="{{rendering.fields.facebook.value.alt}}" />
-  <img src="{{rendering.fields.instagram.value.src}}" alt="{{rendering.fields.instagram.value.alt}}" />
-  <img src="{{rendering.fields.twitter.value.src}}" alt="{{rendering.fields.twitter.value.alt}}" />
-  <div *scText="rendering.fields.copyRight"></div>
+  <div class="d-flex justify-content-center mb-5">
+    <img class="mr-3" src="{{rendering.fields.linkedIn.value.src}}" alt="{{rendering.fields.linkedIn.value.alt}}" />
+    <img class="mr-3" src="{{rendering.fields.facebook.value.src}}" alt="{{rendering.fields.facebook.value.alt}}" />
+    <img class="mr-3" src="{{rendering.fields.twitter.value.src}}" alt="{{rendering.fields.twitter.value.alt}}" />
+    <img class="mr-3" src="{{rendering.fields.instagram.value.src}}" alt="{{rendering.fields.instagram.value.alt}}" />
+  </div>
+  <div *scText="rendering.fields.copyRight" class="text-center"></div>
 </div>

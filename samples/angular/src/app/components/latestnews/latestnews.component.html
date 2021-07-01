@@ -1,6 +1,8 @@
-<div>
-  latestnews JSS Component
-  <div *scText="rendering.fields.newsTitle"></div>
-  <div *scText="rendering.fields.newsDescription"></div>
-  <a href="{{rendering.fields.signUpBtnLink.value.href}}">{{rendering.fields.signUpBtnText.value}}</a>
+<div class="w-75">  
+  <h2 *scText="rendering.fields.newsTitle" class="pb-3" ></h2>
+  <div class="pb-4" *scText="rendering.fields.newsDescription"></div>
+  <div>
+    <input type="text" class="footer-textbox" placeholder="Type your email">
+    <a class="btn btn-primary" role="button" href="{{rendering.fields.signUpBtnLink.value.href}}">{{rendering.fields.signUpBtnText.value}}</a>
+  </div>
 </div>

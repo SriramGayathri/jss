@@ -14,13 +14,18 @@
 @font-face {
   font-family: Barlow-lt;
   src: url(./assets/fonts/Barlow-lt.woff2) format("woff2");     
-  font-weight: 400;
+  font-weight: 600;
   font-style: normal;
 }
 
 @import url('./assets/scss/abstract/_variables.scss');
 @import url('./assets/scss/page/_carrier.scss');
+body{
+  font-family: Barlow-lt, Arial,sans-serif;
 
+  font-size: 16px;
+  line-height: 16px;
+}
 .fluid-container{
   padding-left: 32px;
   padding-right: 32px;
@@ -51,6 +56,15 @@
 
 h1{
   font-size: 32px;  
+  line-height: 32px;
+  font-family: Termina-Bold;
+  // @media (min-width:992px) {
+  //   font-size: 48px;
+  // }
+}
+h2{
+  font-size: 28px;  
+  line-height: 28px;
   font-family: Termina-Bold;
   // @media (min-width:992px) {
   //   font-size: 48px;
@@ -58,6 +72,7 @@ h1{
 }
 h3{
   font-size: 24px;  
+  line-height: 24px;
   font-family: Termina-Bold;
   // @media (min-width:992px) {
   //   font-size: 48px;
@@ -74,7 +89,7 @@ h3{
   padding-right: 32px;
 }
 
-button.btn-primary {
+.btn.btn-primary {
   background-color: #ffd616;
   color: #29394b;
   font-family: 'Barlow Condensed', Arial,sans-serif;
@@ -91,7 +106,7 @@ button.btn-primary {
     color: #29394b;
   }
 }
-.btn-secondary{
+.btn.btn-secondary{
   background-color: transparent;
   color: white;
   font-family: 'Barlow Condensed',Arial,sans-serif;
@@ -148,4 +163,49 @@ button.btn-primary {
   font-size: 24px;
   line-height: 24px;  
   font-family: Termina-Bold;
+}
+
+/*Footer*/
+.footer{
+  background-color: #1b2430;
+  color: #D8D8D8;
+  margin-top: 112px;
+  padding-top: 96px;
+  padding-bottom: 96px;
+  align-items: center;
+  position: relative;
+  &::before{
+    content: "";
+    background-image: url(./assets/images/footer-bg.png);
+    position: absolute;
+    top: -112px;
+    right: 0;
+    width: 228px;
+    height: 112px;
+}
+  app-latestnews{
+    width: 50%;
+  }
+  app-featurelist{
+    width: 30%;
+  }
+  app-socialmedia{
+    width: 20%;
+  }
+  h2{
+    color: #fff;
+  }
+  input.footer-textbox{
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid #D8d8d8;
+    padding: 10px 0;
+    margin-right: 24px;
+    min-width: 200px;
+  }
+  .featurelist a{
+    padding: 16px ;
+    font-size: 17px;
+    color: #D8D8D8;
+  }
 }
