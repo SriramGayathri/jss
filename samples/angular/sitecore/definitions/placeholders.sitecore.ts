@@ -15,6 +15,7 @@ export default (manifest: Manifest) => {
     // If the ID is not set, an ID is created based on the placeholder name.
     { name: 'jss-tabs', displayName: 'Tabs', id: 'tabs-placeholder' },
     { name: 'jss-nav', displayName: 'Nav', id: 'tabs-placeholder' },
-    { name: 'jss-subnav', displayName: 'SubNav', id: 'tabs-placeholder' }
+    { name: 'jss-subnav', displayName: 'SubNav', id: 'tabs-placeholder' },
+    { name: 'jss-footer', displayName: 'Footer'}
   );
 };

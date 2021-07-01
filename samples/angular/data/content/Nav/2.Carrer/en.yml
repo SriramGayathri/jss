@@ -4,6 +4,6 @@ displayName: Carrer
 template: Jobs-Template
 fields:
   NavLinks:
-    href: https://www.sitecore.com
+    href: /
     target: _blank
     text: CARRER
