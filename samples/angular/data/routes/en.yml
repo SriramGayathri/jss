@@ -58,3 +58,50 @@ placeholders:
           - id: Overview
           - id: FindJob
           - id: ViewJobs
+  jss-footer:
+    - componentName: Latestnews
+      fields:
+        newsTitle: GET AIRSIDE LATEST NEWS IN YOUR INBOX
+        newsDescription: Enter your email to keep in touch with the aviation industry, up to date reports,expert opinion and much more
+        signUpBtnLink:
+          href: www.google.com
+        signUpBtnText: SIGN UP
+    - componentName: Featurelist
+      fields:
+        aboutAirsideLink:
+          href: www.google.com
+        aboutAirsideText: About Airside
+        contactUsLink:
+          href: www.google.com
+        contactUsText: Contact us
+        tersmOfUseLink:
+          href: www.google.com
+        termsOfUseText: Terms of use
+        privacyPolicyLink:
+          href: www.google.com
+        privacyPolicyText: CA privacy policy
+        cookiePolicyLink:
+          href: www.google.com
+        cookiePolicyText: Cookie policy
+        cookieSettingLink:
+          href: www.google.com
+        cookieSettingText: Change cookie settings
+    - componentName: Socialmedia
+      fields:
+        linkedIn:
+          value:
+            src: "/data/media/img/linkedin.svg"
+            alt: LinkedIn
+        facebook:
+          value:
+            src: "/data/media/img/fb.svg"
+            alt: Facebook
+        instagram:
+          value:
+            src: "/data/media/img/insta.svg"
+            alt: LinkedIn
+        twitter:
+          value:
+            src: "/data/media/img/twitter.svg"
+            alt: Twitter
+        copyRight: All right reseved © 2021 

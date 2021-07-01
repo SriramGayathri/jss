@@ -20,6 +20,9 @@ import { JobBannerComponent } from './components/job-banner/job-banner.component
 import { FindjobComponent } from './components/findjob/findjob.component';
 import { GlobalnavigationComponent } from './components/globalnavigation/globalnavigation.component';
 import { SubmenunavigationComponent } from './components/submenunavigation/submenunavigation.component';
+import { LatestnewsComponent } from './components/latestnews/latestnews.component';
+import { FeaturelistComponent } from './components/featurelist/featurelist.component';
+import { SocialmediaComponent } from './components/socialmedia/socialmedia.component';
 
 //import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
@@ -38,7 +41,10 @@ import { SubmenunavigationComponent } from './components/submenunavigation/subme
       { name: 'JobBanner', type: JobBannerComponent },
       { name: 'Findjob', type: FindjobComponent },
       { name: 'Globalnavigation', type: GlobalnavigationComponent },
-      { name: 'Submenunavigation', type: SubmenunavigationComponent}
+      { name: 'Submenunavigation', type: SubmenunavigationComponent },
+      { name: 'Latestnews', type: LatestnewsComponent },
+      { name: 'Featurelist', type: FeaturelistComponent },
+      { name: 'Socialmedia', type: SocialmediaComponent},
     ]),
     TranslateModule.forRoot({
       loader: {
