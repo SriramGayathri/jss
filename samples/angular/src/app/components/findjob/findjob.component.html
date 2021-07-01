@@ -1,14 +1,30 @@
-<div class="">
-  <h1 *scRichText="rendering.fields.heading"></h1>
-  <div>
-    <input type="text">
-    <div></div>
+<div class="fluid-container my-5">
+  <h1 *scRichText="rendering.fields.heading" class="mb-3"></h1>
+  <div class="border-header-b"></div>
+  <div class="row">
+    <div class="col-12 col-md-8">
+      <div class="d-flex my-5">
+        <input type="text">
+        <div></div>
+      </div>
+      <div class="border-top border-bottom">
+        <div *ngFor="let val of rendering.fields.allJob_list"
+          class="d-flex py-4 border-bottom border-top align-items-center ">
+          <div class="d-flex flex-column w-100">
+            <div class="jobtitle" *scText="val.fields.jobTitle"></div>
+            <div *scText="val.fields.postedTime"></div>
+          </div>
+          <div class="d-flex flex-column w-50">
+            <div *scText="val.fields.employer"></div>
+            <div *scText="val.fields.country"></div>
+          </div>
+          <div class="w-50 text-right">
+            <button class="btn btn-primary" *scText="val.fields.ViewJobBtn.value.text">View Jobs</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-4"></div>
   </div>
-  <div *ngFor="let val of rendering.fields.allJob_list">
-    <div *scText="val.fields.jobTitle"></div>
-    <div *scText="val.fields.postedTime"></div>
-    <div *scText="val.fields.employer"></div>
-    <div *scText="val.fields.country"></div>
-    <div *scText="val.fields.ViewJobBtn.value.text"></div>
-  </div>
+
 </div>
