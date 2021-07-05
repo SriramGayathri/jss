@@ -1,7 +1,7 @@
 id: Overview
 displayName: Overview
 # Template defines the available fields. See /sitecore/definitions/templates/Styleguide-ContentList-Template.sitecore.js
-template: Jobs-Template
+template: Jobsx
 fields:
   NavLinks:
     href: /

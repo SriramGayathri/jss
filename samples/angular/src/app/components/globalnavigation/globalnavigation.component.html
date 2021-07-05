@@ -11,17 +11,22 @@
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
-          <div class="collapse navbar-collapse" *ngFor="let val of rendering.fields.nav_list"  id="mainNavbar">
-<ul class="navbar-nav mr-auto">
-  <li class="nav-item active">
-    <a class="p-2 nav-link" href="{{val.fields.NavLinks.value.href}}" rel="noopener noreferrer">
-      {{ val.fields.NavLinks.value.text | translate }} <span class="sr-only">(current)</span>
-    </a>
-  </li>
-</ul>
-          </div>
-
+      <div>
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav mr-auto" *ngIf="query$ | async as queryResult;">
+            <li class="nav-item active" *ngFor="let valx of queryResult.data.item.children">
+              <a class="p-2 nav-link" [routerLink]="valx.navLinks.url" *ngIf="valx.navLinks.linkType==='internal'; else loading" rel="noopener noreferrer">
+                {{ valx.navLinks.text | translate }}<span class="sr-only">(current)</span>
+              </a>
+              <ng-template #loading>
+                <a class="p-2 nav-link" href="{{valx.navLinks.url}}" rel="noopener noreferrer">
+                  {{ valx.navLinks.text | translate }}<span class="sr-only">(current)</span>
+                </a>
+              </ng-template>
+            </li>
+          </ul>
+        </div>
+      </div>
     </nav>
 
   </div>
@@ -32,7 +37,7 @@
     <!---->
     <div class="create-account">
       <button class="btn btn-primary">
-       Create Account
+        Create Account
       </button>
     </div>
     <!---->

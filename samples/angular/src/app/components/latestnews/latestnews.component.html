@@ -3,6 +3,6 @@
   <div class="pb-4" *scText="rendering.fields.newsDescription"></div>
   <div>
     <input type="text" class="footer-textbox" placeholder="Type your email">
-    <a class="btn btn-primary" role="button" href="{{rendering.fields.signUpBtnLink.value.href}}">{{rendering.fields.signUpBtnText.value}}</a>
+    <a class="btn btn-primary" role="button" *scLink="rendering.fields.signUpBtnLink">{{rendering.fields.signUpBtnText.value}}</a>
   </div>
 </div>

@@ -14,8 +14,8 @@ export default (manifest: Manifest) => {
     // this will inform the ID that is set when imported into Sitecore.
     // If the ID is not set, an ID is created based on the placeholder name.
     { name: 'jss-tabs', displayName: 'Tabs', id: 'tabs-placeholder' },
-    { name: 'jss-nav', displayName: 'Nav', id: 'tabs-placeholder' },
-    { name: 'jss-subnav', displayName: 'SubNav', id: 'tabs-placeholder' },
+    { name: 'jss-nav', displayName: 'Nav', id: 'ta-placeholder' },
+    { name: 'jss-subnav', displayName: 'SubNav', id: 'tabsxc-placeholder' },
     { name: 'jss-footer', displayName: 'Footer'}
   );
 };

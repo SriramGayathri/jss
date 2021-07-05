@@ -1,0 +1,26 @@
+{
+  item(path:"/sitecore/content/JssAngularWeb/Content/Nav") {
+
+    children(includeTemplateIDs:["{51B84EDC-CC54-5C8F-8FFE-11A65F2E43C4}"])
+    {
+      ...on Jobsx{
+   navLinks {
+        
+        # Structured querying of the field's values is possible
+        text
+        target
+        url
+        linkType
+        # Access to the template definition is possible
+     val :   definition {
+          type
+          shared
+        }
+      }
+} 
+    }
+    
+  
+    
+  }
+}

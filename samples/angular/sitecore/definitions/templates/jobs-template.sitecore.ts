@@ -6,7 +6,7 @@ import { CommonFieldTypes, Manifest } from '@sitecore-jss/sitecore-jss-manifest'
  */
 export default function JobsTemplate(manifest: Manifest) {
   manifest.addTemplate({
-    name: 'Jobs-Template',
+    name: 'Jobsx',
     fields:[
       // { name: 'jobTitle', type: CommonFieldTypes.SingleLineText },
       // { name: 'postedTime', type: CommonFieldTypes.SingleLineText },

@@ -1,7 +1,7 @@
 id: ViewJobs
 displayName: ViewJobs
 # Template defines the available fields. See /sitecore/definitions/templates/Styleguide-ContentList-Template.sitecore.js
-template: Jobs-Template
+template: Jobsx
 fields:
   NavLinks:
     href: /jobdetail
