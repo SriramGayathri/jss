@@ -1,0 +1,124 @@
+@import './variables';
+@import '../base/typography';
+@import '../abstract/mixins';
+
+body{
+  font-family: Barlow-lt, Arial,sans-serif;
+
+  font-size: 16px;
+  line-height: 16px;
+}
+.fluid-container{
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+h1{
+  @include font-size(32px,32px,normal);
+  font-family: Termina-Bold;
+  // @media (min-width:992px) {
+  //   font-size: 48px;
+  // }
+}
+h2{
+  font-size: 28px;  
+  line-height: 28px;
+  font-family: Termina-Bold;
+  // @media (min-width:992px) {
+  //   font-size: 48px;
+  // }
+}
+h3{
+  font-size: 24px;  
+  line-height: 24px;
+  font-family: Termina-Bold;
+  // @media (min-width:992px) {
+  //   font-size: 48px;
+  // }
+}
+/*
+  Hides Sitecore Experience Editor markup,
+  if you run the app in connected mode while the Sitecore cookies
+  are set to edit mode.
+*/
+.scChromeData, .scpm { display: none !important; }
+.container, .container-fluid{
+  padding-left:32px;
+  padding-right: 32px;
+}
+
+.btn.btn-primary {
+  background-color: $mediumyellow;
+  color: $darkgrey;
+  font-family: 'Barlow Condensed', Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  height: 36px;
+  letter-spacing: unset;
+  line-height: 16px;
+  padding: 10px 24px;
+  text-transform: uppercase;
+  border: 0;
+  &:hover{
+    background-color: $mediumyellow;
+    color: $darkgrey;
+  }
+}
+.btn.btn-secondary{
+  background-color: transparent;
+  color: $white;
+  font-family: 'Barlow Condensed',Arial,sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  height: 36px;
+  letter-spacing: unset;
+  line-height: 16px;
+  padding: 10px 24px;
+  text-transform: uppercase;
+  border: 2px solid $mediumyellow;
+  display: flex;
+    align-items: center;
+    transition: background-color 1s;
+  &:hover{
+    background-color: $mediumyellow;
+    color: $darkgrey;
+    border: 2px solid $mediumyellow;
+  }
+}
+.btn-text{
+  font-family: 'Barlow Condensed',Arial,sans-serif;
+  text-transform: uppercase;
+  color: $white;
+  padding: 10px 24px;
+  position: relative;
+    display: inline-block;
+    cursor: pointer;
+  &:after{
+    content: "";
+    border-bottom: 3px solid $mediumyellow;
+    width: 40%;
+    height: 2px;
+    display: block;
+    transition: width 1s;
+  }
+  &:hover{
+    text-decoration: none;
+    color: $white;
+    &:after{
+      width: 100%;
+    }
+  }
+}
+
+.banner-joblist{
+  border-bottom: 1px solid $mediumgrey;
+  &:last-child{
+    border-bottom: 0;
+  }
+}
+.jobtitle{
+  font-size: 24px;
+  line-height: 24px;  
+  font-family: Termina-Bold;
+}
+/*Footer*/

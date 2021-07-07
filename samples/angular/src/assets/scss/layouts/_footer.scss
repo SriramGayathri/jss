@@ -1,0 +1,51 @@
+@import '../base/typography';
+@import '../abstract/variables';
+
+.footer{
+  background-color: #1b2430;
+  color: #D8D8D8;
+  margin-top: 112px;
+  padding-top: 96px;
+  padding-bottom: 96px;
+  align-items: center;
+  position: relative;
+  &::before{
+    content: "";
+    background-image: url('../../images/footer-bg.png');
+    position: absolute;
+    top: -112px;
+    right: 0;
+    width: 228px;
+    height: 112px;
+}
+
+  app-latestnews{
+    width: 50%;
+  }
+  app-featurelist{
+    width: 30%;
+  }
+  app-socialmedia{
+    width: 20%;
+  }
+  h2{
+    color: $white;
+  }
+  input{
+    &.footer-textbox{
+    background: transparent;
+    border: 0;
+    border-bottom: 2px solid #D8d8d8;
+    padding: 10px 0;
+    margin-right: 24px;
+    min-width: 200px;
+    }
+  }
+  .featurelist {
+    a{
+    padding: 16px ;
+    font-size: 17px;
+    color: #D8D8D8;
+  }
+  }
+}

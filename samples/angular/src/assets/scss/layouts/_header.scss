@@ -1,0 +1,27 @@
+@import '../base/typography';
+@import '../abstract/variables';
+@import '../abstract/mixins';
+
+.border-header-b{
+  border-bottom: 5px solid rgb(245, 238, 238);
+  margin: 16px 0;
+}
+.headerbg{
+    background-color: $offblack;
+}
+.headerbgsub{
+    background-color: $peacockblue;
+}
+.carrier-banner-bg{
+  background-color: $mediumblue ;
+  color: $white;
+  padding: 48px 32px;
+  app-content-block {
+    padding-right: 24px;
+    display: flex;
+    align-items: center;
+  }
+  app-jobs {
+    width: 80%;
+  }
+}
