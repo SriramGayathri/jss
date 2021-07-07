@@ -1,8 +1,15 @@
+<div *ngIf="query$ | async as queryResult; else loading">
 <div class="w-75">  
   <h2 *scText="rendering.fields.newsTitle" class="pb-3" ></h2>
-  <div class="pb-4" *scText="rendering.fields.newsDescription"></div>
+  <div class="pb-4" *scText="queryResult.data.item.newsDescription"></div>
   <div>
     <input type="text" class="footer-textbox" placeholder="Type your email">
-    <a class="btn btn-primary" role="button" *scLink="rendering.fields.signUpBtnLink">{{rendering.fields.signUpBtnText.value}}</a>
+    <a class="btn btn-primary" role="button" [routerLink]="queryResult.data.item.signUpBtnLink.url">
+      {{queryResult.data.item.signUpBtnText.value}}
+     </a>
   </div>
 </div>
+</div>
+<ng-template #loading>
+  <p class="alert alert-info">GraphQL query is loading...</p>
+</ng-template>

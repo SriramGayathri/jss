@@ -1,0 +1,22 @@
+{
+  item(path:"/sitecore/content/JssAngularWeb/home/Page Components/home-jss-footer-Latestnews-1") {
+    
+     name
+  	newsTitle:field(name  : "newsTitle") {
+        value
+      }
+		newsDescription:field(name  : "newsDescription") {
+        value
+      } 
+		signUpBtnText:field(name  : "signUpBtnText") {
+        value
+      } 
+    
+      ...on Latestnews{
+   signUpBtnLink {
+        url
+        linkType
+      }
+}
+  }
+}
