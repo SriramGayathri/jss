@@ -1,12 +1,15 @@
-<div class="d-flex justify-space-between featurelist">
+<div class="d-flex justify-space-between featurelist" *ngIf="query$ | async as queryResult">
   <div class="d-flex flex-column w-100">
-    <a *scLink="rendering.fields.aboutAirsideLink">{{rendering.fields.aboutAirsideText.value}}</a>
-    <a *scLink="rendering.fields.contactUsLink">{{rendering.fields.contactUsText.value}}</a>
-    <a *scLink="rendering.fields.tersmOfUseLink">{{rendering.fields.termsOfUseText.value}}</a>
+    <a  [routerLink]="queryResult.data.item.aboutAirsideLink.url">{{queryResult.data.item.aboutAirsideText.value}}</a>
+    <a  [routerLink]="queryResult.data.item.contactUsLink.url">{{queryResult.data.item.contactUsText.value}}</a>
+    <a  [routerLink]="queryResult.data.item.tersmOfUseLink.url">{{queryResult.data.item.termsOfUseText.value}}</a>
   </div>
   <div class="d-flex flex-column w-100">
-    <a *scLink="rendering.fields.privacyPolicyLink">{{rendering.fields.privacyPolicyText.value}}</a>
-    <a *scLink="rendering.fields.cookiePolicyLink">{{rendering.fields.cookiePolicyText.value}}</a>
-    <a *scLink="rendering.fields.cookieSettingLink">{{rendering.fields.cookieSettingText.value}}</a>
+    <a  [routerLink]="queryResult.data.item.privacyPolicyLink.url">{{queryResult.data.item.privacyPolicyText.value}}</a>
+    <a  [routerLink]="queryResult.data.item.cookiePolicyLink.url" >{{queryResult.data.item.cookiePolicyText.value}}</a>
+    <a  [routerLink]="queryResult.data.item.cookieSettingLink.url">{{queryResult.data.item.cookieSettingText.value}}</a>
   </div>
 </div>
+<ng-template #loading>
+  <p class="alert alert-info">GraphQL query is loading...</p>
+</ng-template>

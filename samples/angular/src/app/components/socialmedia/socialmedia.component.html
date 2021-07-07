@@ -7,12 +7,12 @@
   </div>
   <div *scText="rendering.fields.copyRight" class="text-center"></div>
 </div> -->
-<div>
+<div *ngIf="query$ | async as queryResult">
   <div class="d-flex justify-content-center mb-5">
-    <img class="mr-3" *scImage="rendering.fields.linkedIn" />
-    <img class="mr-3" *scImage="rendering.fields.facebook" />
-    <img class="mr-3" *scImage="rendering.fields.twitter"/>
-    <img class="mr-3" *scImage="rendering.fields.instagram"/>
+    <img class="mr-3" src="{{queryResult.data.item.linkedIn.src}}" alt="{{queryResult.data.item.linkedIn.alt}}" />
+    <img class="mr-3" src="{{queryResult.data.item.facebook.src}}" alt="{{queryResult.data.item.facebook.alt}}" />
+    <img class="mr-3" src="{{queryResult.data.item.twitter.src}}" alt="{{queryResult.data.item.twitter.alt}}" />
+    <img class="mr-3" src="{{queryResult.data.item.instagram.src}}" alt="{{queryResult.data.item.instagram.alt}}" />
   </div>
-  <div *scText="rendering.fields.copyRight" class="text-center"></div>
+  <div *scText="queryResult.data.item.copyRight" class="text-center"></div>
 </div>

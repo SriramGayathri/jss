@@ -17,19 +17,9 @@ export class GlobalnavigationComponent implements OnInit {
  query$: Observable<ApolloQueryResult<any>>;
    constructor(private graphQLService: JssGraphQLService) {}
 
-  // ngOnInit() {
-  //   // remove this after implementation is done
-  //   console.log('globalnavigation component initialized with component data', this.rendering);
-  // }
-
    ngOnInit(): void {
-    // the query result is an Rx Observable, so any observable patterns
-    // are usable here - async pipe (like this sample), subscribing manually,
-    // (don't forget to unsubscribe in ngOnDestroy), etc.
     this.query$ = this.graphQLService.query({
       query: ComponentQuery,
-      // passing in a rendering allows usage of the ambient $datasource GraphQL variable.
-      // if it's not passed, the variable will not be defined (but $contextItem is still available)
       renderingContext: this.rendering
     });
      console.log('globalnavigation component initialized with component data', this.rendering);

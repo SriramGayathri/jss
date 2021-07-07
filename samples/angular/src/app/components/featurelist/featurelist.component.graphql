@@ -1,0 +1,50 @@
+{
+  item(path:"/sitecore/content/JssAngularWeb/home/Page Components/home-jss-footer-Featurelist-2") {
+    
+     name
+		aboutAirsideText:field(name  : "aboutAirsideText") {
+        value
+      } 
+		contactUsText:field(name  : "contactUsText") {
+        value
+      } 
+      	termsOfUseText:field(name  : "termsOfUseText") {
+        value
+      }
+       	privacyPolicyText:field(name  : "privacyPolicyText") {
+        value
+      }
+       	cookiePolicyText:field(name  : "cookiePolicyText") {
+        value
+      }
+       	cookieSettingText:field(name  : "cookieSettingText") {
+        value
+      }
+      ...on Featurelist{
+   aboutAirsideLink {
+        url
+        linkType
+      }
+    contactUsLink {
+        url
+        linkType
+      }
+          tersmOfUseLink {
+        url
+        linkType
+      }
+               privacyPolicyLink {
+        url
+        linkType
+      }
+               cookiePolicyLink {
+        url
+        linkType
+      }
+                 cookieSettingLink {
+        url
+        linkType
+      }
+}
+  }
+}

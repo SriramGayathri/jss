@@ -1,0 +1,51 @@
+{
+  item(path:"/sitecore/content/JssAngularWeb/home/Page Components/home-jss-footer-Socialmedia-3") {
+    
+     name 
+    	copyRight:field(name  : "copyRight") {
+        value
+      }
+        ... on Socialmedia {
+        linkedIn {
+        value
+
+          width
+          height
+          alt
+          src
+          editable
+        
+        }
+                facebook {
+        value
+    
+          width
+          height
+          alt
+          src
+          editable
+        
+        }
+                instagram {
+        value
+
+          width
+          height
+          alt
+          src
+          editable
+        
+        }
+                twitter {
+        value
+    
+          width
+          height
+          alt
+          src
+          editable
+        
+        }
+      }
+  }
+}
