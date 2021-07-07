@@ -12,6 +12,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { VisitorIdentificationComponent } from './visitor-identification/visitor-identification.component';
 import { SubNavigationComponent } from './sub-navigation/sub-navigation.component';
 import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './home/home.component';
 
 // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function jssRouteMatcher(url: UrlSegment[]): UrlMatchResult {
@@ -37,6 +38,7 @@ export function jssRouteMatcher(url: UrlSegment[]): UrlMatchResult {
 const routes: Routes = [
   { path: 'NotFound', component: NotFoundComponent },
   { path: 'ServerError', component: ServerErrorComponent },
+  { path: 'home', component: HomeComponent },
   {
     // matcher is effectively a catch-all route
     matcher: jssRouteMatcher,
@@ -66,7 +68,8 @@ const routes: Routes = [
     NavigationComponent,
     VisitorIdentificationComponent,
     SubNavigationComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeComponent
   ],
   providers: [
     JssRouteResolver,
