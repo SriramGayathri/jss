@@ -38,13 +38,14 @@ export function jssRouteMatcher(url: UrlSegment[]): UrlMatchResult {
 const routes: Routes = [
   { path: 'NotFound', component: NotFoundComponent },
   { path: 'ServerError', component: ServerErrorComponent },
+  { path: 'head', component: HeaderComponent },
   { path: 'home', component: HomeComponent },
   {
     // matcher is effectively a catch-all route
     matcher: jssRouteMatcher,
     component: LayoutComponent,
     resolve: {
-      jssState: JssRouteResolver
+      jssState: JssRouteResolver 
     },
     runGuardsAndResolvers: 'always',
   }
