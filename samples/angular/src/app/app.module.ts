@@ -23,6 +23,7 @@ import { SubmenunavigationComponent } from './components/submenunavigation/subme
 import { LatestnewsComponent } from './components/latestnews/latestnews.component';
 import { FeaturelistComponent } from './components/featurelist/featurelist.component';
 import { SocialmediaComponent } from './components/socialmedia/socialmedia.component';
+import { AuthModule } from './auth/auth.module';
 
 //import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 @NgModule({
@@ -35,6 +36,7 @@ import { SocialmediaComponent } from './components/socialmedia/socialmedia.compo
     GraphQLModule,
     MetaModule.forRoot(),
     RoutingModule,
+    AuthModule,
     JssModule.withComponents([
       { name: 'jobs', type: JobsComponent },
       { name: 'ContentBlock', type: ContentBlockComponent },
@@ -67,6 +69,7 @@ import { SocialmediaComponent } from './components/socialmedia/socialmedia.compo
   ],
   bootstrap: [
     AppComponent
-  ]
+  ], 
+ 
 })
 export class AppModule { }

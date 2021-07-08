@@ -13,6 +13,8 @@ import { VisitorIdentificationComponent } from './visitor-identification/visitor
 import { SubNavigationComponent } from './sub-navigation/sub-navigation.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
+//import { AuthRoutingModule } from '../auth/auth-routing.module';
+import { AuthModule } from '../auth/auth.module';
 
 // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function jssRouteMatcher(url: UrlSegment[]): UrlMatchResult {
@@ -36,10 +38,14 @@ export function jssRouteMatcher(url: UrlSegment[]): UrlMatchResult {
 }
 
 const routes: Routes = [
+ 
   { path: 'NotFound', component: NotFoundComponent },
   { path: 'ServerError', component: ServerErrorComponent },
   { path: 'head', component: HeaderComponent },
   { path: 'home', component: HomeComponent },
+  { path: 'auth',
+  loadChildren: () => import('../auth/auth.module').then(m => m.AuthModule)},
+  
   {
     // matcher is effectively a catch-all route
     matcher: jssRouteMatcher,
@@ -48,18 +54,23 @@ const routes: Routes = [
       jssState: JssRouteResolver 
     },
     runGuardsAndResolvers: 'always',
-  }
+  },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload', initialNavigation: 'enabled' }),
     JssModule,
+    AuthModule,
+   // AuthRoutingModule,
     TranslateModule,
     BrowserModule
   ],
   exports: [
     RouterModule,
+    
+    //AuthRoutingModule,
     TranslateModule,
   ],
   declarations: [
