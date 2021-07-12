@@ -2,7 +2,8 @@
   <!-- <div *scText="rendering.fields.job_list[0].fields.jobTitle"></div>
   <div *scText="rendering.fields.job_list[0].fields.JobSubTitle"></div> -->
 
-  <div *ngFor="let val of rendering.fields.job_list" class="d-flex justify-content-between align-items-center py-3 banner-joblist">
+  <div *ngFor="let val of rendering.fields.job_list"
+    class="d-flex justify-content-between align-items-center py-3 banner-joblist">
     <div class="d-flex flex-column w-100 pr-3">
       <h3 *scText="val.fields.jobTitle"></h3>
       <div *scText="val.fields.postedTime"></div>
@@ -11,8 +12,8 @@
       <div *scText="val.fields.employer"></div>
       <div *scText="val.fields.country"></div>
     </div>
-    <a href={{val.fields.ViewJobBtn.value.href}}>
-    <button class="btn btn-secondary" >{{val.fields.ViewJobBtn.value.text}}</button>
+    <a class="btn btn-secondary" href={{val.fields.ViewJobBtn.value.href}}>
+      {{val.fields.ViewJobBtn.value.text}}
     </a>
   </div>
 </div>

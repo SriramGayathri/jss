@@ -30,11 +30,16 @@ export class LayoutComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     // route data is populated by the JssRouteResolver
+    console.log(LayoutState);
+    console.log(JssState);
     this.subscription = this.activatedRoute.data.subscribe((data: { jssState: JssState }) => {
       if (!data.jssState) {
         this.state = LayoutState.NotFound;
         return;
       }
+      console.log(data);
+      console.log(data.jssState.sitecore);
+      console.log(data.jssState.sitecore.route);
 
       if (data.jssState.sitecore && data.jssState.sitecore.route) {
         this.route = data.jssState.sitecore.route;

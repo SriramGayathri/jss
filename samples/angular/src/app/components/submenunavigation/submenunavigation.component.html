@@ -3,19 +3,19 @@
   <nav class="my-2 my-md-0 mr-md-3 sub-menu d-flex">
     <div *ngFor="let val of rendering.fields.submenu_list" class="d-flex">
       <div *ngIf="val.fields.NavLinks.value.text == 'Overview' ;else other_content" class="d-flex">
-        <a class="" href="{{val.fields.NavLinks.value.href}}">
+        <a class="" routerLink="/{{val.fields.NavLinks.value.href}}">
           {{ val.fields.NavLinks.value.text | translate }}
         </a>
       </div>
       <ng-template #other_content>
-        <a class="" href="{{val.fields.NavLinks.value.href}}">
+        <a class="" routerLink="/{{val.fields.NavLinks.value.href}}">
           {{ val.fields.NavLinks.value.text | translate }}
         </a>
       </ng-template>
       
     </div>
-    <a class="" routerLink="/home">
-      home
+    <a class="" routerLink="/article-details">
+      Article
     </a>
   </nav>
 </div>

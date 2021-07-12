@@ -13,14 +13,19 @@ import { VisitorIdentificationComponent } from './visitor-identification/visitor
 import { SubNavigationComponent } from './sub-navigation/sub-navigation.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
-//import { AuthRoutingModule } from '../auth/auth-routing.module';
-import { AuthModule } from '../auth/auth.module';
+import { ArticleDetailsComponent } from './article-details/article-details.component';
+import { AppComponent } from '../app.component';
+
+//import { AuthModule } from '../auth/auth.module';
 
 // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function jssRouteMatcher(url: UrlSegment[]): UrlMatchResult {
+
   // use the route builder to parse out language / server route
   const routeParser = new JssRouteBuilderService();
   const route = routeParser.parseRouteUrl(url.map((segment) => segment.toString()));
+  console.log(routeParser);
+  console.log(route);
   if (route == null) {
     return null;
   }
@@ -43,17 +48,18 @@ const routes: Routes = [
   { path: 'ServerError', component: ServerErrorComponent },
   { path: 'head', component: HeaderComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'auth',
-  loadChildren: () => import('../auth/auth.module').then(m => m.AuthModule)},
-  
+  { path: 'article-details', component: ArticleDetailsComponent },
+  // { path: 'auth',
+  // loadChildren: () => import('../auth/auth.module').then(m => m.AuthModule)},  
   {
     // matcher is effectively a catch-all route
     matcher: jssRouteMatcher,
-    component: LayoutComponent,
+    component: AppComponent,
     resolve: {
       jssState: JssRouteResolver 
     },
     runGuardsAndResolvers: 'always',
+    
   },
   { path: '**', redirectTo: '' },
 ];
@@ -62,26 +68,25 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload', initialNavigation: 'enabled' }),
     JssModule,
-    AuthModule,
-   // AuthRoutingModule,
+    //AuthModule,
     TranslateModule,
     BrowserModule
   ],
   exports: [
     RouterModule,
-    
-    //AuthRoutingModule,
     TranslateModule,
   ],
   declarations: [
     NotFoundComponent,
     ServerErrorComponent,
     LayoutComponent,
+    
     NavigationComponent,
     VisitorIdentificationComponent,
     SubNavigationComponent,
     HeaderComponent,
-    HomeComponent
+    HomeComponent,
+    ArticleDetailsComponent
   ],
   providers: [
     JssRouteResolver,
