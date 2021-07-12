@@ -1,2 +1,17 @@
+<div class="headerbg">
+    <sc-placeholder name="jss-nav" [rendering]="route" (loaded)="onPlaceholderLoaded($event)"></sc-placeholder>
+</div>
+<div class="headerbgsub">
+    <sc-placeholder name="jss-subnav" [rendering]="route" (loaded)="onPlaceholderLoaded($event)"></sc-placeholder>
+</div>
+
 <router-outlet></router-outlet>
-"hello"
+<ng-container *ngIf="state === LayoutState.Layout">
+    <div class="carrier-banner-bg" *ngIf="!flag">
+        <sc-placeholder name="jss-banner" class="d-flex" [rendering]="route" (loaded)="onPlaceholderLoaded($event)">
+        </sc-placeholder>
+    </div>
+    <sc-placeholder name="jss-main" [rendering]="route" (loaded)="onPlaceholderLoaded($event)"></sc-placeholder>
+</ng-container>
+<sc-placeholder name="jss-footer" [rendering]="route" (loaded)="onPlaceholderLoaded($event)"
+    class="footer container-fluid d-flex"></sc-placeholder>

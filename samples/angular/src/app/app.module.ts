@@ -1,5 +1,5 @@
 import { BrowserModule, BrowserTransferStateModule, TransferState } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { MetaModule } from '@ngx-meta/core';
@@ -23,8 +23,8 @@ import { SubmenunavigationComponent } from './components/submenunavigation/subme
 import { LatestnewsComponent } from './components/latestnews/latestnews.component';
 import { FeaturelistComponent } from './components/featurelist/featurelist.component';
 import { SocialmediaComponent } from './components/socialmedia/socialmedia.component';
-
 //import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+
 @NgModule({
   imports: [
     // withServerTransition is needed to enable universal rendering
@@ -66,7 +66,10 @@ import { SocialmediaComponent } from './components/socialmedia/socialmedia.compo
     AppComponent
   ],
   bootstrap: [
-    AppComponent
-  ]
+    AppComponent,
+  ],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
 })
 export class AppModule { }

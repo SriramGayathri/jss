@@ -12,12 +12,20 @@ import { TranslateModule } from '@ngx-translate/core';
 import { VisitorIdentificationComponent } from './visitor-identification/visitor-identification.component';
 import { SubNavigationComponent } from './sub-navigation/sub-navigation.component';
 import { HeaderComponent } from './header/header.component';
+import { HomeComponent } from './home/home.component';
+import { ArticleDetailsComponent } from './article-details/article-details.component';
+import { AppComponent } from '../app.component';
+
+//import { AuthModule } from '../auth/auth.module';
 
 // eslint-disable-next-line prefer-arrow/prefer-arrow-functions
 export function jssRouteMatcher(url: UrlSegment[]): UrlMatchResult {
+
   // use the route builder to parse out language / server route
   const routeParser = new JssRouteBuilderService();
   const route = routeParser.parseRouteUrl(url.map((segment) => segment.toString()));
+  console.log(routeParser);
+  console.log(route);
   if (route == null) {
     return null;
   }
@@ -35,23 +43,32 @@ export function jssRouteMatcher(url: UrlSegment[]): UrlMatchResult {
 }
 
 const routes: Routes = [
+ 
   { path: 'NotFound', component: NotFoundComponent },
   { path: 'ServerError', component: ServerErrorComponent },
+  { path: 'head', component: HeaderComponent },
+  { path: 'home', component: HomeComponent },
+  { path: 'article-details', component: ArticleDetailsComponent },
+  // { path: 'auth',
+  // loadChildren: () => import('../auth/auth.module').then(m => m.AuthModule)},  
   {
     // matcher is effectively a catch-all route
     matcher: jssRouteMatcher,
-    component: LayoutComponent,
+    component: AppComponent,
     resolve: {
-      jssState: JssRouteResolver
+      jssState: JssRouteResolver 
     },
     runGuardsAndResolvers: 'always',
-  }
+    
+  },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, { onSameUrlNavigation: 'reload', initialNavigation: 'enabled' }),
     JssModule,
+    //AuthModule,
     TranslateModule,
     BrowserModule
   ],
@@ -63,10 +80,13 @@ const routes: Routes = [
     NotFoundComponent,
     ServerErrorComponent,
     LayoutComponent,
+    
     NavigationComponent,
     VisitorIdentificationComponent,
     SubNavigationComponent,
-    HeaderComponent
+    HeaderComponent,
+    HomeComponent,
+    ArticleDetailsComponent
   ],
   providers: [
     JssRouteResolver,
