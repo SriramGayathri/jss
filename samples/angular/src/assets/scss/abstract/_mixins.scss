@@ -3,16 +3,23 @@
     line-height: $lineHeight;
     letter-spacing: $letterSpacing;
 }
-@mixin padding($top, $right, $bottom, $left) {
-  padding-top: $top;
-  padding-right: $right;
-  padding-bottom: $bottom;
-  padding-left: $left;
+
+$breakpoints: (
+  "xs": 320px,
+  "s": 375px,
+  "m": 768px,
+  "l": 1440px,
+  "xl": 1920px
+);
+
+@mixin breakpoint($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
 }
-//Margin mixin
-@mixin margin($top, $right, $bottom, $left) {
-  margin-top: $top;
-  margin-right: $right;
-  margin-bottom: $bottom;
-  margin-left: $left;
+
+@mixin bg-opacity($color, $opacity) {
+  background-color: rgba($color, $opacity);
 }
