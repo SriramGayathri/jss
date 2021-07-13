@@ -28,19 +28,19 @@ placeholders:
       addressValue: FLC Landmark Tower,Le Duc Tho street,Hanoi
       jobDescriptionLabel: Job description
       jobDescriptionValue: |
-            <p>To impart trainings for the issue of a Private Pilot License</p>
-            <p>To impart trainings for the issue of a Private Pilot License</p>
-            <p>To impart trainings for the issue of a Private Pilot License</p>
-            <p>To impart trainings for the issue of a Private Pilot License</p>
+            <p>To impart trainings for the issue of a Private Pilot License To impart trainings for the issue of a Private Pilot License</p>
+            <p>To impart trainings for the issue of a Private Pilot License To impart trainings for the issue of a Private Pilot License To impart trainings for the issue of a Private Pilot LicenseTo impart trainings for the issue of a Private Pilot License</p>           
       minimumRequirementsLabel: Minimum Requirememts
       minimumRequirementsValue: |
-            <div>Current CPL/IR or ATPL
+            <ul><li>Flight Instructor Rating</li><li>Flight Instructor Rating</li><li>Flight Instructor Rating</li><li>Flight Instructor Rating</li><li>Flight Instructor Rating</li></ul>
+            <p>Current CPL/IR or ATPL
             Flight Instructor Rating
             Must have a flight record free of any accident attributable to proficiency in handling any type of aircraft.
             "CAE Parc Aviation is an Equal Opportunities Employer.
             Personal data provided by applicants will be used strictly in accordance with our personal data policy. Please review the CAE Inc Privacy Policy https: https://www.cae.com/privacy-policy/
             If you are registering on our website, you will be directed to our local privacy policy.
-            Alternatively, for a copy of the local privacy policy please contact our DPO: parc-dpo@cae.com.”</div>
+            Alternatively, for a copy of the local privacy policy please contact our DPO: parc-dpo@cae.com.”</p>
+            
       reportJobBtn:
         href: https://www.sitecore.com
         target: _blank

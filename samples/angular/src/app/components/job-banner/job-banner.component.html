@@ -1,17 +1,40 @@
-<div>
-  jobBanner JSS Component
-  <div *scText="rendering.fields.jobTitle"></div>
-  <div *scText="rendering.fields.postedTime"></div>
-  <div *scText="rendering.fields.employer"></div>
-  <div *scText="rendering.fields.country"></div>
-  <div *scText="rendering.fields.savetoFavorites"></div>
-  <div *scText="rendering.fields.jobReferenceLabel"></div>
-  <div *scText="rendering.fields.jobReferenceValue"></div>
-  <div *scText="rendering.fields.locatonLabel"></div>
-  <div *scText="rendering.fields.locationeValue"></div>
-  <div *scText="rendering.fields.jobTypeLabel"></div>
-  <div *scText="rendering.fields.country"></div>
-  <div *scRichText="rendering.fields.minimumRequirementsValue"></div>
-  <div *scRichText="rendering.fields.jobDescriptionValue"></div>
+<div class="job-detail-section container">
+  <div class="job-header-section">
+    <h2 class="job-heading">B787/B777 Captain - CAAC Licence</h2>
+      <div *scText="rendering.fields.jobTitle" class="job-title"></div>
+      <div *scText="rendering.fields.postedTime" class="job-postedtime"></div>
+      <div class="job-header-btn">
+        <a class="btn btn-primary" href="">
+          Apply on Partner website
+        </a>
+        <div *scText="rendering.fields.savetoFavorites" class="save-to-favourites"></div>
+      </div>
+  </div>   
+  <!-- <div *scText="rendering.fields.employer"></div>
+  <div *scText="rendering.fields.country"></div> -->
+  
+  <div class="job-info-section">
+    <div class="job-reference">
+      <div *scText="rendering.fields.jobReferenceLabel" class="job-reference-label"></div >
+      <div *scText="rendering.fields.jobReferenceValue"  class="job-reference-value"></div>
+    </div>  
+    <div class="job-reference">
+      <div *scText="rendering.fields.locatonLabel" class="job-reference-label"></div>
+      <div *scText="rendering.fields.locationeValue" class="job-reference-value"></div>
+    </div> 
+    <div class="job-reference"> 
+      <div *scText="rendering.fields.jobTypeLabel" class="job-reference-label"></div>
+      <div *scText="rendering.fields.country" class="job-reference-value"></div>
+    </div>
+  </div>
+  <div class="job-description">
+    <div *scRichText="rendering.fields.jobDescriptionLabel" class="job-description-label"></div>
+    <div *scRichText="rendering.fields.jobDescriptionValue" class="job-description-value"></div>
+  </div>
+  <div class="job-minrequirements">
+    <div *scRichText="rendering.fields.minimumRequirementsLabel" class="job-minrequirements-label"></div>
+    <div *scRichText="rendering.fields.minimumRequirementsValue" class="job-minrequirements-value"></div>
+  </div>
+  
 
 </div>

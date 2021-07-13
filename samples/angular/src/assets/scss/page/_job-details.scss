@@ -1,0 +1,110 @@
+.job{
+    &-detail-section{
+        width: 55%;
+        margin-top: 48px;
+    }
+    &-header-section{
+        margin: 24px 0;
+    }
+    &-heading{
+        margin-bottom: 24px;
+    }
+    &-title{
+        font-size: 18px;
+        font-family: "Barlow Condensed", Arial, sans-serif;
+        line-height: 16px;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        color: #1b2430;
+    }
+     &-postedtime{
+        font-size: 14px;
+        color: #29394b;
+        font-family: Barlow,Arial,sans-serif;
+    }
+    &-header-btn{
+        display: flex;
+        align-items: center;
+        margin: 32px 0;
+        .save-to-favourites{
+            margin-left: 32px;
+            font-size: 16px;
+            color: #29394b;
+            font-family: "Barlow Condensed", Arial, sans-serif;
+            font-weight: bold;
+        }
+    }
+    &-info-section{
+        border-top: 1.5px solid #d8d8d8;
+        border-bottom: 1.5px solid #d8d8d8;
+        padding: 32px 0;
+        margin-bottom: 32px;
+    }
+    &-reference{
+        display: flex;
+        margin-bottom: 8px;
+        &-label{
+            color: #1b2430;
+            font-family: "Barlow Condensed", Arial, sans-serif;
+            font-weight: bold;
+            font-size: 18px;
+            position: relative;
+            &::after{
+                content: ':';
+                position: absolute;
+            }
+        }
+        &-value{
+            color: #29394b;
+            font-family: "Barlow Condensed", Arial, sans-serif;
+            margin-left: 10px;
+            font-size: 18px;
+        }
+    }
+    &-description{
+        margin-bottom: 48px;
+        &-label{
+            color: #1b2430;
+            font-family: "Barlow Condensed", Arial, sans-serif;
+            font-weight: bold;
+            font-size: 22px;
+            margin-bottom: 24px;
+        }
+        &-value{
+            p{
+            color: #1b2430;
+            font-family: "Barlow Condensed", Arial, sans-serif;
+            font-size: 18px;
+            line-height: 24px;
+            }
+        }
+    }
+    &-minrequirements{
+        &-label{
+            color: #1b2430;
+            font-family: "Barlow Condensed", Arial, sans-serif;
+            font-weight: bold;
+            font-size: 22px;
+            margin-bottom: 24px;
+        }
+        &-value{
+            p{
+                color: #1b2430;
+                font-family: "Barlow Condensed", Arial, sans-serif;
+                font-size: 18px;
+                line-height: 24px;
+            }
+            ul{
+                padding: 0 0 0 20px ;
+                margin-bottom: 40px;
+                li{
+                    margin-bottom: 10px;
+                    color: #1b2430;
+                    font-family: "Barlow Condensed", Arial, sans-serif;
+                    font-size: 18px;
+                    line-height: 24px;
+                }
+            }
+        }
+    }
+}
