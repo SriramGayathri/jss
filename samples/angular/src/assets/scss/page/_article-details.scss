@@ -5,6 +5,9 @@
         width: 50%;
         margin: 0 auto;
     }
+    .section-title{
+            margin-bottom: 24px;
+        }
     .author-wrapper{
         display: flex;
         flex-direction: row;
@@ -53,6 +56,17 @@
     .article-detail-bannerimage{
         display: flex;
         justify-content: center;
+        flex-direction: column;
+        img{
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .image-caption{
+            width: 60%;
+            text-transform: uppercase;
+            margin: 16px auto 0;
+            font-size: 12px;
+        }
     }
     .article-detail-content{
         display: flex;
@@ -60,9 +74,7 @@
         flex-direction: column;
         width: 60%;
         margin: 0 auto;
-        .section-title{
-            margin-bottom: 24px;
-        }
+        
         .share-link{
             color: #29394b;
             font-weight: 600;
@@ -76,7 +88,7 @@
             color: #29394b;
             font-weight: 600;
             font-family: Barlow,Arial,sans-serif;
-            font-size: 18px;
+            font-size: 20px;
             margin-bottom: 24px;
         }
         .normal-text{
