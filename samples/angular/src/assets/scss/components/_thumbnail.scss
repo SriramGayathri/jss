@@ -19,6 +19,7 @@
                     -webkit-box-orient: vertical;  
                     overflow: hidden;
                     text-overflow: ellipsis;
+                    margin-bottom: 20px;
                 }
                 .content-bodyText{
                     display: -webkit-box;
@@ -26,6 +27,9 @@
                     -webkit-box-orient: vertical;  
                     overflow: hidden;
                     text-overflow: ellipsis;
+                    font-family: 'Barlow-lt';
+                    font-size: 16px;
+                    line-height: 20px;
                 }
             }
         }

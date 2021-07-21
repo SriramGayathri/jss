@@ -16,6 +16,7 @@ import { HomeComponent } from './home/home.component';
 import { ArticleDetailsComponent } from './article-details/article-details.component';
 import { AppComponent } from '../app.component';
 import { ThumbnailComponent } from './thumbnail/thumbnail.component';
+import { FeaturedComponent } from './featured/featured.component';
 
 //import { AuthModule } from '../auth/auth.module';
 
@@ -88,7 +89,8 @@ const routes: Routes = [
     HeaderComponent,
     HomeComponent,
     ArticleDetailsComponent,
-    ThumbnailComponent
+    ThumbnailComponent,
+    FeaturedComponent
   ],
   providers: [
     JssRouteResolver,

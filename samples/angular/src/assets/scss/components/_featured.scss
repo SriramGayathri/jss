@@ -1,0 +1,49 @@
+.featured-component{
+    .main-wrapper{
+        padding: 60px 48px;
+        &.card{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            border: 0;
+            .image-video-wrapper{
+                width: 60%;
+                .card-img{
+                    border-radius: 4px;
+                }
+            }
+            .content-wrapper{
+                width: 40%;
+                margin-left: 48px;
+                padding: 0;
+                .btn-text{
+                    color: #212529;
+                    font-weight: bold;
+                    padding: 10px 0;
+                }
+                 .content-title.card-title{
+                     margin-bottom: 24px;
+                 }
+                .content-bodyText{
+                    font-family: 'Barlow-lt';
+                    font-size: 16px;
+                    line-height: 20px;
+                    color: #29394bcc;
+                    margin-bottom: 24px;
+                }
+            }
+        }
+        &.community{
+             background-color: rgba($color: #ffec92, $alpha: 0.3);
+        }
+        &.magazine{
+            background-color: rgba($color: #c2e0dc, $alpha: 0.3);
+        }
+        &.learning{
+             background-color: rgba($color: #5087b4, $alpha: 0.3);
+        }
+        &.career{
+             background-color: rgba($color: #5366d8, $alpha: 0.3);
+        }
+    } 
+}
