@@ -15,6 +15,7 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { ArticleDetailsComponent } from './article-details/article-details.component';
 import { AppComponent } from '../app.component';
+import { ThumbnailComponent } from './thumbnail/thumbnail.component';
 
 //import { AuthModule } from '../auth/auth.module';
 
@@ -86,7 +87,8 @@ const routes: Routes = [
     SubNavigationComponent,
     HeaderComponent,
     HomeComponent,
-    ArticleDetailsComponent
+    ArticleDetailsComponent,
+    ThumbnailComponent
   ],
   providers: [
     JssRouteResolver,
