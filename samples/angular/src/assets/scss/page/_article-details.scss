@@ -18,6 +18,15 @@
         margin-top: 0;
         margin-bottom: 24px;
     }
+    .author-profile-image{
+        position: relative;
+        .star-icon{
+            position: absolute;
+            right: 16px;
+            bottom: 0;
+            width: 16px;
+        }
+    }
     .author-profile-picture{
     display: block;
     border-radius: 50%;
@@ -82,7 +91,18 @@
             font-size: 14px;
             margin: 24px 0;
             text-transform: uppercase;
-            letter-spacing: -.5px;
+            letter-spacing: -.5px;       
+            display: flex;
+            align-items: center;     
+            .share-icon{
+                width: 20px;
+                height: 20px;
+                margin-right: 5px;
+                background-image: url('../../images/share-icon.PNG');
+                background-repeat: no-repeat;
+                background-size: cover;
+                display: inline-flex;
+            }
         }
         .bold-text{
             color: #29394b;
@@ -97,6 +117,11 @@
             font-family: Barlow-lt,Arial,sans-serif;
             font-size: 16px;
             margin-bottom: 24px;
+            a{
+               text-decoration: underline;
+                color: #2c3dbe;
+                text-underline-position: under;
+            }
         }
     }
 }
@@ -147,10 +172,37 @@
         font-weight: 700;
         letter-spacing: -0.5px;
         line-height: 16px;
-        padding: 5px 0;
+        padding: 2px 0;
         text-transform: uppercase;
         font-family: "Barlow Condensed", Arial, sans-serif;
         margin: 0 8px 0 0;
+        img{
+            width: 20px;
+        }
     }
+     
 }
+.article-detail-footer{
+    width: 60%;
+    margin: 40px auto;
+        .footer-title{
+            font-size: 14px;
+            font-weight: bold;
+            font-family: Barlow,Arial,sans-serif;
+            margin-bottom: 16px;
+        }
+        .footer-description{
+            font-size: 14px;
+            font-family: Barlow-lt, Arial, sans-serif;
+            color: rgb(27 36 48 / 70%);
+            margin-bottom: 10px;
+            a{
+                text-decoration: underline;
+                text-underline-position: under;
+                color: #2c3dbe;
+            }
+        }
+    }
     
+
+
