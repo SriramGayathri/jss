@@ -50,6 +50,9 @@
                 .tags{
                     margin-top: 0;
                 }
+                .content-bodyText{
+                    display: none;
+                }
             }
         }
         }
@@ -62,7 +65,7 @@
     text-decoration: none;
     color: #353b3e;
     margin-top: 0;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     &-profile-picture{
         display: block;
         border-radius: 50%;
