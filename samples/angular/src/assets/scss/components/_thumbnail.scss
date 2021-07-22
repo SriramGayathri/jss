@@ -19,7 +19,7 @@
                     -webkit-box-orient: vertical;  
                     overflow: hidden;
                     text-overflow: ellipsis;
-                    margin-bottom: 20px;
+                    margin-bottom: 0;
                 }
                 .content-bodyText{
                     display: -webkit-box;
@@ -38,11 +38,18 @@
 }
 .horizontal{
          .main-wrapper{
+             margin-bottom: 20px;
+             height: 100%;
         &.card{
             flex-direction: row;
             width: 100%;
             .image-video-wrapper{
                 width: 40%;
+                height: 100%;
+                .card-img{                    
+                    height: 120px;
+                    max-height: 100%;
+                }
             }
             .content-wrapper{
                 width: 60%;
@@ -53,8 +60,57 @@
                 .content-bodyText{
                     display: none;
                 }
+                .author{
+                    margin-bottom: 0;
+                }
             }
         }
+        }
+        &.large{
+            .thumbnail-component{
+                height: 100%;
+             .main-wrapper{
+                 height: 100%;
+                 &.card{
+                    .image-video-wrapper{
+                        width: 60%;
+                         height: 100%;
+                        .card-img{
+                            height: 100%;
+                        }
+                    }
+                    .content-wrapper{
+                        width: 30%;
+                        .content-bodyText{
+                            display: block;
+                        }
+
+                    }
+                    }
+                }
+            }
+        }
+         &.medium{
+            .thumbnail-component{
+             .main-wrapper{
+                 &.card{
+                    .image-video-wrapper{
+                        width: 60%;
+                         height: 100%;
+                        .card-img{
+                            height: 100%;
+                        }
+                    }
+                    .content-wrapper{
+                        width: 30%;
+                        .content-bodyText{
+                            display: block;
+                        }
+
+                    }
+                    }
+                }
+            }
         }
     }
 .author{
@@ -226,4 +282,30 @@
             }
         }
     } 
+}
+
+.promo{
+    &.vertical{
+        height: 100%;
+        position: relative;
+        padding: 30px 20px;   
+        background-image: url();
+        background-repeat: no-repeat;
+        background-size: cover;    
+        background-position: center;   
+        background-color: #abcec9;   
+        color: #fff;   
+        border-radius: 4px;
+    }
+    &-title{
+        margin-bottom: 20px;
+    }
+    &-bodyText{
+        font-size: 14px;
+        line-height: 20px;
+    }
+    &-btn{
+        position: absolute;
+        bottom: 30px;
+    }
 }
