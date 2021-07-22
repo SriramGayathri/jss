@@ -5,8 +5,22 @@
     .main-wrapper{
         &.card{
             border: 0;
-            .card-img{
-                border-radius: 4px;
+            .image-wrapper{
+                position: relative;
+                .card-img{
+                    border-radius: 4px;
+                }
+                .play-btn{
+                    display: none;
+                }
+                &.video{
+                    .play-btn{
+                        position: absolute;
+                        right: 30px;
+                        bottom: 30px;
+                        border-radius: 50%;
+                    }
+                }
             }
             .card-body{
                 padding: 0;
@@ -43,9 +57,10 @@
         &.card{
             flex-direction: row;
             width: 100%;
-            .image-video-wrapper{
+            .image-wrapper{
                 width: 40%;
                 height: 100%;
+                
                 .card-img{                    
                     height: 120px;
                     max-height: 100%;
@@ -72,7 +87,7 @@
              .main-wrapper{
                  height: 100%;
                  &.card{
-                    .image-video-wrapper{
+                    .image-wrapper{
                         width: 60%;
                          height: 100%;
                         .card-img{
@@ -284,8 +299,9 @@
     } 
 }
 
+
 .promo{
-    &.vertical{
+    display: flex;
         height: 100%;
         position: relative;
         padding: 30px 20px;   
@@ -293,19 +309,34 @@
         background-repeat: no-repeat;
         background-size: cover;    
         background-position: center;   
-        background-color: #abcec9;   
+        background-color: #29394b;   
         color: #fff;   
         border-radius: 4px;
-    }
-    &-title{
-        margin-bottom: 20px;
-    }
-    &-bodyText{
-        font-size: 14px;
-        line-height: 20px;
+        flex-direction: column;
+        justify-content: space-between;
+        &-content{
+            display: flex;
+            flex-direction: column;
+            &-title{
+                margin-bottom: 20px;
+            }
+        &-bodyText{
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 0;
+        }
     }
     &-btn{
-        position: absolute;
-        bottom: 30px;
+        display: flex;
+    }
+}
+.horizontal{
+    .promo{
+        flex-direction: row;
+        padding: 20px 80px;
+        align-items: center;
+        &-content{
+            flex: 0 0 50%;
+        }
     }
 }

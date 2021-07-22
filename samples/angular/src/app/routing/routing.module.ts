@@ -25,6 +25,8 @@ import { Thumbnailrows3mComponent } from './thumbnailrows3m/thumbnailrows3m.comp
 import { Thumbnailrows2lComponent } from './thumbnailrows2l/thumbnailrows2l.component';
 import { Thumbnail1s1lComponent } from './thumbnail1s1l/thumbnail1s1l.component';
 import { Thumbnail1m2xsComponent } from './thumbnail1m2xs/thumbnail1m2xs.component';
+import { MagazineOverviewComponent } from './magazine-overview/magazine-overview.component';
+import { SectionTitleComponent } from './section-title/section-title.component';
 
 //import { AuthModule } from '../auth/auth.module';
 
@@ -59,6 +61,7 @@ const routes: Routes = [
   { path: 'head', component: HeaderComponent },
   { path: 'home', component: HomeComponent },
   { path: 'article-details', component: ArticleDetailsComponent },
+  { path: 'magazine-overview', component: MagazineOverviewComponent },
   // { path: 'auth',
   // loadChildren: () => import('../auth/auth.module').then(m => m.AuthModule)},  
   {
@@ -106,7 +109,9 @@ const routes: Routes = [
     Thumbnailrows3mComponent,
     Thumbnailrows2lComponent,
     Thumbnail1s1lComponent,
-    Thumbnail1m2xsComponent
+    Thumbnail1m2xsComponent,
+    MagazineOverviewComponent,
+    SectionTitleComponent
   ],
   providers: [
     JssRouteResolver,
