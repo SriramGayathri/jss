@@ -17,6 +17,14 @@ import { ArticleDetailsComponent } from './article-details/article-details.compo
 import { AppComponent } from '../app.component';
 import { ThumbnailComponent } from './thumbnail/thumbnail.component';
 import { FeaturedComponent } from './featured/featured.component';
+import { AddPromoComponent } from './add-promo/add-promo.component';
+import { Thumbnail1m3xs1vpComponent } from './thumbnail1m3xs1vp/thumbnail1m3xs1vp.component';
+import { Thumbnail1m3xs1sComponent } from './thumbnail1m3xs1s/thumbnail1m3xs1s.component';
+import { Thumbnailrows4sComponent } from './thumbnailrows4s/thumbnailrows4s.component';
+import { Thumbnailrows3mComponent } from './thumbnailrows3m/thumbnailrows3m.component';
+import { Thumbnailrows2lComponent } from './thumbnailrows2l/thumbnailrows2l.component';
+import { Thumbnail1s1lComponent } from './thumbnail1s1l/thumbnail1s1l.component';
+import { Thumbnail1m2xsComponent } from './thumbnail1m2xs/thumbnail1m2xs.component';
 
 //import { AuthModule } from '../auth/auth.module';
 
@@ -90,7 +98,15 @@ const routes: Routes = [
     HomeComponent,
     ArticleDetailsComponent,
     ThumbnailComponent,
-    FeaturedComponent
+    FeaturedComponent,
+    AddPromoComponent,
+    Thumbnail1m3xs1vpComponent,
+    Thumbnail1m3xs1sComponent,
+    Thumbnailrows4sComponent,
+    Thumbnailrows3mComponent,
+    Thumbnailrows2lComponent,
+    Thumbnail1s1lComponent,
+    Thumbnail1m2xsComponent
   ],
   providers: [
     JssRouteResolver,
