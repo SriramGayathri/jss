@@ -127,7 +127,7 @@ h3{
 .container, .container-fluid{
   padding: $zero $spacing-24;
   @include breakpoint('m'){
-     padding: $zero $spacing-48; 
+     padding: $zero $spacing-24; 
   }
   @include breakpoint('l'){
      padding: $zero $spacing-48;
