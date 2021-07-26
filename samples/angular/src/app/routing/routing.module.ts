@@ -27,6 +27,7 @@ import { Thumbnail1s1lComponent } from './thumbnail1s1l/thumbnail1s1l.component'
 import { Thumbnail1m2xsComponent } from './thumbnail1m2xs/thumbnail1m2xs.component';
 import { MagazineOverviewComponent } from './magazine-overview/magazine-overview.component';
 import { SectionTitleComponent } from './section-title/section-title.component';
+import { PageTitleComponent } from './page-title/page-title.component';
 
 //import { AuthModule } from '../auth/auth.module';
 
@@ -111,7 +112,8 @@ const routes: Routes = [
     Thumbnail1s1lComponent,
     Thumbnail1m2xsComponent,
     MagazineOverviewComponent,
-    SectionTitleComponent
+    SectionTitleComponent,
+    PageTitleComponent
   ],
   providers: [
     JssRouteResolver,
