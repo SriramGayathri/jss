@@ -1,0 +1,43 @@
+[ 
+     {   "id":1,
+       "thumbnailUrl":"../../../assets/images/thubnail-img.PNG",
+        "istag":"community",
+        "primarytag":"community",
+        "secondarytag":"Contribution",
+        "timer":"5 MIN ",
+        "title":"How to reduce the axiesty and boost your immune system",
+        "authorname":"Murdo Morrison",
+        "authordate":"March 3 2021",
+        "description":"Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollarLorem ipsum dollar Lorem ipsum dollar"
+    }, {   "id":2,
+        "thumbnailUrl":"../../../assets/images/thubnail-img.PNG",
+         "istag":"career",
+         "primarytag":"Career",
+         "secondarytag":"Contribution",
+         "timer":"5 MIN ",
+         "title":"How to reduce the axiesty and boost your immune system",
+         "authorname":"Murdo Morrison",
+         "authordate":"March 3 2021",
+         "description":"Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollarLorem ipsum dollar Lorem ipsum dollar"
+     },{   "id":3,
+        "thumbnailUrl":"../../../assets/images/thubnail-img.PNG",
+         "istag":"learning",
+         "primarytag":"learning",
+         "secondarytag":"Contribution",
+         "timer":"5 MIN ",
+         "title":"How to reduce the axiesty and boost your immune system",
+         "authorname":"Murdo Morrison",
+         "authordate":"March 3 2021",
+         "description":"Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollarLorem ipsum dollar Lorem ipsum dollar"
+     }, {   "id":4,
+         "thumbnailUrl":"../../../assets/images/thubnail-img.PNG",
+          "istag":"magazine",
+          "primarytag":"lifestyle",
+          "secondarytag":"Contribution",
+          "timer":"5 MIN ",
+          "title":"How to reduce the axiesty and boost your immune system",
+          "authorname":"Murdo Morrison",
+          "authordate":"March 3 2021",
+          "description":"Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollarLorem ipsum dollar Lorem ipsum dollar"
+      }
+]

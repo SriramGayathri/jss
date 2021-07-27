@@ -1,31 +1,68 @@
-<section class="thumbnail-component">
+<ng-container *ngIf="data; else elseTemplate">
+ <section class="thumbnail-component">
     <div class="main-wrapper card">
         <div class="image-wrapper">
             <a href="/" target="_blank">
-                <img src="../../../assets/images/thubnail-img.PNG" alt="thumbnail" class="card-img" />
+                <img src={{data.thumbnailUrl}} alt="thumbnail" class="card-img" />
                 <img src="../../../assets/images/play-btn.PNG" alt="play-btn" class="play-btn"/>
             </a>
         </div>
         <div class="content-wrapper card-body">
-            <div class="tags community">
+            <div class="tags" [ngClass]="{'community': data.istag === 'community', 'career' : data.istag === 'career', 'magazine' : data.istag === 'magazine', 'learning' : data.istag === 'learning' }">
                 <span class="tag-primary">
-                    Community
+                   {{data.primarytag}}
                 </span>
                 <span class="tag-secondary">
-                    Contribution
+                    {{data.secondarytag}}
                 </span>
-                <span class="timer">5 MIN <img src="../../../assets/images/waiting-icon.PNG" alt="reading-time" /></span>
+                <span class="timer"> {{data.timer}} <img src="../../../assets/images/waiting-icon.PNG" alt="reading-time" /></span>
             </div>            
-            <h4 class="content-title card-title">How to reduce the axiesty and boost your immune system</h4>
+            <h4 class="content-title card-title"> {{data.title}}</h4>
             <div class="author">
                 <!-- <img class="author-profile-picture"
                     src="https://images.ctfassets.net/2w2mlgch5gta/2sWmAfS2vZ8c61DYSeL8aG/52f3d34c5a15603eeeffe93db62572c3/MM_pic.jpg?fm=webp&amp;q=75&amp;w=25&amp;h=25&amp;fit=fill"
                     alt="Murdo Morrison " /> -->
-                <h3 class="author-info"><span class="author-info-name"> by <b>Murdo Morrison</b></span><span
-                        class="author-info-date">March 3 2021</span></h3>
+                <h3 class="author-info"><span class="author-info-name"> by <b> {{data.authorname}}</b></span><span
+                        class="author-info-date"> {{data.authordate}}</span></h3>
             </div>
-            <p class="content-bodyText card-text">Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollar Lorem ipsum dollarLorem ipsum dollar Lorem ipsum dollar</p>
+            <p class="content-bodyText card-text">{{data.description}}</p>
             
         </div>
     </div>
 </section>
+</ng-container>
+<ng-template #elseTemplate>
+ <section class="thumbnail-component" *ngFor="let data of thumbnaildata">
+    <div class="main-wrapper card">
+        <div class="image-wrapper">
+            <a href="/" target="_blank">
+                <img src={{data.thumbnailUrl}} alt="thumbnail" class="card-img" />
+                <img src="../../../assets/images/play-btn.PNG" alt="play-btn" class="play-btn"/>
+            </a>
+        </div>
+        <div class="content-wrapper card-body">
+            <div class="tags" [ngClass]="{'community': data.istag === 'community', 'career' : data.istag === 'career', 'magazine' : data.istag === 'magazine', 'learning' : data.istag === 'learning' }">
+                <span class="tag-primary">
+                   {{data.primarytag}}
+                </span>
+                <span class="tag-secondary">
+                    {{data.secondarytag}}
+                </span>
+                <span class="timer"> {{data.timer}} <img src="../../../assets/images/waiting-icon.PNG" alt="reading-time" /></span>
+            </div>            
+            <h4 class="content-title card-title"> {{data.title}}</h4>
+            <div class="author">
+                <!-- <img class="author-profile-picture"
+                    src="https://images.ctfassets.net/2w2mlgch5gta/2sWmAfS2vZ8c61DYSeL8aG/52f3d34c5a15603eeeffe93db62572c3/MM_pic.jpg?fm=webp&amp;q=75&amp;w=25&amp;h=25&amp;fit=fill"
+                    alt="Murdo Morrison " /> -->
+                <h3 class="author-info"><span class="author-info-name"> by <b> {{data.authorname}}</b></span><span
+                        class="author-info-date"> {{data.authordate}}</span></h3>
+            </div>
+            <p class="content-bodyText card-text">{{data.description}}</p>
+            
+        </div>
+    </div>
+</section>
+</ng-template>
+
+

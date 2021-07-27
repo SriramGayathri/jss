@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input ,OnInit } from '@angular/core';
+import * as datalist from "../../../thumbnail.json";
 
 @Component({
   selector: 'app-thumbnail',
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./thumbnail.component.css']
 })
 export class ThumbnailComponent implements OnInit {
-
+  i: number = 0;
   constructor() { }
-
+  thumbnaildata: any = (datalist as any ).default;
+  @Input() data: any;
   ngOnInit(): void {
+  
+      console.log("datum "+this.data);
   }
-
+ 
+  
+  
+  
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as datalist from "../../../thumbnail4col.json";
 
 @Component({
   selector: 'app-thumbnailrows4s',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Thumbnailrows4sComponent implements OnInit {
 
-  constructor() { }
+  thumbnaildatalist: any = (datalist as any).default;
+  constructor() {
+   
+  }
 
   ngOnInit(): void {
+    
+    console.log("datalist" + this.thumbnaildatalist);
+  
+  
   }
 
 }
